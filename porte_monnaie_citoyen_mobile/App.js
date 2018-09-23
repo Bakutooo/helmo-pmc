@@ -1,12 +1,14 @@
+import HomeScreen from './views/Home';
 import {createStackNavigator} from 'react-navigation';
 import ProfileScreen from './views/Profile';
-import MissionScreen from './views/Mission';
-import HomeScreen from './views/Home';
+import ConnectionScreen from './views/Connection';
+import MissionScreen from './views/Mission'
 
 const App = createStackNavigator({
-  Home: {screen: HomeScreen, navigationOptions:{headerStyle: {display: 'none'}}},
+  Connection: {screen: ConnectionScreen, navigationOptions:{header: null}},
+  Home: {screen: HomeScreen},
   Profile: {screen: ProfileScreen},
-  Mission: {screen: MissionScreen},
+  Mission: {screen: MissionScreen}
 });
 
 export default App;

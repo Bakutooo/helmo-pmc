@@ -1,5 +1,3 @@
-import server from './../server-info';
-
 export default class MissionController {
     constructor(view){
         this.view = view;
