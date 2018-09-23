@@ -9,10 +9,10 @@ export default class Profile extends React.Component {
         this.profileController = new ProfileController(this);
         this.state = {
             user: {
-                lastname: "",
+                name: "",
                 firstname: "",
                 address: "",
-                solde: 0,
+                sold: 0,
                 missions: []
             }
         }
@@ -23,7 +23,7 @@ export default class Profile extends React.Component {
     }
 
     componentWillMount(){
-        this.profileController.getCurrentUser(this.getId());
+        this.getId().then(res => this.profileController.getCurrentUser(res));
     }
 
     async getId() {
@@ -38,8 +38,8 @@ export default class Profile extends React.Component {
     render(){
         return (
             <View style={style.profile}>
-                <Text style={{fontSize: 40}}>{this.state.user.firstname} {this.state.user.lastname.toUpperCase()}</Text>
-                <Text style={{fontSize: 20}}>Solde : {this.state.user.solde} PC</Text>
+                <Text style={{fontSize: 40}}>{this.state.user.firstname} {this.state.user.name.toUpperCase()}</Text>
+                <Text style={{fontSize: 20}}>Solde : {this.state.user.sold} PC</Text>
                 <FlatList
                     data={this.state.user.missions}
                     renderItem={({item}) => <Text style={style.content_row}>{item.name}</Text>}

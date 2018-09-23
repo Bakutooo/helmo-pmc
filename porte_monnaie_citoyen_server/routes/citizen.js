@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @route   /citizen/connexion
+ * @route   /citizen/connection
  */
 router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
@@ -38,29 +38,33 @@ router.post('/', (req, res) => {
         numNat: req.body.numNat,
         mail: req.body.mail,
         tel: req.body.tel,
+        missions: req.body.missions,
         password: hash.generate(req.body.password)
     });
 
     newCitizen.save()
-        .then(res.json(newCitizen));
+        .then(newCitizen =>{
+            if(newCitizen == null){
+            res.json({error : "L'utilisateur n'a pas été créé 1"});
+            }else{
+                res.json(newCitizen._id);
+            }
+        }).catch(error => { res.json({error : "L'utilisateur n'a pas été créé 2"})});
 });
 
 /**
  * Get user by id
- * @route   /citizen/getById/:
+ * @route   /citizen/:id
  */
 router.get('/:id', (req, res) => {
-    Citizen.findById(req.params.id)
-    .then(res.json())
-    .catch(err => res.status(404).json({success: false}));
     Citizen.findOne({_id: req.params.id})
     .then(citizen => {
-        if(hash.verify(req.body.password, citizen.password)){
+        if(citizen == null){
+            res.json({error : "Id incorrect"});
+        }else{
             res.json(citizen);
-        } else {
-            res.json({error: "This id doesn't exist"});
         }
-    });
+    }).catch(error => { res.json({error : "Id incorrect"})});
 });
 
 router.post('/change',(req, res) => {
