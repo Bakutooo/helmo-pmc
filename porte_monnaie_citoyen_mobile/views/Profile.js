@@ -1,12 +1,15 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import style from './../style';
+import ProfileController from './../controllers/ProfileController';
 
 export default class Profile extends React.Component {
     constructor(){
         super();
+        this.profileController = new ProfileController();
         this.state = {
-            user: {
+            
+            /**user: {
                 lastname: "Pierre",
                 firstname: "Bastien",
                 address: "Rue du Rêwe 9/1, 4000 Liège",
@@ -17,8 +20,13 @@ export default class Profile extends React.Component {
                     {key: "3", name: "Mission 3"},
                     {key: "4", name: "Mission 4"},
                 ]
-            }
+            }**/
+            user : undefined
         }
+    }
+
+    showUser(){
+        
     }
 
     static navigationOptions = {
