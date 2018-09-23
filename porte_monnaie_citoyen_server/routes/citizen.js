@@ -15,14 +15,14 @@ router.get('/', (req, res) => {
 /**
  * @route   /citizen/connexion
  */
-router.post('/connexion', (req, res) => {
+router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
     .then(citizen => {
         if(hash.verify(req.body.password, citizen.password)){
             console.log(citizen.mail + " vient de se connecter");
             res.json(citizen);
         } else {
-            res.json({erreur: "Identifiant incorrect"});
+            res.json({error: "Identifiant incorrect"});
         }
     });
 });
@@ -45,13 +45,31 @@ router.post('/', (req, res) => {
         .then(res.json(newCitizen));
 });
 
+/**
+ * Get user by id
+ * @route   /citizen/getById/:
+ */
+router.get('/getById/:id', (req, res) => {
+    Citizen.findById(req.params.id)
+    .then(res.json())
+    .catch(err => res.status(404).json({success: false}));
+    Citizen.findOne({_id: req.params.id})
+    .then(citizen => {
+        if(hash.verify(req.body.password, citizen.password)){
+            res.json(citizen);
+        } else {
+            res.json({error: "This id doesn't exist"});
+        }
+    });
+});
+
 router.post('/change',(req, res) => {
     Citizen.findOne({_id: req.body._id}, (err, doc) => {
         doc.name = req.body.name;
         doc.firstname = req.body.firstname;
         doc.mail = req.body.mail;
         doc.tel = req.body.tel;
-        doc.password = req.body.password;
+        doc.password = hash.generate(req.body.password);
         doc.save();
         res.json(doc);
     });
