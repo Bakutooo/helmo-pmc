@@ -60,5 +60,16 @@ router.post('/finish',(req, res)=>{
     }
 })
 
+router.get('/:id', (req, res) => {
+    Mission.findOne({_id: req.params.id})
+    .then(mission => {
+        if(mission == null){
+            res.json({error : "Id incorrect"});
+        }else{
+            res.json(mission);
+        }
+    }).catch(error => { res.json({error : "Id incorrect"})});
+});
+
 module.exports = router;
 
