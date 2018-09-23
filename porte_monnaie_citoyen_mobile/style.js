@@ -69,4 +69,10 @@ export default {
         borderBottomWidth: 2,
         marginBottom: 10,
     },
+    header:{
+        backgroundColor: secondaryColor,
+        paddingTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center'
+    }
 }

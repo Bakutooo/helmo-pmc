@@ -1,6 +1,6 @@
 import server from './../server-info';
 
-export default class HomeController {
+export default class MissionsController {
     constructor(view){
         this.view = view;
     }
@@ -17,6 +17,6 @@ export default class HomeController {
     }
 
     goToMission(mission){
-        this.view.props.navigation.navigate('Mission', {mission: mission});
+        this.view.navigation.navigate('Mission', {mission: mission});
     }
 }
