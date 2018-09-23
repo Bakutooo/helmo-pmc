@@ -91,7 +91,7 @@ router.get('/deals', (req, res) => {
 
 router.post('/postDeals',(req, res) => {
     Partner.findOne({_id: req.body._id}, (err, doc) => {
-        doc.events = req.body.events;
+        doc.deals = req.body.deals;
         doc.save();
         res.json(doc);
     });
