@@ -39,7 +39,8 @@ router.post('/', (req, res) => {
         mail: req.body.mail,
         tel: req.body.tel,
         missions: req.body.missions,
-        password: hash.generate(req.body.password)
+        password: hash.generate(req.body.password),
+        events : req.body.events
     });
 
     newCitizen.save()
@@ -74,6 +75,18 @@ router.post('/change',(req, res) => {
         doc.mail = req.body.mail;
         doc.tel = req.body.tel;
         doc.password = hash.generate(req.body.password);
+        doc.save();
+        res.json(doc);
+    });
+});
+
+router.get('/events', (req, res) => {
+    Citizen.findOne({_id: req.body.id}).select(events);
+});
+
+router.post('/postEvents',(req, res) => {
+    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+        doc.events = req.body.events;
         doc.save();
         res.json(doc);
     });

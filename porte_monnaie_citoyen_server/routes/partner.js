@@ -55,8 +55,30 @@ router.post('/change',(req, res) => {
         doc.mail= req.body.mail,
         doc.tel= req.body.tel,
         doc.password= hash.generate(req.body.password),
-        doc.deals= req.body.deals,
-        doc.events= req.body.events
+        doc.save();
+        res.json(doc);
+    });
+});
+
+router.get('/events', (req, res) => {
+    Partner.findOne({_id: req.body.id}).select(events);
+});
+
+router.post('/postEvents',(req, res) => {
+    Partner.findOne({_id: req.body._id}, (err, doc) => {
+        doc.events = req.body.events;
+        doc.save();
+        res.json(doc);
+    });
+});
+
+router.get('/deals', (req, res) => {
+    Partner.findOne({_id: req.body.id}).select(deals);
+});
+
+router.post('/postDeals',(req, res) => {
+    Partner.findOne({_id: req.body._id}, (err, doc) => {
+        doc.events = req.body.events;
         doc.save();
         res.json(doc);
     });

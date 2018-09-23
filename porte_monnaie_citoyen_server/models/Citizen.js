@@ -30,10 +30,10 @@ const CitizenSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    missions: [
+    events: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'mission'
+            ref: 'event'
         }
     ]
 });

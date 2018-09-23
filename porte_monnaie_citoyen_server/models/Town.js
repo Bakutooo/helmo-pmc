@@ -15,6 +15,12 @@ const TownSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'partner'
         }
+    ],
+    events: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'event'
+        }
     ]
 });
 
