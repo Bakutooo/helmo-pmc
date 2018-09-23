@@ -39,17 +39,14 @@ router.post('/', (req, res) => {
 
 
 router.get('/:id', (req, res) => {
-    Partner.findById(req.params.id)
-    .then(res.json())
-    .catch(err => res.status(404).json({success: false}));
     Partner.findOne({_id: req.params.id})
     .then(partner => {
-        if(hash.verify(req.body.password, partner.password)){
+        if(partner == null){
+            res.json({error : "Id incorrect"});
+        }else{
             res.json(partner);
-        } else {
-            res.json({error: "This id doesn't exist"});
         }
-    });
+    }).catch(error => { res.json({error : "Id incorrect"})});
 });
 
 router.post('/change',(req, res) => {
