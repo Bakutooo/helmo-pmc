@@ -38,7 +38,13 @@ router.post('/', (req, res) => {
     });
 
     newTown.save()
-        .then(res.json(newTown));
+    .then(newTown =>{
+        if(newTown == null){
+        res.json({error : "La commune n'a pas été créé 1"});
+        }else{
+            res.json(newTown._id);
+        }
+    }).catch(error => { res.json({error : "La commune n'a pas été créé 2"})});
 });
 
 router.get('/partners', (req, res) => {

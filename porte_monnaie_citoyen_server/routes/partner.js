@@ -22,6 +22,10 @@ router.post('/connection', (req, res) => {
     });
 });
 
+/**
+ * Creation
+ * ./partner/
+ */
 
 router.post('/', (req, res) => {
     let newPartner = new Partner({
@@ -34,8 +38,15 @@ router.post('/', (req, res) => {
     });
 
     newPartner.save()
-        .then(res.json(newPartner));
+    .then(newPartner =>{
+        if(newPartner == null){
+        res.json({error : "Le partenaire n'a pas été créé 1"});
+        }else{
+            res.json(newPartner._id);
+        }
+    }).catch(error => { res.json({error : "Le partenaire n'a pas été créé 2"})});
 });
+
 
 
 router.get('/:id', (req, res) => {
@@ -48,6 +59,8 @@ router.get('/:id', (req, res) => {
         }
     }).catch(error => { res.json({error : "Id incorrect"})});
 });
+
+
 
 router.post('/change',(req, res) => {
     Partner.findOne({_id: req.body._id}, (err, doc) => {
