@@ -7,6 +7,9 @@ let citizen = require('./routes/citizen');
 let mission = require('./routes/mission');
 let town = require('./routes/town');
 let transaction = require('./routes/transaction');
+let partner = require('./routes/partner');
+let deal = require('./routes/deal');
+let event = require('./routes/event');
 
 let app = express();
 
@@ -25,6 +28,9 @@ app.use('/citizen', citizen);
 app.use('/mission', mission);
 app.use('/town', town);
 app.use('/transaction', transaction);
+app.use('/partner', partner);
+app.use('/deal', deal);
+app.use('/event', event);
 
 //Server
 app.listen(30000, () => console.log('Server started on port 30000'));
