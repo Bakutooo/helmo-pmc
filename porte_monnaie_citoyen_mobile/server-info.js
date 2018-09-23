@@ -1,3 +1,3 @@
 export default {
-    url: "http://localhost:30000"
+    url: "http://10.30.200.235:30000"
 }
