@@ -43,7 +43,7 @@ export default class Home extends React.Component {
                 <FlatList
                     data={this.state.data}
                     renderItem={({item}) => 
-                    <TouchableOpacity style={style.row}>
+                    <TouchableOpacity style={style.row} onPress={() => this.props.navigation.navigate('Mission')}>
                         <Text style={style.title_row}>{item.title}</Text>
                         <Text style={style.content_row}>{item.content}</Text>
                     </TouchableOpacity>}
@@ -54,7 +54,10 @@ export default class Home extends React.Component {
                     visible={this.state.menuIsVisible}
                     onRequestClose={() => this.setState({menuIsVisible: false})}
                 >
-                    <Menu navigation={this.props.navigation} onPress={() => this.setState({menuIsVisible: false})}/>
+                    <Menu 
+                        navigation={this.props.navigation} 
+                        onPress={() => this.setState({menuIsVisible: false})}
+                    />
                 </Modal>
             </View>
         );
