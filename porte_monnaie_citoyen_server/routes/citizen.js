@@ -57,5 +57,17 @@ router.post('/change',(req, res) => {
     });
 });
 
+router.get('/getMissions',(req, res)=> {
+    Citizen.findOne({_id: req.body._id}).select("mission");
+})
+
+router.post('/postMissions',(req, res) => {
+    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+        doc.missions = req.body.missions;
+        doc.save();
+        res.json(doc);
+    });
+});
+
 module.exports = router;
 
