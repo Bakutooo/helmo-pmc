@@ -1,21 +1,28 @@
 const mongoose = require('mongoose');
 
-const TownSchema = new mongoose.Schema({
+const PartnerSchema = new mongoose.Schema({
     name: {
+        type: String,
+        required: true
+    },
+    mail: {
         type: String,
         required: true,
         unique: true
+    },
+    tel: {
+        type: String
     },
     password: {
         type: String,
         required: true
     },
-    parteners: [
+    events: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'partener'
+            ref: 'event'
         }
     ]
 });
 
-module.exports = Town = mongoose.model('town', TownSchema);
+module.exports = Partner = mongoose.model('partner', PartnerSchema);

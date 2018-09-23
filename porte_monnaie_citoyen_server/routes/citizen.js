@@ -15,14 +15,14 @@ router.get('/', (req, res) => {
 /**
  * @route   /citizen/connexion
  */
-router.post('/connexion', (req, res) => {
+router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
     .then(citizen => {
         if(hash.verify(req.body.password, citizen.password)){
             console.log(citizen.mail + " vient de se connecter");
             res.json(citizen);
         } else {
-            res.json({erreur: "Identifiant incorrect"});
+            res.json({error: "Identifiant incorrect"});
         }
     });
 });
@@ -45,14 +45,46 @@ router.post('/', (req, res) => {
         .then(res.json(newCitizen));
 });
 
+/**
+ * Get user by id
+ * @route   /citizen/getById/:
+ */
+router.get('/:id', (req, res) => {
+    Citizen.findById(req.params.id)
+    .then(res.json())
+    .catch(err => res.status(404).json({success: false}));
+    Citizen.findOne({_id: req.params.id})
+    .then(citizen => {
+        if(hash.verify(req.body.password, citizen.password)){
+            res.json(citizen);
+        } else {
+            res.json({error: "This id doesn't exist"});
+        }
+    });
+});
+
 router.post('/change',(req, res) => {
-    Citizen.update({_id: req.body.id}, {$set :
-        {name: req.body.name,
-            firstname: req.body.firstname,
-            mail: req.body.mail,
-            tel: req.body.tel,
-            password: hash.generate(req.body.password)
-        }})
+    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+        doc.name = req.body.name;
+        doc.firstname = req.body.firstname;
+        doc.mail = req.body.mail;
+        doc.tel = req.body.tel;
+        doc.password = hash.generate(req.body.password);
+        doc.save();
+        res.json(doc);
+    });
+});
+
+router.get('/getMissions',(req, res)=> {
+    Citizen.findOne({_id: req.body._id}).select("mission");
+})
+
+router.post('/postMissions',(req, res) => {
+    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+        doc.missions = req.body.missions;
+        doc.save();
+        res.json(doc);
+    });
 });
 
 module.exports = router;
