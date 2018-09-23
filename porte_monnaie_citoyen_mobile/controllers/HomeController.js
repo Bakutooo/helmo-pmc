@@ -6,10 +6,17 @@ export default class HomeController {
     }
 
     getAllMissions(){
-        return new Promise((resolve, reject) => {
-            //fetch(server);
+        fetch(server.url + "/mission")
+        .then(res => res.json())
+        .then((res) => {
+            res.forEach(element => {
+               element.key = element._id; 
+            });
+            this.view.setState({missions: res});
         });
     }
 
-
+    goToMission(mission){
+        this.view.props.navigation.navigate('Mission', {mission: mission});
+    }
 }

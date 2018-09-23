@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MissionSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -29,14 +29,6 @@ const MissionSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    priority: {
-        type: Number,
-        required: true
-    },
-    status: {
-        type: String,
-        required: true
-    },
     date_begin: {
         type: Date,
         required: true
@@ -47,4 +39,4 @@ const MissionSchema = new mongoose.Schema({
     }
 });
 
-module.exports = Mission = mongoose.model('mission', MissionSchema);
+module.exports = Event = mongoose.model('event', EventSchema);

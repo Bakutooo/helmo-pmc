@@ -9,7 +9,13 @@ const TownSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    parteners: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'partener'
+        }
+    ]
 });
 
 module.exports = Town = mongoose.model('town', TownSchema);

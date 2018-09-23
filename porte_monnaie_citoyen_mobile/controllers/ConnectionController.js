@@ -1,4 +1,5 @@
 import server from '../server-info'
+import {AsyncStorage} from 'react-native'
 
 export default class ConnectionController{
 
@@ -31,4 +32,6 @@ export default class ConnectionController{
             }
         })
     }
+
+    
 }

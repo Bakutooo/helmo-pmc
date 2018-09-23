@@ -2,23 +2,22 @@ import React from 'react';
 import {View, Text, FlatList, Modal, TouchableOpacity} from 'react-native';
 import Menu from './Menu';
 import style from './../style';
+import HomeController from './../controllers/HomeController';
 
 export default class Home extends React.Component {
     constructor(){
         super();
+        this.controller = new HomeController(this);
+
         this.state = {
             menuIsVisible: false,
-            data: [
-                {key: "1", title: "Titre 1", content: "Content 1"},
-                {key: "2", title: "Titre 2", content: "Content 2"},
-                {key: "3", title: "Titre 3", content: "Content 3"},
-                {key: "4", title: "Titre 4", content: "Content 4"},
-            ]
+            missions: []
         }
 
     }
 
     componentDidMount(){
+        this.controller.getAllMissions();
         this.props.navigation.setParams({showMenu: this.showMenu});
     }
 
@@ -41,11 +40,11 @@ export default class Home extends React.Component {
         return (
             <View>
                 <FlatList
-                    data={this.state.data}
+                    data={this.state.missions}
                     renderItem={({item}) => 
-                    <TouchableOpacity style={style.row} onPress={() => this.props.navigation.navigate('Mission')}>
+                    <TouchableOpacity style={style.row} onPress={() => {this.controller.goToMission(item)}}>
                         <Text style={style.title_row}>{item.title}</Text>
-                        <Text style={style.content_row}>{item.content}</Text>
+                        <Text style={style.content_row}>{item.description}</Text>
                     </TouchableOpacity>}
                 />
 

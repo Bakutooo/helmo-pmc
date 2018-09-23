@@ -1,18 +1,9 @@
 const mongoose = require('mongoose');
 
-const CitizenSchema = new mongoose.Schema({
+const PartnerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    },
-    firstname: {
-        type: String,
-        required: true
-    },
-    numNat: {
-        type: String,
-        required: true,
-        unique: true
     },
     mail: {
         type: String,
@@ -26,16 +17,12 @@ const CitizenSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    sold: {
-        type: Number,
-        default: 0
-    },
-    missions: [
+    events: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'mission'
+            ref: 'event'
         }
     ]
 });
 
-module.exports = Citizen = mongoose.model('citizen', CitizenSchema);
+module.exports = Partner = mongoose.model('partner', PartnerSchema);
