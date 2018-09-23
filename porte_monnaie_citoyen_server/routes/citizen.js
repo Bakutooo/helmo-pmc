@@ -15,14 +15,14 @@ router.get('/', (req, res) => {
 /**
  * @route   /citizen/connexion
  */
-router.post('/connexion', (req, res) => {
+router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
     .then(citizen => {
         if(hash.verify(req.body.password, citizen.password)){
             console.log(citizen.mail + " vient de se connecter");
             res.json(citizen);
         } else {
-            res.json({erreur: "Identifiant incorrect"});
+            res.json({error: "Identifiant incorrect"});
         }
     });
 });
@@ -58,7 +58,7 @@ router.get('/getById/:id', (req, res) => {
         if(hash.verify(req.body.password, citizen.password)){
             res.json(citizen);
         } else {
-            res.json({erreur: "This id doesn't exist"});
+            res.json({error: "This id doesn't exist"});
         }
     });
 });
@@ -69,7 +69,7 @@ router.post('/change',(req, res) => {
         doc.firstname = req.body.firstname;
         doc.mail = req.body.mail;
         doc.tel = req.body.tel;
-        doc.password = req.body.password;
+        doc.password = hash.generate(req.body.password);
         doc.save();
         res.json(doc);
     });
