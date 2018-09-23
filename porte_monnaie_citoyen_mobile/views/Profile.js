@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, AsyncStorage} from 'react-native';
 import style from './../style';
 import ProfileController from './../controllers/ProfileController';
 
@@ -20,6 +20,19 @@ export default class Profile extends React.Component {
 
     static navigationOptions = {
         title: 'Profile'
+    }
+
+    componentWillMount(){
+        this.profileController.getCurrentUser(this.getId());
+    }
+
+    async getId() {
+        try {
+          return await AsyncStorage.getItem('id_citizen');
+        } catch (error) {
+          console.error('AsyncStorage error: ' + error.message);
+          return "";
+        }
     }
     
     render(){
