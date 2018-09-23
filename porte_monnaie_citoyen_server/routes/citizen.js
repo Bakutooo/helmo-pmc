@@ -45,6 +45,24 @@ router.post('/', (req, res) => {
         .then(res.json(newCitizen));
 });
 
+/**
+ * Get user by id
+ * @route   /citizen/getById/:
+ */
+router.get('/getById/:id', (req, res) => {
+    Citizen.findById(req.params.id)
+    .then(res.json())
+    .catch(err => res.status(404).json({success: false}));
+    Citizen.findOne({_id: req.params.id})
+    .then(citizen => {
+        if(hash.verify(req.body.password, citizen.password)){
+            res.json(citizen);
+        } else {
+            res.json({erreur: "This id doesn't exist"});
+        }
+    });
+});
+
 router.post('/change',(req, res) => {
     Citizen.findOne({_id: req.body._id}, (err, doc) => {
         doc.name = req.body.name;
