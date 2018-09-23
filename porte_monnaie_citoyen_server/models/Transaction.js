@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
     sender: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     receiver: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     amount: {
@@ -19,4 +19,4 @@ const TransactionSchema = new mongoose.Schema({
     }
 });
 
-module.exports = User = mongoose.model('transaction', UserSchema);
+module.exports = User = mongoose.model('transaction', TransactionSchema);

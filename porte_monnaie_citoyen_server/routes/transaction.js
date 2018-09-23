@@ -5,7 +5,7 @@ const Transaction = require('./../models/Transaction');
 
 router.get('/', (req, res) => {
     Transaction.find()
-        .then(transaction => res.json(town));
+        .then(transaction => res.json(transaction));
 });
 
 

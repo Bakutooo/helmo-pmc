@@ -53,14 +53,7 @@ router.post('/change',(req, res) => {
             tel: req.body.tel,
             password: hash.generate(req.body.password)
         }})
-})
-
-router.post('/modifsolde',(req, res) => {
-    Citizen.update({_id: req.body.id}, {$set :
-        {
-            sold : sold + req.body.sold
-        }})
-})
+});
 
 module.exports = router;
 

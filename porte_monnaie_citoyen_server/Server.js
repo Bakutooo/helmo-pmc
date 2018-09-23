@@ -6,7 +6,7 @@ let db = require('./bd-info');
 let citizen = require('./routes/citizen');
 let mission = require('./routes/mission');
 let town = require('./routes/town');
-let transaction = require('./route/transaction');
+let transaction = require('./routes/transaction');
 
 let app = express();
 
