@@ -30,7 +30,7 @@ export default class Profile extends React.Component {
         try {
           return await AsyncStorage.getItem('id_citizen');
         } catch (error) {
-          console.error('AsyncStorage error: ' + error.message);
+          console.error(error);
           return "";
         }
     }

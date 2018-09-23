@@ -8,9 +8,7 @@ export default class ProfileController {
     getCurrentUser(id){
         fetch(server.url + '/citizen/'+id)
         .then(res => res.json())
-        .then(result => resolve(result)); 
-        
-        this.view.setState({user: user});
+        .then(result => this.view.setState({user: result})); 
     }
 
     
