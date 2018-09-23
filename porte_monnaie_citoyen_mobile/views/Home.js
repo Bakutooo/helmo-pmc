@@ -54,7 +54,10 @@ export default class Home extends React.Component {
                     visible={this.state.menuIsVisible}
                     onRequestClose={() => this.setState({menuIsVisible: false})}
                 >
-                    <Menu navigation={this.props.navigation} onPress={() => this.setState({menuIsVisible: false})}/>
+                    <Menu 
+                        navigation={this.props.navigation} 
+                        onPress={() => this.setState({menuIsVisible: false})}
+                    />
                 </Modal>
             </View>
         );
