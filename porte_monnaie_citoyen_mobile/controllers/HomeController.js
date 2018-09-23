@@ -7,7 +7,9 @@ export default class HomeController {
 
     getAllMissions(){
         return new Promise((resolve, reject) => {
-            //fetch(server);
+            fetch(server + "/mission")
+            .then(res => res.json())
+            .then((res) => console.log(res));
         });
     }
 
