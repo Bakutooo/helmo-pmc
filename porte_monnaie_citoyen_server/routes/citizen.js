@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @route   /citizen/connexion
+ * @route   /citizen/connection
  */
 router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
@@ -49,7 +49,7 @@ router.post('/', (req, res) => {
  * Get user by id
  * @route   /citizen/getById/:
  */
-router.get('/getById/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     Citizen.findById(req.params.id)
     .then(res.json())
     .catch(err => res.status(404).json({success: false}));
