@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const MissionSchema = new mongoose.Schema({
-    titre: {
+    title: {
         type: String,
         required: true
     },

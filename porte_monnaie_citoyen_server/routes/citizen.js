@@ -46,13 +46,15 @@ router.post('/', (req, res) => {
 });
 
 router.post('/change',(req, res) => {
-    Citizen.update({_id: req.body.id}, {$set :
-        {name: req.body.name,
-            firstname: req.body.firstname,
-            mail: req.body.mail,
-            tel: req.body.tel,
-            password: hash.generate(req.body.password)
-        }})
+    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+        doc.name = req.body.name;
+        doc.firstname = req.body.firstname;
+        doc.mail = req.body.mail;
+        doc.tel = req.body.tel;
+        doc.password = req.body.password;
+        doc.save();
+        res.json(doc);
+    });
 });
 
 module.exports = router;
