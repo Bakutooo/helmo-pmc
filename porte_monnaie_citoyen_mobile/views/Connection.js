@@ -12,7 +12,7 @@ import ConnectionController from '../controllers/ConnectionController';
 
 export default class Connection extends React.Component{
 
-    constructor(params){
+    constructor(){
         super();
         
         this.state = {
@@ -124,7 +124,7 @@ export default class Connection extends React.Component{
                             onChangeText={(text) => this.setState({phone : text})}/>
 
                         <TouchableOpacity onPress={() => {
-                            this.controller.registerNewUser();
+                            this.controller.registerNewUser(() => DeviceEventEmitter.emit('connection'));
                             this.setState({isVisible : false});
                             }
                         }>

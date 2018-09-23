@@ -8,7 +8,6 @@ export default class ConnectionController{
     }
 
     tryConnect(success){
-        console.log("Trying to connect");
         body = {
             "mail": this.view.state.connectionEmail,
             "password": this.view.state.connectionPassword
@@ -26,13 +25,12 @@ export default class ConnectionController{
                 this.view.displayErrorMessage(result.error);
             }
             else{
-                AsyncStorage.setItem("id_citizen", result._id);
-                success();
+                AsyncStorage.setItem("id_citizen", result._id).then(res => success());
             }
         })
     }
 
-    registerNewUser(){
+    registerNewUser(success){
         if(this.view.state.password !== this.view.state.passwordConfirmation){
             this.view.displayErrorMessage("Les deux mots de passe sont différents !")
         }
@@ -62,7 +60,7 @@ export default class ConnectionController{
                 }
                 else{
                     AsyncStorage.setItem("id_citizen", result._id);
-                    this.view.goToHome();
+                    success();
                 }
             })
 
