@@ -126,7 +126,11 @@ export default class Connection extends React.Component{
                             keyboardType="phone-pad"
                             onChangeText={(text) => this.setState({phone : text})}/>
 
-                        <TouchableOpacity onPress={() => this.setState({isVisible : false})}>
+                        <TouchableOpacity onPress={() => {
+                            this.controller.registerNewUser();
+                            this.setState({isVisible : false});
+                            }
+                        }>
                             <Text style={style.button}>S'inscrire</Text>
                         </TouchableOpacity>
 

@@ -47,6 +47,8 @@ export default class ConnectionController{
                 password: this.view.state.password
             };
 
+            console.log(body);
+
             fetch(server.url + "/citizen", {
                 method: "POST",
                 body: JSON.stringify(body),
