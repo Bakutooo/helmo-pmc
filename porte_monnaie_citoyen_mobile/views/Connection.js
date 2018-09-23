@@ -27,10 +27,6 @@ export default class Connection extends React.Component{
         }
     }
 
-    changeInscriptionVisibility(){
-        
-    }
-
     render(){
         return (
             <View style={style.form_connection}>
@@ -52,7 +48,7 @@ export default class Connection extends React.Component{
                     secureTextEntry={true}
                     onChangeText={(text) => this.setState({connectionPassword : text})}/>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
                     <Text style={style.button}>
                         Connexion
                     </Text>
