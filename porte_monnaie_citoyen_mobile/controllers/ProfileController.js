@@ -1,9 +1,11 @@
-import { promises } from "fs";
-
 export default class ProfileController {
 
+    constructor(view){
+        this.view = view;
+    }
+
     getCurrentUser(){
-         user = {
+        user = {
             lastname: "Pierre",
             firstname: "Bastien",
             address: "Rue du Rêwe 9/1, 4000 Liège",
@@ -15,7 +17,8 @@ export default class ProfileController {
                 {key: "4", name: "Mission 4"},
             ]
         };
-        return user;
+        
+        this.view.setState({user: user});
 
         /*return retrieveData = async () => {
             try {
