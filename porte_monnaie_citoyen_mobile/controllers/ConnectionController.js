@@ -33,5 +33,39 @@ export default class ConnectionController{
         })
     }
 
-    
+    registerNewUser(){
+        if(this.view.state.password !== this.view.state.passwordConfirmation){
+            this.view.displayErrorMessage("Les deux mots de passe sont différents !")
+        }
+        else{
+            body = {
+                name: this.view.state.name,
+                firstname: this.view.state.lastname,
+                numNat: this.view.state.nationalNumber,
+                mail: this.view.state.email,
+                tel: this.view.state.phone,
+                password: this.view.state.password
+            };
+
+            fetch(server.url + "/citizen", {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            })
+            .then(result => result.json())
+            .then(result => {
+                if(result.hasOwnProperty("error")){
+                    this.view.displayErrorMessage(result.error);
+                }
+                else{
+                    AsyncStorage.setItem("id_citizen", result._id);
+                    this.view.goToHome();
+                }
+            })
+
+
+        }        
+    }
 }
