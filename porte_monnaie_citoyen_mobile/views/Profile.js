@@ -6,7 +6,7 @@ import ProfileController from './../controllers/ProfileController';
 export default class Profile extends React.Component {
     constructor(){
         super();
-        this.profileController = new ProfileController();
+        this.profileController = new ProfileController(this);
         this.state = {
             user: {
                 lastname: "",
