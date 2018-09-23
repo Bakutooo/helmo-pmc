@@ -38,6 +38,7 @@ router.post('/', (req, res) => {
         numNat: req.body.numNat,
         mail: req.body.mail,
         tel: req.body.tel,
+        missions: req.body.missions,
         password: hash.generate(req.body.password)
     });
 

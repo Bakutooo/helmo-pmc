@@ -41,5 +41,17 @@ router.post('/', (req, res) => {
         .then(res.json(newTown));
 });
 
+router.get('/partners', (req, res) => {
+    Town.findOne({_id: req.body.id}).select(partners);
+});
+
+router.post('/postPartners',(req, res) => {
+    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+        doc.partners = req.body.partners;
+        doc.save();
+        res.json(doc);
+    });
+});
+
 module.exports = router;
 
