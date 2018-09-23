@@ -9,7 +9,7 @@ let messages = require('./routes/messages');
 */
 
 let citizen = require('./routes/citizen');
-//let mission = require('./routes/mission');
+let mission = require('./routes/mission');
 
 let app = express();
 
@@ -30,7 +30,7 @@ app.use('/users', users);
 */
 
 app.use('/citizen', citizen);
-//app.use('/mission', mission);
+app.use('/mission', mission);
 
 //Server
 app.listen(30000, () => console.log('Server started on port 30000'));

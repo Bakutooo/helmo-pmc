@@ -18,19 +18,19 @@ const MissionSchema = new mongoose.Schema({
         required: true
     },
     latitude: {
-        type: int,
+        type: String,
         required: true
     },
     longitude: {
-        type: int,
+        type: String,
         required: true
     },
     gain: {
-        type: int,
+        type: Number,
         required: true
     },
     priority: {
-        type: int,
+        type: Number,
         required: true
     },
     status: {

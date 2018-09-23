@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
     let newMission = new Mission({
-        titre: req.body.name,
+        titre: req.body.titre,
+        town: req.body.town,
         description: req.body.description,
         adress: req.body.adress,
         latitude: req.body.latitude,
@@ -26,16 +27,16 @@ router.post('/', (req, res) => {
         gain: req.body.gain,
         priority: req.body.priority,
         status: req.body.status,
-        date_begin: Date.now
+        date_begin: Date.now()
         });
 
-    newUser.save()
+    newMission.save()
         .then(res.json(newMission));
 });
 
 router.post('/change',(req, res) => {
         Mission.update({_id: req.body.id}, {$set :
-            {titre: req.body.name,
+            {titre: req.body.titre,
             description: req.body.description,
             adress: req.body.adress,
             latitude: req.body.latitude,
