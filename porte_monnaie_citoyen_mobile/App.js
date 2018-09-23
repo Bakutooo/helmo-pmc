@@ -5,7 +5,8 @@ import ProfileScreen from './views/Profile';
 
 const App = createStackNavigator({
   Home: {screen: HomeScreen},
-  Profile: {screen: ProfileScreen}
+  Profile: {screen: ProfileScreen},
+  Connection: {screen: Connection, navigationOptions:{header: null}}
 });
 
 export default App;
