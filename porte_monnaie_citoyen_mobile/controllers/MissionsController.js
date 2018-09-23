@@ -1,6 +1,6 @@
 import server from './../server-info';
 
-export default class HomeController {
+export default class MissionsController {
     constructor(view){
         this.view = view;
     }
