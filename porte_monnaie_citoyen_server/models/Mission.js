@@ -44,13 +44,7 @@ const MissionSchema = new mongoose.Schema({
     date_end: {
         type: Date,
         default: null
-    },
-    missions: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'mission'
-        }
-    ]
+    }
 });
 
 module.exports = Mission = mongoose.model('mission', MissionSchema);
