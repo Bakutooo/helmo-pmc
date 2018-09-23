@@ -14,6 +14,14 @@ const CitoyenSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    mail: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    tel: {
+        type: String
+    },
     password: {
         type: String,
         required: true,
