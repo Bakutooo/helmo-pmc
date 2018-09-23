@@ -22,6 +22,12 @@ const PartnerSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'event'
         }
+    ],
+    deals: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'deal'
+        }
     ]
 });
 

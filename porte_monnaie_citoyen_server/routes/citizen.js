@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @route   /citizen/connexion
+ * @route   /citizen/connection
  */
 router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
