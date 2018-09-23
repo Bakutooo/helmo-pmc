@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
-const EventSchema = new mongoose.Schema({
+const CitizenActionSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
     description: {
+        type: String,
+        required: true
+    },
+    photo: {
         type: String,
         required: true
     },
@@ -25,18 +29,14 @@ const EventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    gain: {
-        type: Number,
+    status: {
+        type: String,
         required: true
     },
-    date_begin: {
-        type: Date,
-        required: true
-    },
-    date_end: {
+    date:{
         type: Date,
         required: true
     }
 });
 
-module.exports = Event = mongoose.model('event', EventSchema);
+module.exports = CitizenAction = mongoose.model('citizenAction', CitizenActionSchema);

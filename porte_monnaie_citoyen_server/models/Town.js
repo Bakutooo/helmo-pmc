@@ -10,10 +10,10 @@ const TownSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    parteners: [
+    partners: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'partener'
+            ref: 'partner'
         }
     ]
 });
