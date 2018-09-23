@@ -17,6 +17,6 @@ export default class MissionsController {
     }
 
     goToMission(mission){
-        this.view.props.navigation.navigate('Mission', {mission: mission});
+        this.view.navigation.navigate('Mission', {mission: mission});
     }
 }

@@ -20,7 +20,7 @@ export default class Home extends React.Component {
 
     render(){
         return(
-            <this.state.currentHome/>
+            <this.state.currentHome navigation={this.props.navigation}/>
         );
     }
 }

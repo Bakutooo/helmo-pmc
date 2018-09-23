@@ -5,9 +5,10 @@ import style from './../style';
 import MissionsController from './../controllers/MissionsController';
 
 export default class Missions extends React.Component {
-    constructor(){
+    constructor(params){
         super();
         this.controller = new MissionsController(this);
+        this.navigation = params.navigation;
 
         this.state = {
             menuIsVisible: false,
@@ -18,27 +19,17 @@ export default class Missions extends React.Component {
 
     componentDidMount(){
         this.controller.getAllMissions();
-        this.props.navigation.setParams({showMenu: this.showMenu});
     }
 
-    showMenu = () => {
-        this.setState({menuIsVisible: true});
-    }
-
-    static navigationOptions = ({navigation}) => {
-        return {
-            title: 'Home',
-            headerLeft: (
-                <TouchableOpacity onPress={navigation.getParam('showMenu')}>
-                    <Text style={{marginLeft: 15, color: 'black', fontSize:50}}>&equiv;</Text>
-                </TouchableOpacity>
-            )
-        }
-    }
-    
     render(){
         return (
             <View>
+                <View style={style.header}> 
+                    <TouchableOpacity onPress={() => this.setState({menuIsVisible: true})}>
+                        <Text style={{fontSize: 40, marginLeft:15}}>&equiv;</Text>
+                    </TouchableOpacity>
+                    <Text style={{fontSize: 30, marginLeft: 20}}>Missions</Text>
+                </View>
                 <FlatList
                     data={this.state.missions}
                     renderItem={({item}) => 

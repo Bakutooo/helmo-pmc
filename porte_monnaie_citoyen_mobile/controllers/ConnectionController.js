@@ -7,7 +7,7 @@ export default class ConnectionController{
         this.view = view;
     }
 
-    tryConnect(){
+    tryConnect(success){
         console.log("Trying to connect");
         body = {
             "mail": this.view.state.connectionEmail,
@@ -22,13 +22,12 @@ export default class ConnectionController{
         })
         .then(result => result.json())
         .then(result => {
-            console.log(result);
             if(result.hasOwnProperty('error')){
                 this.view.displayErrorMessage(result.error);
             }
             else{
                 AsyncStorage.setItem("id_citizen", result._id);
-                this.view.goToHome();
+                success();
             }
         })
     }
