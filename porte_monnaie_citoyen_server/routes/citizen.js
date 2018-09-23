@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
  * @route   /citizen/connexion
  */
 router.post('/connexion', (req, res) => {
-    Citizen.findOne({mail: req.body.mail})
+    Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
     .then(citizen => {
         if(hash.verify(req.body.password, citizen.password)){
             console.log(citizen.mail + " vient de se connecter");
@@ -28,7 +28,7 @@ router.post('/connexion', (req, res) => {
 });
 
 /**
- * Creation d'un user
+ * Creation d'un Citizen
  * @route   /citizen/
  */
 router.post('/', (req, res) => {
@@ -41,8 +41,8 @@ router.post('/', (req, res) => {
         password: hash.generate(req.body.password)
     });
 
-    newUser.save()
-        .then(res.json(newUser));
+    newCitizen.save()
+        .then(res.json(newCitizen));
 });
 
 module.exports = router;

@@ -8,6 +8,9 @@ let users = require('./routes/users');
 let messages = require('./routes/messages');
 */
 
+let citizen = require('./routes/citizen');
+//let mission = require('./routes/mission');
+
 let app = express();
 
 //Pour utiliser les json dans les réponses
@@ -25,6 +28,9 @@ mongoose.connect(db.connection_string)
 app.use('/messages', messages);
 app.use('/users', users);
 */
+
+app.use('/citizen', citizen);
+//app.use('/mission', mission);
 
 //Server
 app.listen(30000, () => console.log('Server started on port 30000'));

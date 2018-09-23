@@ -9,6 +9,10 @@ const MissionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    town: {
+        type: String,
+        required: true
+    },
     adress: {
         type: String,
         required: true
@@ -39,7 +43,7 @@ const MissionSchema = new mongoose.Schema({
     },
     date_end: {
         type: Date,
-        required: true
+        default: null
     }
 });
 

@@ -25,7 +25,11 @@ const CitizenSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    sold: {
+        type: Number,
+        default: 0
     }
 });
 
-module.exports = User = mongoose.model('citizen', UserSchema);
+module.exports = Citizen = mongoose.model('citizen', CitizenSchema);
