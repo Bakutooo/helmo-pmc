@@ -1,12 +1,9 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import Connection from './views/Connection'
+import {createStackNavigator} from 'react-navigation';
 
-export default class App extends React.Component {
-  render(){
-    return (
-      <View>
-        <Text>Hello World!</Text>
-      </View>
-    );
-  }
-}
+const App = createStackNavigator({
+  Connection: {screen: Connection, navigationOptions:{header: null}}
+});
+
+export default App;
