@@ -35,7 +35,7 @@ const EventSchema = new mongoose.Schema({
     },
     date_end: {
         type: Date,
-        default: null
+        required: true
     }
 });
 
