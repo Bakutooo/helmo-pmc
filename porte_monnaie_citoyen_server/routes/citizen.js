@@ -45,5 +45,14 @@ router.post('/', (req, res) => {
         .then(res.json(newCitizen));
 });
 
+router.post('/change',(req, res) => {
+    Citizen.update({_id: req.body.id}, {$set :
+        {name: req.body.name,
+            firstname: req.body.firstname,
+            mail: req.body.mail,
+            tel: req.body.tel,
+            password: hash.generate(req.body.password)
+        }})
+})
 module.exports = router;
 
