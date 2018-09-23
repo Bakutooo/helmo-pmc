@@ -3,13 +3,10 @@ let mongoose = require('mongoose');
 let bodyParser = require("body-parser");
 let db = require('./bd-info');
 
-/* exemples
-let users = require('./routes/users');
-let messages = require('./routes/messages');
-*/
-
 let citizen = require('./routes/citizen');
 let mission = require('./routes/mission');
+let town = require('./routes/town');
+let transaction = require('./route/transaction');
 
 let app = express();
 
@@ -24,13 +21,10 @@ mongoose.connect(db.connection_string)
 
 
 //Routes
-/* exemples
-app.use('/messages', messages);
-app.use('/users', users);
-*/
-
 app.use('/citizen', citizen);
 app.use('/mission', mission);
+app.use('/town', town);
+app.use('/transaction', transaction);
 
 //Server
 app.listen(30000, () => console.log('Server started on port 30000'));
