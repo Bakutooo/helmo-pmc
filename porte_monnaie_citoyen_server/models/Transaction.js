@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const TransactionSchema = new mongoose.Schema({
     sender: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'citizen',
         required: true
     },
     receiver: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'town',
         required: true
     },
     amount: {

@@ -29,7 +29,13 @@ const CitizenSchema = new mongoose.Schema({
     sold: {
         type: Number,
         default: 0
-    }
+    },
+    missions: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'mission'
+        }
+    ]
 });
 
 module.exports = Citizen = mongoose.model('citizen', CitizenSchema);
