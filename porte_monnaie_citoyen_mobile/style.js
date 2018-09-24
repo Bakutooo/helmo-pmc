@@ -10,7 +10,7 @@ export default {
         borderColor: 'black'
     },
     menu: {
-        width: "45%",
+        width: "70%",
         height: "100%",
         backgroundColor: 'white'
     },
@@ -71,7 +71,7 @@ export default {
     },
     header:{
         backgroundColor: secondaryColor,
-        paddingTop: 20,
+        paddingTop: 50,
         flexDirection: 'row',
         alignItems: 'center'
     }
