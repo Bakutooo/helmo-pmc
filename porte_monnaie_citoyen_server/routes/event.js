@@ -36,9 +36,9 @@ router.post('/', (req, res) => {
 
 /**
  * Get event by id
- * @route   /event/:id
+ * @route   /event/getById/:id
  */
-router.get('/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
     Event.findOne({_id: req.params.id})
     .then(event => {
         if(event == null){

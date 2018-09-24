@@ -46,11 +46,17 @@ router.post('/', (req, res) => {
         }
     }).catch(error => { res.json({error : "La commune n'a pas été créé 2"})});
 });
-
+/**
+ * find parteners of one town
+ * @route   /town/partners
+ */
 router.get('/partners', (req, res) => {
     Town.findOne({_id: req.body.id}).select(partners);
 });
-
+/**
+ * post parteners of town
+ * @route   /town/postPartners
+ */
 router.post('/postPartners',(req, res) => {
     Town.findOne({_id: req.body._id}, (err, doc) => {
         doc.partners = req.body.partners;
@@ -59,10 +65,17 @@ router.post('/postPartners',(req, res) => {
     });
 });
 
+/**
+ * get events of town
+ * @route   /town/events
+ */
 router.get('/events', (req, res) => {
     Town.findOne({_id: req.body.id}).select(events);
 });
-
+/**
+ * post events of town
+ * @route   /town/postEvents
+ */
 router.post('/postEvents',(req, res) => {
     Town.findOne({_id: req.body._id}, (err, doc) => {
         doc.events = req.body.events;

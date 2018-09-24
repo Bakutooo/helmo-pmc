@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
 
 
 
-router.get('/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
     Partner.findOne({_id: req.params.id})
     .then(partner => {
         if(partner == null){
