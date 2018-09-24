@@ -10,7 +10,7 @@ export default {
         borderColor: 'black'
     },
     menu: {
-        width: "45%",
+        width: "70%",
         height: "100%",
         backgroundColor: 'white'
     },
@@ -20,13 +20,15 @@ export default {
         backgroundColor: secondaryColor
     },
     title_row: {
+        margin: 10,
         fontSize: 30
     },
     content_row: {
         fontSize: 20
     },
     profile: {
-        height: "100%"
+        height: "100%",
+        padding : 20
     },
     button_search: {
         position: "absolute",
@@ -69,4 +71,18 @@ export default {
         borderBottomWidth: 2,
         marginBottom: 10,
     },
+    header:{
+        backgroundColor: secondaryColor,
+        paddingTop: 50,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    partner_container: {
+        padding: 10,
+        backgroundColor: secondaryColor,
+        flexDirection: 'row'
+    },
+    normal_info:{
+        fontSize: 18
+    }
 }
