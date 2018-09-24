@@ -102,4 +102,20 @@ router.get('/complete/:id', (req,res) => {
     .catch(result => res.json({access: 'nok'}));
 });
 
+/**
+ * return the request
+ * route event/requestEvent/:id
+ */
+router.get('/requestEvent/:id',(req, res)=>{
+    Event.find({_id: req.body.id}).select("request")
+    .then(result => {
+        if(event == null){
+            res.json({access: 'nok'});
+        }else{
+            res.json(event);
+        }
+    })
+    .catch(result => res.json({access: 'nok'}));
+})
+
 module.exports = router;

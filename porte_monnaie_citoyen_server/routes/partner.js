@@ -87,7 +87,7 @@ router.post('/change/:id',(req, res) => {
  * Get all event of a partner by his id
  * @route /partner/events/:id
  */
-router.get('/events/:_id', (req, res) => {
+router.get('/events/:id', (req, res) => {
     Partner.findOne({_id: req.params.id})
     .then(partner => {
         if(partner == null){

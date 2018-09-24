@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     let newRequest = new Request({
         title: req.body.title,
         description: req.body.description,
-        price: req.body.title,
+        type: req.body.type,
         status:"En attente"
         });
 
