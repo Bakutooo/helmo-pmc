@@ -69,29 +69,37 @@ router.post('/change',(req, res) => {
         res.json(doc);
     });
 })
-/**
- * get the request
- * @route   /event/requestEvent
- */
 
+/**
+ * does the event exist
+ * @route   event/participate/:id
+ */
 router.get('/participate/:id', (req,res) => {
     Event.findById(req.params.id)
     .then(result => {
-        res.json({access: 'ok'});
+        if(event == null){
+            res.json({access: 'nok'});
+        }else{
+            res.json({access: 'ok'});
+        }
     })
     .catch(result => res.json({access: 'nok'}));
 });
 
+/**
+ * is the event complete
+ * @route event/complete/:id
+ */
 router.get('/complete/:id', (req,res) => {
     Event.findById(req.params.id)
     .then(result => {
-        res.json({access: 'ok'});
+        if(event == null){
+            res.json({access: 'nok'});
+        }else{
+            res.json({access: 'ok'});
+        }
     })
     .catch(result => res.json({access: 'nok'}));
 });
-
-router.get('/requestEvent',(req, res)=>{
-    Event.find({_id: req.body._id}).select("request");
-})
 
 module.exports = router;
