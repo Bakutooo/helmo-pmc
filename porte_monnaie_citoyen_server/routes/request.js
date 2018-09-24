@@ -55,12 +55,12 @@ router.get('/requestType/:type',(req, res) => {
     Request.find({type: req.body.type}).select("_id, title")
     .then(result => {
         if(event == null){
-            res.json({access: 'nok'});
+            res.json({access: 'nok1'});
         }else{
             res.json(event);
         }
     })
-    .catch(result => res.json({access: 'nok'}));
+    .catch(result => res.json({access: 'nok2'}));
 })
 /**
  * change status of a request
