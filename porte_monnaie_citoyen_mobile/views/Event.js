@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TouchableOpacity, Image, ScrollView, Modal} from 'react-native';
+import {View, Text, TouchableOpacity, Image, ScrollView, DeviceEventEmitter, AsyncStorage} from 'react-native';
 import style from './../style';
 import EventController from './../controllers/EventController';
 
@@ -24,6 +24,10 @@ export default class Mission extends React.Component {
     }
 
     componentDidMount(){
+        DeviceEventEmitter.addListener('participate', () => {
+            AsyncStorage.getItem('id_citizen')
+            .then(res => this.controller.participate(res));
+        });
         this.controller.getEvent();
     }
 
