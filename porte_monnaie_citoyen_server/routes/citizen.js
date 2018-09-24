@@ -48,7 +48,8 @@ router.post('/', (req, res) => {
         res.json({error : "La demande n'a pas été créé (1)"});
         }else{
             res.json(newCitizen._id);
-        };
+        }
+    });
 });
 /**
  * Get user by id
