@@ -14,21 +14,8 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @route   /citizen/connection
+ * @route   /partner/connection
  */
-router.post('/connection', (req, res) => {
-    Partner.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
-    .then(partner => {
-        if(hash.verify(req.body.password, citizen.password)){
-            console.log(partner.mail + " vient de se connecter");
-            res.json(partner);
-        } else {
-            res.json({error: "Identifiant incorrect"});
-        }
-    });
-});
-
-
 router.post('/connection', (req, res) => {
     Partner.findOne({mail: req.body.mail}).select('name mail tel password')
     .then(partner => {
