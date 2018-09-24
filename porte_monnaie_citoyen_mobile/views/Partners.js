@@ -5,7 +5,6 @@ import {View,
         Modal,
         FlatList
 } from 'react-native';
-import Menu from './Menu';
 import style from '../style'
 import PartnersController from '../controllers/PartnersController';
 
