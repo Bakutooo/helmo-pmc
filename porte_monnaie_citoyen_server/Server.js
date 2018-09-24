@@ -30,7 +30,7 @@ app.use('/transaction', transaction);
 app.use('/partner', partner);
 app.use('/deal', deal);
 app.use('/event', event);
-app.use('/request', event);
+app.use('/request', request);
 
 //Server
 app.listen(30000, () => console.log('Server started on port 30000'));

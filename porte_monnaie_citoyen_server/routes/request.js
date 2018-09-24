@@ -23,7 +23,8 @@ router.post('/', (req, res) => {
         type: req.body.type,
         status:"En attente"
         });
-
+    
+    console.log(newRequest);
     newRequest.save()
     .then(newRequest =>{
         if(newRequest == null){
