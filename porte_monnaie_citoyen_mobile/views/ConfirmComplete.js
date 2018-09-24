@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, DeviceEventEmitter, Text} from 'react-native';
-import {Camera, Permissions} from 'expo';
+import {View, DeviceEventEmitter, Text, StyleSheet} from 'react-native';
+import {BarCodeScanner, Permissions} from 'expo';
 import ConfirmParticipationController from './../controllers/ConfirmParticipationController';
 
 export default class ConfirmComplete extends React.Component{
@@ -10,7 +10,6 @@ export default class ConfirmComplete extends React.Component{
 
         this.state = {
             hasCameraPermission: null,
-            type: Camera.Constants.Type.back
         }
     }
     
@@ -27,16 +26,8 @@ export default class ConfirmComplete extends React.Component{
         if(this.state.hasCameraPermission === true){
             return(
                 <View style={{ flex: 1 }}>
-                  <Camera style={{ flex: 1 }} type={this.state.type}
-                    onBarCodeRead={({data}) => this.controller.testQR(data, () => DeviceEventEmitter.emit('complete'))}>
-                        <View
-                        style={{
-                            flex: 1,
-                            backgroundColor: 'transparent',
-                            flexDirection: 'row',
-                        }}>
-                        </View>
-                    </Camera>
+                  <BarCodeScanner style={StyleSheet.absoluteFill}
+                    onBarCodeRead={({data}) => this.controller.testQREvenement(data, () => DeviceEventEmitter.emit('complete'))}/>
                 </View>
             );
         } else {

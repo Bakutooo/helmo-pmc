@@ -31,4 +31,27 @@ router.post('/', (req, res) => {
         });
 });
 
+router.post('/:id_receiver/:amount', (req, res) => {
+    let newTransaction = new Transaction({
+        sender: req.body.sender,
+        receiver: req.params.id_receiver,
+        amount: req.params.amount,
+        date: Date.now()
+    });
+
+    newTransaction.save()
+        .then(() => {
+            Citizen.findById(newTransaction.sender, (err, doc) => {
+                doc.sold = (doc.sold - newTransaction.amount);
+                doc.save();
+            });
+            
+            Transaction.findById(newTransaction._id)
+                    .populate('sender')
+                    .populate('receiver')
+                    .then(result => res.json(result));
+        });
+    
+});
+
 module.exports = router;

@@ -5,6 +5,14 @@ export default class EventController {
         this.view = view;
     }
 
+    getCurrentCitizenEventInProgress(id){
+        fetch(server.url + '/citizen/' + id)
+        .then(res => res.json())
+        .then(res => {
+            this.view.setState({citizen: res});
+        });
+    }
+
     getEvent(){
         this.view.setState({
             event: this.view.props.navigation.getParam('event')
@@ -25,9 +33,7 @@ export default class EventController {
             }
         })
         .then(res => res.json())
-        .then(res => {
-            console.log(res);
-        });
+        .then(res => {this.getCurrentCitizenEventInProgress(res._id)});
     }
 
     complete(id_citizen, id_event, success){

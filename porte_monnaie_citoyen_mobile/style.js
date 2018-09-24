@@ -20,6 +20,7 @@ export default {
         backgroundColor: secondaryColor
     },
     title_row: {
+        margin: 10,
         fontSize: 30
     },
     content_row: {

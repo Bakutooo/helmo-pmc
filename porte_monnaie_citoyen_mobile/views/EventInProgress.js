@@ -25,8 +25,6 @@ export default class EventsInProgress extends React.Component {
             .then(id => {
                 this.controller.complete(id, this.state.event._id, () => DeviceEventEmitter.emit('update_events_inprogress'));
             });
-            
-            //this.controller.complete(id, this.state.event._id)
         });
         this.controller.getEvent();
     }
