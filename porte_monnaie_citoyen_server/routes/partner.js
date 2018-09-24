@@ -35,7 +35,8 @@ router.post('/', (req, res) => {
         tel: req.body.tel,
         password: hash.generate(req.body.password),
         deals: req.body.deals,
-        events: req.body.events
+        events: req.body.events,
+        request: req.body.request
     });
 
     newPartner.save()
@@ -97,5 +98,9 @@ router.post('/postDeals',(req, res) => {
         res.json(doc);
     });
 });
+
+router.get('/requestPartner',(req, res)=>{
+    Partner.find({_id: req.body._id}).select("request");
+})
 
 module.exports = router;

@@ -20,7 +20,8 @@ router.post('/', (req, res) => {
         longitude: req.body.longitude,
         gain: req.body.gain,
         date_begin: req.body.date_begin,
-        date_end: req.body.date_end
+        date_end: req.body.date_end,
+        request: req.body.request
         });
 
     newEvent.save()
@@ -73,5 +74,9 @@ router.get('/complete/:id', (req,res) => {
     })
     .catch(result => res.json({access: 'nok'}));
 });
+
+router.get('/requestEvent',(req, res)=>{
+    Event.find({_id: req.body._id}).select("request");
+})
 
 module.exports = router;
