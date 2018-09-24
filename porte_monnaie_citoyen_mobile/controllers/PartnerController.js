@@ -6,8 +6,12 @@ export default class PartnerController{
     }
 
     getPartner(){
+        partner = this.view.props.navigation.getParam("partner");
         this.view.setState({
-            partner: this.view.navigation.getParam("Partner")
-        })
+            name: partner.name,
+            phone: partner.tel,
+            mail: partner.mail,
+            deals: partner.deals
+        });
     }
 }

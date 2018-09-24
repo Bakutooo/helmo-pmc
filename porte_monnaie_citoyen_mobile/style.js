@@ -74,5 +74,13 @@ export default {
         paddingTop: 50,
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    partner_container: {
+        padding: 10,
+        backgroundColor: secondaryColor,
+        flexDirection: 'row'
+    },
+    normal_info:{
+        fontSize: 18
     }
 }
