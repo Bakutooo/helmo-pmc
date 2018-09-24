@@ -52,15 +52,12 @@ router.post('/change',(req, res) => {
  * @route   /request/requestType
  */
 router.get('/requestType/:type',(req, res) => {
-    Request.find({type: req.params.type}).select("_id, title")
-    .then(result => {
-        if(event == null){
-            res.json({error: 'nok1'});
-        }else{
-            res.json(event);
-        }
-    })
-    .catch(result => res.json({error: 'nok2'}));
+    Request.find({type: req.params.type})
+        .then(request => {
+            res.json(request);
+        }).catch(error => { 
+            res.json({error: "type incorrecte"});
+        });
 })
 /**
  * change status of a request
@@ -68,9 +65,15 @@ router.get('/requestType/:type',(req, res) => {
  */
 router.post('/changeStatus',(req, res) => {
     Request.findOne({_id: req.body._id}, (err, doc) => {
-        doc.status= req.body.status;
-        doc.save();
-        res.json(doc);
+        if(doc == null){
+            res.json({error: "status incorrecte"})
+        }else {
+            doc.status= req.body.status;
+            doc.save();
+            res.json(doc);
+        }
+    }).catch(error =>{
+        res.json({error: "status incorrecte"});
     });
 })
 

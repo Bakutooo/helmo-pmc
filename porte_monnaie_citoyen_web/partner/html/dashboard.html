@@ -8,9 +8,16 @@
 <body>
     <main>
         <h1>Tableau de bord</h1>
-        <div id="deals"></div>
-        <div id="events"></div>
+        <div id="dashboard">
+            <div id="deals">
+                <input type="submit" value="Ajouter un deal" name="button_add_deal" class="button_mid">
+            </div>
+            <div id="events">
+                <input type="submit" value="Demander un évènement" name="button_add_event" class="button_mid">
+            </div>
+        </div>
     </main>
+    <script src='./lib/jquery-qrcode.js'></script>
     <script src="partner/js/dashboard.js"></script>
 </body>
 </html>
