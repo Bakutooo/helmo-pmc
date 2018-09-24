@@ -27,6 +27,21 @@ router.post('/', (req, res) => {
         .then(res.json(newEvent));
 });
 
+/**
+ * Get user by id
+ * @route   /event/:id
+ */
+router.get('/:id', (req, res) => {
+    Event.findOne({_id: req.params.id})
+    .then(event => {
+        if(event == null){
+            res.json({error : "Id incorrect"});
+        }else{
+            res.json(event);
+        }
+    }).catch(error => { res.json({error : "Id incorrect"})});
+});
+
 router.post('/change',(req, res) => {
     Event.findOne({_id: req.body._id}, (err, doc) => {
         doc.title= req.body.title,
