@@ -8,7 +8,7 @@ const TransactionSchema = new mongoose.Schema({
     },
     receiver: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'town',
+        ref: 'partner',
         required: true
     },
     amount: {

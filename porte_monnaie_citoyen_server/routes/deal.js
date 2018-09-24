@@ -18,7 +18,13 @@ router.post('/', (req, res) => {
         });
 
     newDeal.save()
-        .then(res.json(newDeal));
+    .then(newDeal =>{
+        if(newDeal == null){
+        res.json({error : "Le deal n'a pas été créé (1)"});
+        }else{
+            res.json(newDeal._id);
+        }
+    }).catch(error => { res.json({error : "Le deal n'a pas été créé (2)"})});
 });
 
 router.post('/change',(req, res) => {

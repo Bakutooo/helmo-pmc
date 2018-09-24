@@ -3,14 +3,13 @@ import {View, DeviceEventEmitter, Text, StyleSheet} from 'react-native';
 import {BarCodeScanner, Permissions} from 'expo';
 import ConfirmParticipationController from './../controllers/ConfirmParticipationController';
 
-
-export default class ConfirmParticipation extends React.Component{
+export default class ConfirmComplete extends React.Component{
     constructor(){
         super();
         this.controller = new ConfirmParticipationController(this);
 
         this.state = {
-            hasCameraPermission: null
+            hasCameraPermission: null,
         }
     }
     
@@ -26,9 +25,9 @@ export default class ConfirmParticipation extends React.Component{
     render(){
         if(this.state.hasCameraPermission === true){
             return(
-                <View style={{ flex: 1 }}> 
+                <View style={{ flex: 1 }}>
                   <BarCodeScanner style={StyleSheet.absoluteFill}
-                    onBarCodeRead={({data}) => this.controller.testQREvenement(data, () => DeviceEventEmitter.emit('participate'))}/>
+                    onBarCodeRead={({data}) => this.controller.testQREvenement(data, () => DeviceEventEmitter.emit('complete'))}/>
                 </View>
             );
         } else {

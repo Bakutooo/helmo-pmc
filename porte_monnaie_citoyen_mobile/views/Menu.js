@@ -30,6 +30,12 @@ export default class Menu extends React.Component {
                 }}>
                     <Text style={style.button_menu}>Payment</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    this.navigation.navigate('EventsInProgress');
+                    this.onPress();
+                }}>
+                    <Text style={style.button_menu}>Évènements en cours</Text>
+                </TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={style.button_menu}>À propos</Text>
                 </TouchableOpacity>

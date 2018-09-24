@@ -20,13 +20,15 @@ export default {
         backgroundColor: secondaryColor
     },
     title_row: {
+        margin: 10,
         fontSize: 30
     },
     content_row: {
         fontSize: 20
     },
     profile: {
-        height: "100%"
+        height: "100%",
+        padding : 20
     },
     button_search: {
         position: "absolute",

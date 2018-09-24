@@ -34,11 +34,17 @@ router.post('/connexion', (req, res) => {
 router.post('/', (req, res) => {
     let newTown = new Town({
         name: req.body.name,
-        password: hash.generate(req.body.password)
+        password: hash.generate(req.body.password),
     });
 
     newTown.save()
-        .then(res.json(newTown));
+    .then(newTown =>{
+        if(newTown == null){
+        res.json({error : "La commune n'a pas été créé 1"});
+        }else{
+            res.json(newTown._id);
+        }
+    }).catch(error => { res.json({error : "La commune n'a pas été créé 2"})});
 });
 
 router.get('/partners', (req, res) => {
@@ -46,12 +52,23 @@ router.get('/partners', (req, res) => {
 });
 
 router.post('/postPartners',(req, res) => {
-    Citizen.findOne({_id: req.body._id}, (err, doc) => {
+    Town.findOne({_id: req.body._id}, (err, doc) => {
         doc.partners = req.body.partners;
         doc.save();
         res.json(doc);
     });
 });
 
+router.get('/events', (req, res) => {
+    Town.findOne({_id: req.body.id}).select(events);
+});
+
+router.post('/postEvents',(req, res) => {
+    Town.findOne({_id: req.body._id}, (err, doc) => {
+        doc.events = req.body.events;
+        doc.save();
+        res.json(doc);
+    });
+});
 module.exports = router;
 
