@@ -31,7 +31,13 @@ router.post('/', (req, res) => {
         });
 
     newMission.save()
-        .then(res.json(newMission));
+    .then(newMission =>{
+        if(newMission == null){
+        res.json({error : "La mission n'a pas été créé 1"});
+        }else{
+            res.json(newMission._id);
+        }
+    }).catch(error => { res.json({error : "La mission n'a pas été créé (2)"})});
 });
 
 router.post('/change',(req, res) => {

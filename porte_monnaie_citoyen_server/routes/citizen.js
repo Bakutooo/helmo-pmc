@@ -57,6 +57,7 @@ router.post('/', (req, res) => {
  */
 router.get('/:id', (req, res) => {
     Citizen.findOne({_id: req.params.id})
+    .populate('events_inprogress')
     .then(citizen => {
         if(citizen == null){
             res.json({error : "Id incorrect"});
@@ -84,9 +85,18 @@ router.get('/getMissions',(req, res)=> {
 
 router.post('/participate',(req, res) => {
     Citizen.findById(req.body.id, (err, doc) => {
-        console.log(doc);
         doc.events_inprogress.push(req.body.event);
         doc.save();
+        res.json(doc);
+    });
+});
+
+router.post('/complete', (req, res) => {
+    Citizen.findById(req.body.id, (err, doc) => {
+        let index = doc.events_inprogress.indexOf({_id: req.body.event_id});
+        doc.events.push(req.body.event_id);
+        doc.events_inprogress.splice(index, 1);
+        doc.save()
         res.json(doc);
     });
 });

@@ -3,8 +3,7 @@ import {View, DeviceEventEmitter, Text} from 'react-native';
 import {Camera, Permissions} from 'expo';
 import ConfirmParticipationController from './../controllers/ConfirmParticipationController';
 
-
-export default class ConfirmParticipation extends React.Component{
+export default class ConfirmComplete extends React.Component{
     constructor(){
         super();
         this.controller = new ConfirmParticipationController(this);
@@ -29,7 +28,7 @@ export default class ConfirmParticipation extends React.Component{
             return(
                 <View style={{ flex: 1 }}>
                   <Camera style={{ flex: 1 }} type={this.state.type}
-                    onBarCodeRead={({data}) => this.controller.testQR(data, () => {DeviceEventEmitter.emit('participate')})}>
+                    onBarCodeRead={({data}) => this.controller.testQR(data, () => DeviceEventEmitter.emit('complete'))}>
                         <View
                         style={{
                             flex: 1,
