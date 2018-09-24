@@ -50,8 +50,16 @@ router.post('/change',(req, res) => {
  * find request by type
  * @route   /request/requestType
  */
-router.get('/requestType',(req, res) => {
-    Request.find({type: req.body.type}).select("_id, title");
+router.get('/requestType/:type',(req, res) => {
+    Request.find({type: req.body.type}).select("_id, title")
+    .then(result => {
+        if(event == null){
+            res.json({access: 'nok'});
+        }else{
+            res.json(event);
+        }
+    })
+    .catch(result => res.json({access: 'nok'}));
 })
 /**
  * change status of a request
