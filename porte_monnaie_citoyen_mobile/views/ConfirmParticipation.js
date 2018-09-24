@@ -34,7 +34,7 @@ export default class ConfirmParticipation extends React.Component{
         } else {
             return(
                 <View>
-                    <Text>Pas de permission</Text>
+                    <Text Style={{fontSize : 25, textAlign : 'center', fontWeight : 'bold'}}>Pas de permission</Text>
                 </View>
             );
         } 

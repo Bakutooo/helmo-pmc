@@ -35,8 +35,8 @@ export default class EventsInProgress extends React.Component {
                 <View style={{padding: 10}}>
 
                     <Image
-                        source={require('./../image/megumin.jpg')}
-                        style={{width : 230, height : 80, marginTop : 20, alignSelf : 'center'}}
+                        source={{uri: 'https://via.placeholder.com/200x100'}}
+                        style={{width : 200, height : 100, marginTop : 20, alignSelf : 'center'}}
                     />
 
                     <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>

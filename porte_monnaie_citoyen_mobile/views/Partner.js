@@ -23,6 +23,10 @@ export default class Partner extends React.Component{
         this.controller.getPartner();
     }
 
+    static navigationOptions = {
+        title: "Missions partenaire"
+    }
+
     render(){
         return(
             <View>
@@ -32,10 +36,10 @@ export default class Partner extends React.Component{
                             {this.state.name}
                         </Text>
                         <Text style={style.normal_info}>
-                            {this.state.mail}
+                            Email : {this.state.mail}
                         </Text>
                         <Text style={style.normal_info}>
-                            {this.state.phone}
+                            Téléphone : {this.state.phone}
                         </Text>
                     </View>
                     <View>
@@ -50,7 +54,7 @@ export default class Partner extends React.Component{
                     <TouchableOpacity style={style.row}>
                         <Text style={style.title_row}>{item.title}</Text>
                         <Text style={style.content_row}>{item.description}</Text>
-                        <Text>{item.price}</Text>
+                        <Text style={style.content_row}>Gagner {item.price} points de communauté !</Text>
                     </TouchableOpacity>}/>
             </View>
         )
