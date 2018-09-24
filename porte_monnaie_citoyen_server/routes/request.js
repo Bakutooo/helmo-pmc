@@ -52,7 +52,7 @@ router.post('/change',(req, res) => {
  * @route   /request/requestType
  */
 router.get('/requestType/:type',(req, res) => {
-    Request.find({type: req.body.type}).select("_id, title")
+    Request.find({type: req.param.type}).select("_id, title")
     .then(result => {
         if(event == null){
             res.json({access: 'nok1'});
