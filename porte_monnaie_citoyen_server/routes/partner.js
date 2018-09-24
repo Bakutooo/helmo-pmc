@@ -57,12 +57,7 @@ router.post('/', (req, res) => {
  * @route /partner/getById/:id
  */
 
-<<<<<<< HEAD
-router.get('/getById/:_id', (req, res) => {
-=======
-
 router.get('/getById/:id', (req, res) => {
->>>>>>> 6f1e4f79baa9772365c875bffc6991d79e5f0305
     Partner.findOne({_id: req.params.id})
     .then(partner => {
         if(partner == null){
@@ -77,8 +72,8 @@ router.get('/getById/:id', (req, res) => {
  * modify a partner
  * @route /partner/change
  */
-router.post('/change/:_id',(req, res) => {
-    Partner.findOne({_id: req.body._id}, (err, doc) => {
+router.post('/change/:id',(req, res) => {
+    Partner.findOne({_id: req.body.id}, (err, doc) => {
         doc.name= req.body.name,
         doc.mail= req.body.mail,
         doc.tel= req.body.tel,
