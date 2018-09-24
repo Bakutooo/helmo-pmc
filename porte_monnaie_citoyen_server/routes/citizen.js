@@ -38,7 +38,6 @@ router.post('/', (req, res) => {
         numNat: req.body.numNat,
         mail: req.body.mail,
         tel: req.body.tel,
-        missions: req.body.missions,
         password: hash.generate(req.body.password)
     });
 
@@ -83,9 +82,10 @@ router.get('/getMissions',(req, res)=> {
     Citizen.findOne({_id: req.body._id}).select("mission");
 })
 
-router.post('/postMissions',(req, res) => {
-    Citizen.findOne({_id: req.body._id}, (err, doc) => {
-        doc.missions = req.body.missions;
+router.post('/participate',(req, res) => {
+    Citizen.findById(req.body.id, (err, doc) => {
+        console.log(doc);
+        doc.events_inprogress.push(req.body.event);
         doc.save();
         res.json(doc);
     });

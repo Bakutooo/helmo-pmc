@@ -1,11 +1,14 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, DeviceEventEmitter, Text} from 'react-native';
 import {Camera, Permissions} from 'expo';
+import ConfirmParticipationController from './../controllers/ConfirmParticipationController';
 
 
 export default class ConfirmParticipation extends React.Component{
     constructor(){
         super();
+        this.controller = new ConfirmParticipationController(this);
+
         this.state = {
             hasCameraPermission: null,
             type: Camera.Constants.Type.back
@@ -26,7 +29,7 @@ export default class ConfirmParticipation extends React.Component{
             return(
                 <View style={{ flex: 1 }}>
                   <Camera style={{ flex: 1 }} type={this.state.type}
-                    onBarCodeRead={() => console.log("QRcode readed")}>
+                    onBarCodeRead={({data}) => this.controller.testQR(data, () => {DeviceEventEmitter.emit('participate')})}>
                         <View
                         style={{
                             flex: 1,
