@@ -51,4 +51,12 @@ router.get('/participate/:id', (req,res) => {
     .catch(result => res.json({access: 'nok'}));
 });
 
+router.get('/complete/:id', (req,res) => {
+    Event.findById(req.params.id)
+    .then(result => {
+        res.json({access: 'ok'});
+    })
+    .catch(result => res.json({access: 'nok'}));
+});
+
 module.exports = router;

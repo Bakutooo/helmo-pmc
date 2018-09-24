@@ -1,6 +1,6 @@
 import server from './../server-info';
 
-export default class EventInProgressController {
+export default class EventsInProgressController {
     constructor(view){
         this.view = view;
     }
@@ -15,5 +15,9 @@ export default class EventInProgressController {
             
             this.view.setState({events: res.events_inprogress});
         });
+    }
+
+    goToEvent(event){
+        this.view.props.navigation.navigate('EventInProgress', {event: event});
     }
 }
