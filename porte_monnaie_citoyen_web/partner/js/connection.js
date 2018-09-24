@@ -17,7 +17,7 @@ $(function() {
                 $.get('partner/html/dashboard.html', (data) => {
                     $('main').empty();
                     $('main').append($(data));
-                    localStorage.setItem('partner', res);
+                    localStorage.setItem('partner', JSON.stringify(res));
                 });
             } else {
                 $('#error').append(res.error);
