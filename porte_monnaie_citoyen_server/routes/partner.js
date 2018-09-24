@@ -141,6 +141,7 @@ router.post('/postDeal',(req, res) => {
 
 /**
  * Add a deal if it doesn't exist
+ * @route /partner/createDeal
  */
 router.post('/createDeal',(req, res) => {
     let newDeal = new Deal({
@@ -164,6 +165,20 @@ router.post('/createDeal',(req, res) => {
         }
     }).catch(error => { res.json({error : "Le deal n'a pas été créé (2)"})});
 });
+
+/**
+ * Delete a deal from the deal's list
+ * @route /partner/deleteDeal
+ */
+router.get('/deleteDeal/:idDeal/:idPart',(req, res) => {
+    Deal.findByIdAndRemove(req.params.idDeal)
+        .then(function(){
+            //truc
+            
+        })
+        .catch(error => {res.json({error: "Le deal n'a pas pu être supprimer"})});
+});
+
 
 /**
  * Get request (status informations) of a partner
