@@ -40,18 +40,12 @@ export default class ConfirmParticipation extends React.Component{
                     </Camera>
                 </View>
             );
-        } else if (this.state.hasCameraPermission === false){
+        } else {
             return(
                 <View>
                     <Text>Pas de permission</Text>
                 </View>
             );
-        } else if (this.state.hasCameraPermission == null){
-            return(
-                <View>
-                    <Text>Erreur camera</Text>
-                </View>
-            );
-        }
+        } 
     }
 }

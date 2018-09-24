@@ -57,6 +57,7 @@ router.post('/', (req, res) => {
  */
 router.get('/:id', (req, res) => {
     Citizen.findOne({_id: req.params.id})
+    .populate('events_inprogress')
     .then(citizen => {
         if(citizen == null){
             res.json({error : "Id incorrect"});

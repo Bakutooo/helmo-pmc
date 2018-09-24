@@ -24,6 +24,12 @@ export default class Menu extends React.Component {
                 }}>
                     <Text style={style.button_menu}>Partenaires</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    this.navigation.navigate('EventInProgress');
+                    this.onPress();
+                }}>
+                    <Text style={style.button_menu}>Évènements en cours</Text>
+                </TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={style.button_menu}>À propos</Text>
                 </TouchableOpacity>
