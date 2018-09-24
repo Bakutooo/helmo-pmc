@@ -46,6 +46,6 @@ $(function() {
             $("#qr_payment").remove();
         });
 
-        $("#qrcode").qrcode('http://10.30.200.232:30000/transaction/qr/' + this.id + '/' + this.alt);
+        $("#qrcode").qrcode('http://10.30.200.232:30000/transaction/qr/' + partner._id + '/' + this.alt);
     });
 });

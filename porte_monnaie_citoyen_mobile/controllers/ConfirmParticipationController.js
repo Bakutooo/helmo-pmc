@@ -22,6 +22,7 @@ export default class ConfirmParticipationController{
         })
         .then(res => res.json())
         .then(res => {
+            console.log(res);
             this.view.setState({transaction: res});
             success();
         });
