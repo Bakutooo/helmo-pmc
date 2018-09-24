@@ -35,3 +35,9 @@
     font-weight: bold;
     margin: 10px;
 }
+
+#error {
+    font-weight: bold;
+    background-color: #BB000077;
+    border-radius: 5px;
+}
