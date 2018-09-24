@@ -1,22 +1,19 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, AsyncStorage, Image, ScrollView} from 'react-native';
 import style from './../style';
+import ProfileController from './../controllers/ProfileController';
 
 export default class Profile extends React.Component {
     constructor(){
         super();
+        this.profileController = new ProfileController(this);
         this.state = {
             user: {
-                lastname: "Pierre",
-                firstname: "Bastien",
-                address: "Rue du Rêwe 9/1, 4000 Liège",
-                solde: 546,
-                missions: [
-                    {key: "1", name: "Mission 1"},
-                    {key: "2", name: "Mission 2"},
-                    {key: "3", name: "Mission 3"},
-                    {key: "4", name: "Mission 4"},
-                ]
+                name: "",
+                firstname: "",
+                address: "",
+                sold: 0,
+                missions: []
             }
         }
     }
@@ -24,17 +21,46 @@ export default class Profile extends React.Component {
     static navigationOptions = {
         title: 'Profile'
     }
+
+    componentWillMount(){
+        this.getId().then(res => this.profileController.getCurrentUser(res));
+    }
+
+    async getId() {
+        try {
+          return await AsyncStorage.getItem('id_citizen');
+        } catch (error) {
+          console.error(error);
+          return "";
+        }
+    }
     
     render(){
         return (
-            <View style={style.profile}>
-                <Text style={{fontSize: 40}}>{this.state.user.firstname} {this.state.user.lastname.toUpperCase()}</Text>
-                <Text style={{fontSize: 20}}>Solde : {this.state.user.solde} PC</Text>
-                <FlatList
-                    data={this.state.user.missions}
-                    renderItem={({item}) => <Text style={style.content_row}>{item.name}</Text>}
-                />
-            </View>
+            <ScrollView>
+                <View style={{padding : 20}}>
+                    <Image
+                        source={{uri: 'https://via.placeholder.com/150x150'}}
+                        style={{width : 150, height : 150, marginTop : 40, alignSelf : 'center'}}
+                    /> 
+
+                    <Text style={{fontSize: 17, marginTop : 30, fontWeight : 'bold'}}>Mail :</Text>
+                    <Text style={{fontSize: 17, marginBottom : 20}}>{this.state.user.mail}</Text>
+
+                    <Text style={{fontSize: 17, fontWeight : 'bold'}}>Nom de famille :</Text>
+                    <Text style={{fontSize: 17, marginBottom : 20}}>{this.state.user.name}</Text>
+
+                    <Text style={{fontSize: 17, fontWeight : 'bold'}}>Prénom :</Text>
+                    <Text style={{fontSize: 17, marginBottom : 20}}>{this.state.user.firstname}</Text>
+
+                    <Text style={{fontSize: 17, textAlign : 'center'}}>Solde : {this.state.user.sold} points citoyen</Text>
+
+                    <FlatList
+                        data={this.state.user.missions}
+                        renderItem={({item}) => <Text style={style.content_row}>{item.name}</Text>}
+                    />
+                </View>
+            </ScrollView>
         );
     }
 }

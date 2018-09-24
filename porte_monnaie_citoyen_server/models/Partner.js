@@ -28,7 +28,11 @@ const PartnerSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'deal'
         }
-    ]
+    ],
+    request: {
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
+    }
 });
 
 module.exports = Partner = mongoose.model('partner', PartnerSchema);
