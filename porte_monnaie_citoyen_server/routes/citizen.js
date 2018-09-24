@@ -79,10 +79,6 @@ router.post('/change',(req, res) => {
     });
 });
 
-router.get('/getMissions',(req, res)=> {
-    Citizen.findOne({_id: req.body._id}).select("mission");
-})
-
 router.post('/participate',(req, res) => {
     Citizen.findById(req.body.id, (err, doc) => {
         doc.events_inprogress.push(req.body.event);
