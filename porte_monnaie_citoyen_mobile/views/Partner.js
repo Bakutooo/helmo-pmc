@@ -47,7 +47,7 @@ export default class Partner extends React.Component{
                 <FlatList
                     data={this.state.deals}
                     renderItem={({item}) => 
-                    <TouchableOpacity style={style.row} onPress={() => {this.controller.goToEvent(item)}}>
+                    <TouchableOpacity style={style.row}>
                         <Text style={style.title_row}>{item.title}</Text>
                         <Text style={style.content_row}>{item.description}</Text>
                         <Text>{item.price}</Text>
