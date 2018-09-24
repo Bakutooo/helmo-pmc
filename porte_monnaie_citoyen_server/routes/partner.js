@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Partner = require('./../models/Partner');
+const Deal = require('./../models/Deal');
 const hash = require('password-hash');
 
 /**
@@ -76,14 +77,18 @@ router.get('/getById/:id', (req, res) => {
  * modify a partner
  * @route /partner/change
  */
-router.post('/change/:id',(req, res) => {
+router.post('/change/',(req, res) => {
     Partner.findOne({_id: req.body.id}, (err, doc) => {
-        doc.name= req.body.name,
-        doc.mail= req.body.mail,
-        doc.tel= req.body.tel,
-        doc.password= hash.generate(req.body.password),
-        doc.save();
-        res.json(doc);
+        if(doc == null){
+            res.json({error: "erreur lors des modifs du partner"})
+        }else{
+            doc.name= req.body.name,
+            doc.mail= req.body.mail,
+            doc.tel= req.body.tel,
+            doc.password= hash.generate(req.body.password),
+            doc.save();
+            res.json(doc);
+        }
     });
 });
 
@@ -102,6 +107,10 @@ router.get('/events/:id', (req, res) => {
     }).catch(error => { res.json({error : "Id incorrect (2)"})});
 });
 
+/**
+ * Add a event to a partner
+ * @route /partner/postEvents
+ */
 router.post('/postEvents',(req, res) => {
     Partner.findOne({_id: req.body._id}, (err, doc) => {
         doc.events = req.body.events;
@@ -110,11 +119,19 @@ router.post('/postEvents',(req, res) => {
     });
 });
 
+/**
+ * Get all deals from a partner
+ * @route /partner/deals
+ */
 router.get('/deals', (req, res) => {
     Partner.findOne({_id: req.body.id}).select(deals);
 });
 
-router.post('/postDeals',(req, res) => {
+/**
+ * Add a deal to a partner if it already exist
+ * @route /partner/postDeal
+ */
+router.post('/postDeal',(req, res) => {
     Partner.findOne({_id: req.body._id}, (err, doc) => {
         doc.deals = req.body.deals;
         doc.save();
@@ -122,6 +139,35 @@ router.post('/postDeals',(req, res) => {
     });
 });
 
+/**
+ * Add a deal if it doesn't exist
+ */
+router.post('/createDeal',(req, res) => {
+    let newDeal = new Deal({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price
+        });
+
+    newDeal.save()
+    .then(newDeal =>{
+        if(newDeal == null){
+        res.json({error : "Le deal n'a pas été créé (1)"});
+        }else{
+            //newDeal._id
+            Partner.findOne({_id: req.body._id}, (err, doc) => {
+                doc.deals.push(newDeal.id);
+                doc.save();
+            });
+
+            res.json(newDeal);
+        }
+    }).catch(error => { res.json({error : "Le deal n'a pas été créé (2)"})});
+});
+
+/**
+ * Get request (status informations) of a partner
+ */
 router.get('/requestPartner',(req, res)=>{
     Partner.find({_id: req.body._id}).select("request");
 })

@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
         });
 });
 
-router.post('/:id_receiver/:amount', (req, res) => {
+router.post('/qr/:id_receiver/:amount', (req, res) => {
     let newTransaction = new Transaction({
         sender: req.body.sender,
         receiver: req.params.id_receiver,

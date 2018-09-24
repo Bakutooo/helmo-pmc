@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * @route   /citizen/connection
+ * @route   /citizetn/connection
  */
 router.post('/connection', (req, res) => {
     Citizen.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
@@ -28,7 +28,7 @@ router.post('/connection', (req, res) => {
 });
 
 /**
- * Creation d'un Citizen
+ * post a new citizen
  * @route   /citizen/
  */
 router.post('/', (req, res) => {
@@ -39,18 +39,18 @@ router.post('/', (req, res) => {
         mail: req.body.mail,
         tel: req.body.tel,
         password: hash.generate(req.body.password)
-    });
-
+        });
+    
+    console.log(newCitizen);
     newCitizen.save()
-        .then(newCitizen =>{
-            if(newCitizen == null){
-            res.json({error : "L'utilisateur n'a pas été créé 1"});
-            }else{
-                res.json(newCitizen._id);
-            }
-        }).catch(error => { res.json({error : "L'utilisateur n'a pas été créé 2"})});
+    .then(newCitizen =>{
+        if(newCitizen == null){
+        res.json({error : "La demande n'a pas été créé (1)"});
+        }else{
+            res.json(newCitizen._id);
+        }
+    });
 });
-
 /**
  * Get user by id
  * @route   /citizen//getById/:id
@@ -98,4 +98,3 @@ router.post('/complete', (req, res) => {
 });
 
 module.exports = router;
-

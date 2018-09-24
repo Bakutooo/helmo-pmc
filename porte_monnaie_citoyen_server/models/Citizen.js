@@ -33,8 +33,7 @@ const CitizenSchema = new mongoose.Schema({
     events_inprogress: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'event',
-            unique: true
+            ref: 'event'
         }
     ],
     events: [

@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 /**
  * @route   /town/connexion
  */
-router.post('/connexion', (req, res) => {
+router.post('/connection', (req, res) => {
     Town.findOne({name: req.body.name})
     .then(town => {
         if(hash.verify(req.body.password, town.password)){
@@ -64,6 +64,14 @@ router.post('/postPartners',(req, res) => {
         res.json(doc);
     });
 });
+
+router.post('/changePassword',(req, res) => {
+    Town.findOne({_id: req.body._id}, (err, doc) => {
+        doc.password = hash.generate(req.body.password);
+        doc.save();
+        res.json(doc);
+    });
+})
 
 /**
  * get events of town
