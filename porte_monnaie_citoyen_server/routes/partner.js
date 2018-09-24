@@ -76,14 +76,18 @@ router.get('/getById/:id', (req, res) => {
  * modify a partner
  * @route /partner/change
  */
-router.post('/change/:id',(req, res) => {
+router.post('/change/',(req, res) => {
     Partner.findOne({_id: req.body.id}, (err, doc) => {
-        doc.name= req.body.name,
-        doc.mail= req.body.mail,
-        doc.tel= req.body.tel,
-        doc.password= hash.generate(req.body.password),
-        doc.save();
-        res.json(doc);
+        if(doc == null){
+            res.json({error: "erreur lors des modifs du partner"})
+        }else{
+            doc.name= req.body.name,
+            doc.mail= req.body.mail,
+            doc.tel= req.body.tel,
+            doc.password= hash.generate(req.body.password),
+            doc.save();
+            res.json(doc);
+        }
     });
 });
 
