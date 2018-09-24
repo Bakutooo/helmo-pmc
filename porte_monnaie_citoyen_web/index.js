@@ -1,7 +1,13 @@
-let test = function() {
-    fetch("http://localhost/backend/citizen")
-    .then(res => res.json())
-    .then(res => console.log(res));
-}
+$(function() {
+    $("#town_button").on("click", () => {
+        $.get('town/html/connection.html', (data) => {
+            $("main").html($(data))
+        });
+    });
 
-test();
+    $("#partner_button").on("click", () => {
+        $.get('partner/html/connection.html', (data) => {
+            $("main").html($(data))
+        });
+    });
+});
