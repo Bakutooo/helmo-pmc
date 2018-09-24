@@ -53,9 +53,9 @@ router.post('/', (req, res) => {
 
 /**
  * Get user by id
- * @route   /citizen/:id
+ * @route   /citizen//getById/:id
  */
-router.get('/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
     Citizen.findOne({_id: req.params.id})
     .populate('events_inprogress')
     .then(citizen => {
@@ -79,16 +79,12 @@ router.post('/change',(req, res) => {
     });
 });
 
-router.get('/getMissions',(req, res)=> {
-    Citizen.findOne({_id: req.body._id}).select("mission");
-})
-
 router.post('/participate',(req, res) => {
     Citizen.findById(req.body.id, (err, doc) => {
         doc.events_inprogress.push(req.body.event);
         doc.save();
         res.json(doc);
-    });
+    });n
 });
 
 router.post('/complete', (req, res) => {

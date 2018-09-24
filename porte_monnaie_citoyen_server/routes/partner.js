@@ -3,11 +3,29 @@ const router = express.Router();
 const Partner = require('./../models/Partner');
 const hash = require('password-hash');
 
-
+/**
+ * get ALL partner
+ * @route /partener/
+ */
 router.get('/', (req, res) => {
     Partner.find()
         .populate('deals')
         .then(partner => res.json(partner));
+});
+
+/**
+ * @route   /citizen/connection
+ */
+router.post('/connection', (req, res) => {
+    Partner.findOne({mail: req.body.mail}).select('sold name firstname mail tel password')
+    .then(partner => {
+        if(hash.verify(req.body.password, citizen.password)){
+            console.log(partner.mail + " vient de se connecter");
+            res.json(partner);
+        } else {
+            res.json({error: "Identifiant incorrect"});
+        }
+    });
 });
 
 
@@ -24,8 +42,8 @@ router.post('/connection', (req, res) => {
 });
 
 /**
- * Creation
- * ./partner/
+ * Creation of the partner
+ * @route /partner/
  */
 
 router.post('/', (req, res) => {
@@ -35,7 +53,8 @@ router.post('/', (req, res) => {
         tel: req.body.tel,
         password: hash.generate(req.body.password),
         deals: req.body.deals,
-        events: req.body.events
+        events: req.body.events,
+        request: req.body.request
     });
 
     newPartner.save()
@@ -48,23 +67,28 @@ router.post('/', (req, res) => {
     }).catch(error => { res.json({error : "Le partenaire n'a pas été créé 2"})});
 });
 
+/**
+ * get a partner by the id
+ * @route /partner/getById/:id
+ */
 
-
-router.get('/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
     Partner.findOne({_id: req.params.id})
     .then(partner => {
         if(partner == null){
-            res.json({error : "Id incorrect"});
+            res.json({error : "getbyId : Id incorrect (1)"});
         }else{
             res.json(partner);
         }
-    }).catch(error => { res.json({error : "Id incorrect"})});
+    }).catch(error => { res.json({error : "getbyId : Id incorrect (2)"})});
 });
 
-
-
-router.post('/change',(req, res) => {
-    Partner.findOne({_id: req.body._id}, (err, doc) => {
+/**
+ * modify a partner
+ * @route /partner/change
+ */
+router.post('/change/:id',(req, res) => {
+    Partner.findOne({_id: req.body.id}, (err, doc) => {
         doc.name= req.body.name,
         doc.mail= req.body.mail,
         doc.tel= req.body.tel,
@@ -74,8 +98,19 @@ router.post('/change',(req, res) => {
     });
 });
 
-router.get('/events', (req, res) => {
-    Partner.findOne({_id: req.body.id}).select(events);
+/**
+ * Get all event of a partner by his id
+ * @route /partner/events/:id
+ */
+router.get('/events/:id', (req, res) => {
+    Partner.findOne({_id: req.params.id})
+    .then(partner => {
+        if(partner == null){
+            res.json({error : "Id incorrect (1)"});
+        }else{
+            res.json(partner.events);
+        }
+    }).catch(error => { res.json({error : "Id incorrect (2)"})});
 });
 
 router.post('/postEvents',(req, res) => {
@@ -97,5 +132,9 @@ router.post('/postDeals',(req, res) => {
         res.json(doc);
     });
 });
+
+router.get('/requestPartner',(req, res)=>{
+    Partner.find({_id: req.body._id}).select("request");
+})
 
 module.exports = router;

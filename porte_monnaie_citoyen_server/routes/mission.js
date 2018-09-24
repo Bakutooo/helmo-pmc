@@ -66,7 +66,7 @@ router.post('/finish',(req, res)=>{
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
     Mission.findOne({_id: req.params.id})
     .then(mission => {
         if(mission == null){
