@@ -16,12 +16,10 @@ let app = express();
 //Pour utiliser les json dans les réponses
 app.use(bodyParser.json());
 
-
 // Connection BD
 mongoose.connect(db.connection_string)
 .then(() => console.log('Connected to mongodb'))
 .catch(err => console.log(err));
-
 
 //Routes
 app.use('/citizen', citizen);
