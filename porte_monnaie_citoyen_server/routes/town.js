@@ -65,6 +65,14 @@ router.post('/postPartners',(req, res) => {
     });
 });
 
+router.post('/changePassword',(req, res) => {
+    Town.findOne({_id: req.body._id}, (err, doc) => {
+        doc.password = req.body.password;
+        doc.save();
+        res.json(doc);
+    });
+})
+
 /**
  * get events of town
  * @route   /town/events
