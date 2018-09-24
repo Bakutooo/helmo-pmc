@@ -18,6 +18,12 @@ export default class Menu extends React.Component {
                     }}>
                     <Text style={style.button_menu}>Profile</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() =>{
+                    this.navigation.navigate('Partners');
+                    this.onPress();
+                }}>
+                    <Text style={style.button_menu}>Partenaires</Text>
+                </TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={style.button_menu}>À propos</Text>
                 </TouchableOpacity>
