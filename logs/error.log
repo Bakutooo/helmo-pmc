@@ -1,0 +1,2 @@
+2018/09/24 17:03:09 [error] 4296#13028: *1 CreateFile() "D:\Users\Arnaud\Desktop\nginx-1.15.3/html/favicon.ico" failed (2: FormatMessage() error:(15100)), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2018/09/24 20:30:22 [error] 9408#9752: *1 CreateFile() "D:\Users\Arnaud\Desktop\nginx-1.15.3/html/favicon.ico" failed (2: FormatMessage() error:(15100)), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
