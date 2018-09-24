@@ -56,7 +56,7 @@ router.get('/requestType/:type',(req, res) => {
         .then(request => {
             res.json(request);
         }).catch(error => { 
-            res.json({error: "type incorrecte"})
+            res.json({error: "type incorrecte"});
         });
 })
 /**
@@ -65,9 +65,15 @@ router.get('/requestType/:type',(req, res) => {
  */
 router.post('/changeStatus',(req, res) => {
     Request.findOne({_id: req.body._id}, (err, doc) => {
-        doc.status= req.body.status;
-        doc.save();
-        res.json(doc);
+        if(doc == null){
+            res.json({error: "status incorrecte"})
+        }else {
+            doc.status= req.body.status;
+            doc.save();
+            res.json(doc);
+        }
+    }).catch(error =>{
+        res.json({error: "status incorrecte"});
     });
 })
 
