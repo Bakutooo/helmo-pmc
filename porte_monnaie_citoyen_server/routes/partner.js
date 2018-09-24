@@ -3,7 +3,10 @@ const router = express.Router();
 const Partner = require('./../models/Partner');
 const hash = require('password-hash');
 
-
+/**
+ * get ALL partner
+ * @route /partener/
+ */
 router.get('/', (req, res) => {
     Partner.find()
         .populate('deals')
@@ -24,8 +27,8 @@ router.post('/connection', (req, res) => {
 });
 
 /**
- * Creation
- * ./partner/
+ * Creation of the partner
+ * @route /partner/
  */
 
 router.post('/', (req, res) => {
@@ -49,22 +52,27 @@ router.post('/', (req, res) => {
     }).catch(error => { res.json({error : "Le partenaire n'a pas été créé 2"})});
 });
 
+/**
+ * get a partner by the id
+ * @route /partner/getById/:id
+ */
 
-
-router.get('/:id', (req, res) => {
+router.get('/getById/:_id', (req, res) => {
     Partner.findOne({_id: req.params.id})
     .then(partner => {
         if(partner == null){
-            res.json({error : "Id incorrect"});
+            res.json({error : "getbyId : Id incorrect (1)"});
         }else{
             res.json(partner);
         }
-    }).catch(error => { res.json({error : "Id incorrect"})});
+    }).catch(error => { res.json({error : "getbyId : Id incorrect (2)"})});
 });
 
-
-
-router.post('/change',(req, res) => {
+/**
+ * modify a partner
+ * @route /partner/change
+ */
+router.post('/change/:_id',(req, res) => {
     Partner.findOne({_id: req.body._id}, (err, doc) => {
         doc.name= req.body.name,
         doc.mail= req.body.mail,
@@ -75,8 +83,19 @@ router.post('/change',(req, res) => {
     });
 });
 
-router.get('/events', (req, res) => {
-    Partner.findOne({_id: req.body.id}).select(events);
+/**
+ * Get all event of a partner by his id
+ * @route /partner/events/:id
+ */
+router.get('/events/:_id', (req, res) => {
+    Partner.findOne({_id: req.params.id})
+    .then(partner => {
+        if(partner == null){
+            res.json({error : "Id incorrect (1)"});
+        }else{
+            res.json(partner.events);
+        }
+    }).catch(error => { res.json({error : "Id incorrect (2)"})});
 });
 
 router.post('/postEvents',(req, res) => {
