@@ -1,4 +1,4 @@
-let primaryColor = "#E4EDFF";
+let primaryColor = "#F3F7F7";
 let secondaryColor = "#BBBBBB";
 let buttonColor = "#0084b4";
 
@@ -44,8 +44,9 @@ export default {
         padding: 5,
         fontSize: 15, 
         width: "100%",
-        backgroundColor: secondaryColor,
-        color: "#FFF"
+        bordeStyle: 'solid',
+        borderWidth : 1,
+        borderColor: 'black'  
     },
     form_inscription: {
         height: "100%",
@@ -54,17 +55,27 @@ export default {
     },
     form_connection: {
         justifyContent: "center",
-        height: "100%",
+        //height: "100%",
         padding: 15,
-        backgroundColor: primaryColor
+        //backgroundColor: primaryColor
     },
     button: {
-        backgroundColor: buttonColor, 
+        /*backgroundColor: buttonColor, 
         alignItems:"center",
         color: "#FFFFFF",
         fontSize: 25, 
         padding: 20,
-        margin: 5
+        margin: 5*/
+
+        backgroundColor: '#F22B10', 
+        alignItems:"center",
+        color: "#FFFFFF",
+        fontSize: 25, 
+        padding: 5,
+        marginTop: 25,
+        bordeStyle: 'solid',
+        borderWidth : 2,
+        borderColor: 'black'  
     },
     line: {
         borderBottomColor: 'black',
