@@ -4,15 +4,17 @@ import {View,
         TouchableOpacity, 
         Text,
         Modal,
-        ScrollView
+        ScrollView,
+        DeviceEventEmitter
 } from 'react-native';
 import style from '../style'
+import ConnectionController from '../controllers/ConnectionController';
 
 export default class Connection extends React.Component{
 
     constructor(){
         super();
-
+        
         this.state = {
             isVisible : false,
             connectionEmail : "",
@@ -23,13 +25,21 @@ export default class Connection extends React.Component{
             password : "",
             passwordConfirmation : "",
             nationalNumber : "",
-            phone : ""
+            phone : "",
+            errorMessage: ""
         }
+
+        this.controller = new ConnectionController(this);
+    }
+
+    displayErrorMessage(error){
+        this.setState({errorMessage: error});
     }
 
     render(){
         return (
             <View style={style.form_connection}>
+                <Text style={{color: "red"}}>{this.state.errorMessage}</Text>
                 <Text>
                     Email
                 </Text>
@@ -47,8 +57,8 @@ export default class Connection extends React.Component{
                     underlineColorAndroid="transparent"
                     secureTextEntry={true}
                     onChangeText={(text) => this.setState({connectionPassword : text})}/>
-
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
+                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}> */}
+                <TouchableOpacity onPress={() => this.controller.tryConnect(() => DeviceEventEmitter.emit('connection'))}>
                     <Text style={style.button}>
                         Connexion
                     </Text>
@@ -113,7 +123,11 @@ export default class Connection extends React.Component{
                             keyboardType="phone-pad"
                             onChangeText={(text) => this.setState({phone : text})}/>
 
-                        <TouchableOpacity onPress={() => this.setState({isVisible : false})}>
+                        <TouchableOpacity onPress={() => {
+                            this.controller.registerNewUser(() => DeviceEventEmitter.emit('connection'));
+                            this.setState({isVisible : false});
+                            }
+                        }>
                             <Text style={style.button}>S'inscrire</Text>
                         </TouchableOpacity>
 

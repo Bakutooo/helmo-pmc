@@ -6,6 +6,7 @@ const hash = require('password-hash');
 
 router.get('/', (req, res) => {
     Partner.find()
+        .populate('deals')
         .then(partner => res.json(partner));
 });
 

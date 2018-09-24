@@ -74,6 +74,22 @@ router.post('/change',(req, res) => {
  * @route   /event/requestEvent
  */
 
+router.get('/participate/:id', (req,res) => {
+    Event.findById(req.params.id)
+    .then(result => {
+        res.json({access: 'ok'});
+    })
+    .catch(result => res.json({access: 'nok'}));
+});
+
+router.get('/complete/:id', (req,res) => {
+    Event.findById(req.params.id)
+    .then(result => {
+        res.json({access: 'ok'});
+    })
+    .catch(result => res.json({access: 'nok'}));
+});
+
 router.get('/requestEvent',(req, res)=>{
     Event.find({_id: req.body._id}).select("request");
 })

@@ -38,9 +38,7 @@ router.post('/', (req, res) => {
         numNat: req.body.numNat,
         mail: req.body.mail,
         tel: req.body.tel,
-        missions: req.body.missions,
-        password: hash.generate(req.body.password),
-        events : req.body.events
+        password: hash.generate(req.body.password)
     });
 
     newCitizen.save()
@@ -59,6 +57,7 @@ router.post('/', (req, res) => {
  */
 router.get('/:id', (req, res) => {
     Citizen.findOne({_id: req.params.id})
+    .populate('events_inprogress')
     .then(citizen => {
         if(citizen == null){
             res.json({error : "Id incorrect"});
@@ -80,14 +79,24 @@ router.post('/change',(req, res) => {
     });
 });
 
-router.get('/events', (req, res) => {
-    Citizen.findOne({_id: req.body.id}).select(events);
+router.get('/getMissions',(req, res)=> {
+    Citizen.findOne({_id: req.body._id}).select("mission");
+})
+
+router.post('/participate',(req, res) => {
+    Citizen.findById(req.body.id, (err, doc) => {
+        doc.events_inprogress.push(req.body.event);
+        doc.save();
+        res.json(doc);
+    });
 });
 
-router.post('/postEvents',(req, res) => {
-    Citizen.findOne({_id: req.body._id}, (err, doc) => {
-        doc.events = req.body.events;
-        doc.save();
+router.post('/complete', (req, res) => {
+    Citizen.findById(req.body.id, (err, doc) => {
+        let index = doc.events_inprogress.indexOf({_id: req.body.event_id});
+        doc.events.push(req.body.event_id);
+        doc.events_inprogress.splice(index, 1);
+        doc.save()
         res.json(doc);
     });
 });
