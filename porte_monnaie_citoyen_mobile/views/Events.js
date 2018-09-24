@@ -2,23 +2,23 @@ import React from 'react';
 import {View, Text, FlatList, Modal, TouchableOpacity} from 'react-native';
 import Menu from './Menu';
 import style from './../style';
-import MissionsController from './../controllers/MissionsController';
+import EventsController from './../controllers/EventsController';
 
-export default class Missions extends React.Component {
+export default class Events extends React.Component {
     constructor(params){
         super();
-        this.controller = new MissionsController(this);
+        this.controller = new EventsController(this);
         this.navigation = params.navigation;
 
         this.state = {
             menuIsVisible: false,
-            missions: []
+            events: []
         }
 
     }
 
     componentDidMount(){
-        this.controller.getAllMissions();
+        this.controller.getAllEvents();
     }
 
     render(){
@@ -28,12 +28,12 @@ export default class Missions extends React.Component {
                     <TouchableOpacity onPress={() => this.setState({menuIsVisible: true})}>
                         <Text style={{fontSize: 40, marginLeft:15}}>&equiv;</Text>
                     </TouchableOpacity>
-                    <Text style={{fontSize: 30, marginLeft: 20}}>Missions</Text>
+                    <Text style={{fontSize: 30, marginLeft: 20}}>Évènements</Text>
                 </View>
                 <FlatList
-                    data={this.state.missions}
+                    data={this.state.events}
                     renderItem={({item}) => 
-                    <TouchableOpacity style={style.row} onPress={() => {this.controller.goToMission(item)}}>
+                    <TouchableOpacity style={style.row} onPress={() => {this.controller.goToEvent(item)}}>
                         <Text style={style.title_row}>{item.title}</Text>
                         <Text style={style.content_row}>{item.description}</Text>
                     </TouchableOpacity>}

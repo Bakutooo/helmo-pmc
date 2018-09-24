@@ -1,7 +1,7 @@
 import React from 'react';
 import {DeviceEventEmitter} from 'react-native';
 import ConnectionScreen from './Connection';
-import MissionsScreen from './Missions';
+import EventsScreen from './Events';
 
 export default class Home extends React.Component {
     
@@ -14,7 +14,7 @@ export default class Home extends React.Component {
 
     componentWillMount(){
         DeviceEventEmitter.addListener('connection', () => {
-            this.setState({currentHome: MissionsScreen})
+            this.setState({currentHome: EventsScreen})
         });  
     }
 

@@ -1,16 +1,16 @@
 import React from "react";
-import {View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import {View, Text, TouchableOpacity, Image, ScrollView, Modal} from 'react-native';
 import style from './../style';
-import MissionController from './../controllers/MissionController';
+import EventController from './../controllers/EventController';
 
 export default class Mission extends React.Component {
-
     constructor(params){
         super();
-        this.controller = new MissionController(this);
+        this.controller = new EventController(this);
 
         this.state = {
-            mission: {
+            isVisible: false,
+            event: {
                 title: "",
                 description: "",
                 adress: "",
@@ -19,34 +19,38 @@ export default class Mission extends React.Component {
         }
     }
 
+    static navigationOptions = {
+        title: "Évenement"
+    }
+
     componentDidMount(){
-        this.controller.getMission();
+        this.controller.getEvent();
     }
 
     render(){
         return (
             <ScrollView>
-                <View style={{padding: 20}}>
+                <View style={{padding: 10}}>
 
                     <Image
                         source={require('./../image/megumin.jpg')}
-                        style={{width : 230, height : 80, marginTop : 40, alignSelf : 'center'}}
+                        style={{width : 230, height : 80, marginTop : 20, alignSelf : 'center'}}
                     />
 
                     <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>
-                        {this.state.mission.title}
+                        {this.state.event.title}
                     </Text>
                     <Text style={{fontSize: 15, marginBottom: 10}}>
-                        {this.state.mission.description}
+                        {this.state.event.description}
                     </Text>
                     
                 
                     <Text style={style.line}/>
-                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.mission.adress}</Text>
-                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.mission.gain} points citoyen</Text>
+                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.event.adress}</Text>
+                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.event.gain} points citoyen</Text>
 
-                    <TouchableOpacity> 
-                        <Text style={style.button}>Effectuer</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CameraParticip')}> 
+                        <Text style={style.button}>Participer</Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Text style={style.button}>Google map</Text>

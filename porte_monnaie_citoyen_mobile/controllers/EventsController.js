@@ -1,22 +1,22 @@
 import server from './../server-info';
 
-export default class MissionsController {
+export default class EventsController {
     constructor(view){
         this.view = view;
     }
 
-    getAllMissions(){
-        fetch(server.url + "/mission")
+    getAllEvents(){
+        fetch(server.url + "/event")
         .then(res => res.json())
         .then((res) => {
             res.forEach(element => {
                element.key = element._id; 
             });
-            this.view.setState({missions: res});
+            this.view.setState({events: res});
         });
     }
 
-    goToMission(mission){
-        this.view.navigation.navigate('Mission', {mission: mission});
+    goToEvent(event){
+        this.view.navigation.navigate('Event', {event: event});
     }
 }
