@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-127.0.0.1 - - [24/Sep/2018:17:03:09 +0200] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:17:03:09 +0200] "GET /favicon.ico HTTP/1.1" 404 571 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:08 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:30 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:31 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:31 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:53 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:54 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:19:22:54 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:20:30:21 +0200] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:20:30:22 +0200] "GET /favicon.ico HTTP/1.1" 404 571 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-127.0.0.1 - - [24/Sep/2018:20:30:35 +0200] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-=======
 127.0.0.1 - - [24/Sep/2018:16:05:57 +0200] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
 127.0.0.1 - - [24/Sep/2018:16:05:57 +0200] "GET /robots.txt HTTP/1.1" 404 169 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
 127.0.0.1 - - [24/Sep/2018:16:05:57 +0200] "GET /favicon.ico HTTP/1.1" 404 169 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
@@ -548,4 +534,3 @@
 127.0.0.1 - - [24/Sep/2018:21:12:30 +0200] "GET /partner/js/connection.js HTTP/1.1" 304 0 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
 127.0.0.1 - - [24/Sep/2018:21:12:31 +0200] "POST /backend/partner/connection HTTP/1.1" 200 163 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
 127.0.0.1 - - [24/Sep/2018:21:12:31 +0200] "GET /partner/js/dashboard.js HTTP/1.1" 200 201 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
->>>>>>> origin/bastien
