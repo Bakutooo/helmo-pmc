@@ -52,15 +52,15 @@ router.post('/change',(req, res) => {
  * @route   /request/requestType
  */
 router.get('/requestType/:type',(req, res) => {
-    Request.find({type: req.param.type}).select("_id, title")
+    Request.find({type: req.params.type}).select("_id, title")
     .then(result => {
         if(event == null){
-            res.json({access: 'nok1'});
+            res.json({error: 'nok1'});
         }else{
             res.json(event);
         }
     })
-    .catch(result => res.json({access: 'nok2'}));
+    .catch(result => res.json({error: 'nok2'}));
 })
 /**
  * change status of a request

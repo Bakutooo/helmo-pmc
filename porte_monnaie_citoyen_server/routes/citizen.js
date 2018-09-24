@@ -84,7 +84,7 @@ router.post('/participate',(req, res) => {
         doc.events_inprogress.push(req.body.event);
         doc.save();
         res.json(doc);
-    });
+    });n
 });
 
 router.post('/complete', (req, res) => {
