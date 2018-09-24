@@ -3,13 +3,19 @@ const router = express.Router();
 const Event = require('./../models/Event');
 const hash = require('password-hash');
 
-
+/**
+ * get all events
+ * @route   /event/
+ */
 router.get('/', (req, res) => {
     Event.find()
         .then(event => res.json(event));
 });
 
-
+/**
+ * post a event
+ * @route   /event/
+ */
 router.post('/', (req, res) => {
     let newEvent = new Event({
         title: req.body.title,
@@ -29,7 +35,7 @@ router.post('/', (req, res) => {
 });
 
 /**
- * Get user by id
+ * Get event by id
  * @route   /event/:id
  */
 router.get('/:id', (req, res) => {
@@ -42,6 +48,11 @@ router.get('/:id', (req, res) => {
         }
     }).catch(error => { res.json({error : "Id incorrect"})});
 });
+
+/**
+ * Update a event
+ * @route   /event/change
+ */
 
 router.post('/change',(req, res) => {
     Event.findOne({_id: req.body._id}, (err, doc) => {
@@ -58,6 +69,10 @@ router.post('/change',(req, res) => {
         res.json(doc);
     });
 })
+/**
+ * get the request
+ * @route   /event/requestEvent
+ */
 
 router.get('/requestEvent',(req, res)=>{
     Event.find({_id: req.body._id}).select("request");
