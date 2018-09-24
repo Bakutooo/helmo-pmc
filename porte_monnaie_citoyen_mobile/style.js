@@ -26,7 +26,8 @@ export default {
         fontSize: 20
     },
     profile: {
-        height: "100%"
+        height: "100%",
+        padding : 20
     },
     button_search: {
         position: "absolute",
