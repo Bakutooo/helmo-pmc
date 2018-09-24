@@ -3,13 +3,19 @@ const router = express.Router();
 const Request = require('./../models/Request');
 const hash = require('password-hash');
 
-
+/**
+ * get all request
+ * @route   /request/
+ */
 router.get('/', (req, res) => {
     Request.find()
         .then(request => res.json(request));
 });
 
-
+/**
+ * post a new request
+ * @route   /request/
+ */
 router.post('/', (req, res) => {
     let newRequest = new Request({
         title: req.body.title,
@@ -27,7 +33,10 @@ router.post('/', (req, res) => {
         }
     }).catch(error => { res.json({error : "La demande n'a pas été créé (2)"})});
 });
-
+/**
+ * update a request
+ * @route   /request/change
+ */
 router.post('/change',(req, res) => {
     Request.findOne({_id: req.body._id}, (err, doc) => {
         doc.title= req.body.title,
@@ -37,11 +46,17 @@ router.post('/change',(req, res) => {
         res.json(doc);
     });
 })
-
-router.get('/request',(req, res) => {
+/**
+ * find request by type
+ * @route   /request/requestType
+ */
+router.get('/requestType',(req, res) => {
     Request.find({type: req.body.type}).select("_id, title");
 })
-
+/**
+ * change status of a request
+ * @route   /request/changeStatus
+ */
 router.post('/changeStatus',(req, res) => {
     Request.findOne({_id: req.body._id}, (err, doc) => {
         doc.status= req.body.status;

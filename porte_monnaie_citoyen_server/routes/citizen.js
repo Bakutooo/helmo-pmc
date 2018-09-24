@@ -53,9 +53,9 @@ router.post('/', (req, res) => {
 
 /**
  * Get user by id
- * @route   /citizen/:id
+ * @route   /citizen//getById/:id
  */
-router.get('/:id', (req, res) => {
+router.get('/getById/:id', (req, res) => {
     Citizen.findOne({_id: req.params.id})
     .populate('events_inprogress')
     .then(citizen => {
