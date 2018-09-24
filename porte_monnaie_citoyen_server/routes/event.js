@@ -107,15 +107,10 @@ router.get('/complete/:id', (req,res) => {
  * route event/requestEvent/:id
  */
 router.get('/requestEvent/:id',(req, res)=>{
-    Event.find({_id: req.body.id}).select("request")
+    Event.find({_id: req.body.id})
     .then(result => {
-        if(event == null){
-            res.json({access: 'nok'});
-        }else{
-            res.json(event);
-        }
-    })
-    .catch(result => res.json({access: 'nok'}));
+        res.json(request);
+    }).catch(result => res.json({access: 'nok'}));
 })
 
 module.exports = router;
