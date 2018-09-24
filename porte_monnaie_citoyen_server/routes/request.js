@@ -14,7 +14,8 @@ router.post('/', (req, res) => {
     let newRequest = new Request({
         title: req.body.title,
         description: req.body.description,
-        price: req.body.title
+        price: req.body.title,
+        status:"En attente"
         });
 
     newRequest.save()
@@ -31,14 +32,22 @@ router.post('/change',(req, res) => {
     Request.findOne({_id: req.body._id}, (err, doc) => {
         doc.title= req.body.title,
         doc.description= req.body.description,
-        doc.type= req.body.type
+        doc.type= req.body.type;
         doc.save();
         res.json(doc);
     });
 })
 
-router.get('/change',(req, res) => {
+router.get('/request',(req, res) => {
     Request.find({type: req.body.type}).select("_id, title");
+})
+
+router.post('/changeStatus',(req, res) => {
+    Request.findOne({_id: req.body._id}, (err, doc) => {
+        doc.status= req.body.status;
+        doc.save();
+        res.json(doc);
+    });
 })
 
 module.exports = router;

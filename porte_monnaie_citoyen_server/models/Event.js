@@ -36,6 +36,10 @@ const EventSchema = new mongoose.Schema({
     date_end: {
         type: Date,
         required: true
+    },
+    request: {
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
     }
 });
 
