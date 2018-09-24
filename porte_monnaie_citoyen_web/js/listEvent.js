@@ -7,16 +7,11 @@ let div ="<div class='grid-container'>"+
 let button="<input id='detail' type='submit' value='button'>";
 
 function setUplistEvent(){  
-    $.ajax("10.30.200.230:30000/partner/events", {
-        data: {id: "5ba7eff3d3c51d14ff8ac40d"},
-        dataType:"json",
-        method: "GET",
-        succes: function(data, textStatus, jqXHR){
-            next(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            console.log("fail");
-        }
+    fetch("http://10.30.200.230:30000/partner/")
+    .then(function(data) {
+        next(data);
+    }).catch(function(error) {
+        // If there is any error you will catch them here
     });
     
     $('#detail').on('submit', function(){
