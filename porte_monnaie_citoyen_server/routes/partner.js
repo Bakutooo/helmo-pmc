@@ -18,6 +18,8 @@ router.get('/', (req, res) => {
  */
 router.post('/connection', (req, res) => {
     Partner.findOne({mail: req.body.mail}).select('name mail tel password')
+    .populate('events')
+    .populate('deals')
     .then(partner => {
         if(hash.verify(req.body.password, partner.password)){
             console.log(partner.mail + " vient de se connecter");
