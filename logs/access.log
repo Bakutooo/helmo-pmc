@@ -1446,3 +1446,4 @@
 127.0.0.1 - - [25/Sep/2018:00:42:27 +0200] "GET /style.css HTTP/1.1" 304 0 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
 127.0.0.1 - - [25/Sep/2018:00:42:27 +0200] "GET /lib/jquery.js HTTP/1.1" 304 0 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
 127.0.0.1 - - [25/Sep/2018:00:42:27 +0200] "GET /index.js HTTP/1.1" 304 0 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
+127.0.0.1 - - [25/Sep/2018:00:43:32 +0200] "POST /backend/partner/connection HTTP/1.1" 504 183 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0"
