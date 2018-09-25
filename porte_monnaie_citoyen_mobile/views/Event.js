@@ -52,21 +52,22 @@ export default class Event extends React.Component {
                 <View style={{padding: 10}}>
 
                     <Image
-                        source={require('./../image/megumin.jpg')}
-                        style={{width : 230, height : 80, marginTop : 20, alignSelf : 'center'}}
+                        //source={require('./../image/megumin.jpg')}
+                        source={{uri: 'https://via.placeholder.com/200x100'}}
+                        style={{width : 200, height : 100, marginTop : 20, alignSelf : 'center'}}
                     />
 
                     <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>
                         {this.state.event.title}
                     </Text>
-                    <Text style={{fontSize: 15, marginBottom: 10}}>
+                    <Text style={{fontSize: 17, marginBottom: 10}}>
                         {this.state.event.description}
                     </Text>
                     
                 
                     <Text style={style.line}/>
-                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.event.adress}</Text>
-                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.event.gain} points citoyen</Text>
+                    <Text style={{fontSize: 20, marginBottom: 20, textAlign : 'center'}}>{this.state.event.adress}</Text>
+                    <Text style={{fontSize: 20, marginBottom: 20, textAlign : 'center'}}>{this.state.event.gain} points citoyen</Text>
 
                     <CurrentButton/>
                     <TouchableOpacity>
