@@ -9,6 +9,7 @@ import PartnersScreen from './views/Partners';
 import PartnerScreen from './views/Partner';
 import EventsInProgressScreen from './views/EventsInProgress';
 import EventInProgressScreen from './views/EventInProgress';
+import About from './views/About';
 
 const App = createStackNavigator({
   Home: {screen: HomeScreen, navigationOptions:{header: null}},
@@ -20,7 +21,8 @@ const App = createStackNavigator({
   Partners: {screen: PartnersScreen},
   Partner: {screen: PartnerScreen},
   EventsInProgress: {screen: EventsInProgressScreen},
-  EventInProgress: {screen: EventInProgressScreen}
+  EventInProgress: {screen: EventInProgressScreen},
+  About: {screen: About}
 });
 
 export default App;

@@ -14,6 +14,10 @@ export default class EventsInProgress extends React.Component {
         }
     }
     
+    static navigationOptions = {
+        title: "Événements en cours"
+    }
+
     componentWillMount(){
         DeviceEventEmitter.addListener('update_events_inprogress', () => {
             AsyncStorage.getItem('id_citizen')

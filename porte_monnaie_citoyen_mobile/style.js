@@ -1,30 +1,42 @@
-let primaryColor = "#E4EDFF";
+let primaryColor = "#F3F7F7";
 let secondaryColor = "#BBBBBB";
 let buttonColor = "#0084b4";
 
 export default {
     button_menu: {
-        fontSize: 30,
+        fontSize: 22,
         padding: 10,
         borderWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
     },
     menu: {
         width: "70%",
         height: "100%",
-        backgroundColor: 'white'
+        backgroundColor : '#f7f7f7',
+        borderWidth : 3,
+        borderColor: 'black',
     },
     row: {
-        margin: 5,
+        marginTop: 6,
+        marginRight : 5,
+        marginLeft : 5,
         padding: 5,
-        backgroundColor: secondaryColor
+        //backgroundColor: '#DBAD19',
+        //backgroundColor : '#F7471E', 
+        backgroundColor : '#f7f7f7',
+        borderWidth: 2,
+        borderColor: 'black',
+        borderRadius : 10, 
     },
     title_row: {
         margin: 10,
-        fontSize: 30
+        fontSize: 25,
+        fontWeight : 'bold'
+
     },
     content_row: {
-        fontSize: 20
+        margin : 10,
+        fontSize: 17
     },
     profile: {
         height: "100%",
@@ -44,8 +56,9 @@ export default {
         padding: 5,
         fontSize: 15, 
         width: "100%",
-        backgroundColor: secondaryColor,
-        color: "#FFF"
+        bordeStyle: 'solid',
+        borderWidth : 1,
+        borderColor: 'black'  
     },
     form_inscription: {
         height: "100%",
@@ -54,17 +67,33 @@ export default {
     },
     form_connection: {
         justifyContent: "center",
-        height: "100%",
+        //height: "100%",
         padding: 15,
-        backgroundColor: primaryColor
+        //backgroundColor: primaryColor
     },
     button: {
-        backgroundColor: buttonColor, 
+        /*backgroundColor: buttonColor, 
         alignItems:"center",
         color: "#FFFFFF",
         fontSize: 25, 
         padding: 20,
-        margin: 5
+        margin: 5*/
+
+        textAlign : 'center',
+        //backgroundColor: '#F22B10', 
+        backgroundColor : '#E51B24',
+        alignItems:"center",
+        color: "#FFFFFF",
+        fontSize: 25, 
+        padding: 5,
+        marginTop: 25,
+        
+        borderRadius : 10, 
+
+        /*bordeStyle: 'solid',
+        borderWidth : 2,
+        borderColor: 'black', */
+ 
     },
     line: {
         borderBottomColor: 'black',
@@ -72,17 +101,22 @@ export default {
         marginBottom: 10,
     },
     header:{
-        backgroundColor: secondaryColor,
-        paddingTop: 50,
+        //backgroundColor: '#EFF2EE',
+        backgroundColor : '#f7f7f7',
+        paddingTop: 30,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     partner_container: {
         padding: 10,
         backgroundColor: secondaryColor,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        bordeStyle: 'solid',
+        borderWidth : 1,
+        borderColor: 'black' 
     },
     normal_info:{
+        padding: 7,
         fontSize: 18
     }
 }

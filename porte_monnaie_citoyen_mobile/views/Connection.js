@@ -38,104 +38,109 @@ export default class Connection extends React.Component{
 
     render(){
         return (
-            <View style={style.form_connection}>
-                <Text style={{color: "red"}}>{this.state.errorMessage}</Text>
-                <Text>
-                    Email
-                </Text>
-                <TextInput
-                    style={style.input}
-                    underlineColorAndroid="transparent"
-                    keyboardType="email-address"
-                    onChangeText={(text) => this.setState({connectionEmail : text})}/>
+         <View Style={{backgroundColor : '#F3F7F7'}}>
 
-                <Text>
-                    Mot de passe
-                </Text>
-                <TextInput
-                    style={style.input}
-                    underlineColorAndroid="transparent"
-                    secureTextEntry={true}
-                    onChangeText={(text) => this.setState({connectionPassword : text})}/>
-                {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}> */}
-                <TouchableOpacity onPress={() => this.controller.tryConnect(() => DeviceEventEmitter.emit('connection'))}>
-                    <Text style={style.button}>
-                        Connexion
+                <Text style={{marginTop : 70, fontSize : 20, textAlign : 'center', fontWeight : 'bold'}}>Porte-monnaie citoyen</Text>
+
+                <View style={style.form_connection}>
+                    <Text style={{color: "red"}}>{this.state.errorMessage}</Text>
+                    <Text style = {{fontSize : 17}}>
+                        Email
                     </Text>
-                </TouchableOpacity>
+                    <TextInput
+                        style={style.input}
+                        underlineColorAndroid="transparent"
+                        keyboardType="email-address"
+                        onChangeText={(text) => this.setState({connectionEmail : text})}/>
 
-                <TouchableOpacity onPress={() => this.setState({isVisible : true})}>
-                    <Text style={style.button}>
-                        Inscription
+                    <Text style = {{fontSize : 17}}>
+                        Mot de passe
                     </Text>
-                </TouchableOpacity>
+                    <TextInput
+                        style={style.input }
+                        underlineColorAndroid="transparent"
+                        secureTextEntry={true}
+                        onChangeText={(text) => this.setState({connectionPassword : text})}/>
+                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}> */}
+                    <TouchableOpacity onPress={() => this.controller.tryConnect(() => DeviceEventEmitter.emit('connection'))}>
+                        <Text style={style.button}>
+                            Connexion
+                        </Text>
+                    </TouchableOpacity>
 
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={this.state.isVisible}
-                    onRequestClose={() => {this.setState({isVisible : false})}}>
+                    <TouchableOpacity onPress={() => this.setState({isVisible : true})}>
+                        <Text style={style.button}>
+                            Inscription
+                        </Text>
+                    </TouchableOpacity>
 
-                    <ScrollView style={style.form_inscription}>
-                        <Text>Nom</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            onChangeText={(text) => this.setState({name : text})}/>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={this.state.isVisible}
+                        onRequestClose={() => {this.setState({isVisible : false})}}>
 
-                        <Text>Prénom</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            onChangeText={(text) => this.setState({lastname : text})}/>
+                        <ScrollView style={style.form_inscription}>
+                            <Text>Nom</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                onChangeText={(text) => this.setState({name : text})}/>
 
-                        <Text>Mot de passe</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            secureTextEntry={true}
-                            onChangeText={(text) => this.setState({password : text})}/>
+                            <Text>Prénom</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                onChangeText={(text) => this.setState({lastname : text})}/>
 
-                        <Text>Confirmer mot de passe</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            secureTextEntry={true}
-                            onChangeText={(text) => this.setState({passwordConfirmation : text})}/>
+                            <Text>Mot de passe</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                secureTextEntry={true}
+                                onChangeText={(text) => this.setState({password : text})}/>
 
-                        <Text>N° national</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            onChangeText={(text) => this.setState({nationalNumber : text})}/>
+                            <Text>Confirmer mot de passe</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                secureTextEntry={true}
+                                onChangeText={(text) => this.setState({passwordConfirmation : text})}/>
 
-                        <Text>Email</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            keyboardType="email-address"
-                            onChangeText={(text) => this.setState({email : text})}/>
+                            <Text>N° national</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                onChangeText={(text) => this.setState({nationalNumber : text})}/>
 
-                        <Text>Téléphone</Text>
-                        <TextInput
-                            style={style.input}
-                            underlineColorAndroid="transparent"
-                            keyboardType="phone-pad"
-                            onChangeText={(text) => this.setState({phone : text})}/>
+                            <Text>Email</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                keyboardType="email-address"
+                                onChangeText={(text) => this.setState({email : text})}/>
 
-                        <TouchableOpacity onPress={() => {
-                            this.controller.registerNewUser(() => DeviceEventEmitter.emit('connection'));
-                            this.setState({isVisible : false});
-                            }
-                        }>
-                            <Text style={style.button}>S'inscrire</Text>
-                        </TouchableOpacity>
+                            <Text>Téléphone</Text>
+                            <TextInput
+                                style={style.input}
+                                underlineColorAndroid="transparent"
+                                keyboardType="phone-pad"
+                                onChangeText={(text) => this.setState({phone : text})}/>
 
-                        <TouchableOpacity onPress={() => this.setState({isVisible : false})}>
-                            <Text style={style.button}>Annuler</Text>
-                        </TouchableOpacity>
-                    </ScrollView>
-                </Modal>
+                            <TouchableOpacity onPress={() => {
+                                this.controller.registerNewUser(() => DeviceEventEmitter.emit('connection'));
+                                this.setState({isVisible : false});
+                                }
+                            }>
+                                <Text style={style.button}>S'inscrire</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.setState({isVisible : false})}>
+                                <Text style={style.button}>Annuler</Text>
+                            </TouchableOpacity>
+                        </ScrollView>
+                    </Modal>
+                </View>
             </View>
         )
     }
