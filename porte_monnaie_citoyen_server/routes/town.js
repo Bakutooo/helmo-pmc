@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 /**
  * @route   /town/connexion
  */
-router.post('/connexion', (req, res) => {
+router.post('/connection', (req, res) => {
     Town.findOne({name: req.body.name})
     .then(town => {
         if(hash.verify(req.body.password, town.password)){
