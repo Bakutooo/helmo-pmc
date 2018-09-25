@@ -20,6 +20,10 @@ export default class Partners extends React.Component{
         }
     }
 
+    static navigationOptions = {
+        title: "Partenaires"
+    }
+
     componentDidMount(){
         this.controller.getAllPartners();
     }

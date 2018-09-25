@@ -28,7 +28,7 @@ export default class Menu extends React.Component {
                     this.navigation.navigate('Payment');
                     this.onPress();
                 }}>
-                    <Text style={style.button_menu}>Payment</Text>
+                    <Text style={style.button_menu}>Paiement</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     this.navigation.navigate('EventsInProgress');
@@ -36,7 +36,10 @@ export default class Menu extends React.Component {
                 }}>
                     <Text style={style.button_menu}>Évènements en cours</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() =>{
+                    this.navigation.navigate('About');
+                    this.onPress();
+                }}>
                     <Text style={style.button_menu}>À propos</Text>
                 </TouchableOpacity>
             </View>
