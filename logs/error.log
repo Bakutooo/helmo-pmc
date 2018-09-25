@@ -1,0 +1,10 @@
+2018/09/24 15:29:52 [emerg] 20852#14096: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/09/24 15:29:59 [emerg] 51976#51064: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/09/24 15:47:53 [emerg] 54320#42212: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/09/24 15:49:37 [emerg] 47656#57412: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/09/24 15:50:36 [emerg] 71528#4288: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/09/24 16:01:32 [emerg] 10588#11656: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/09/24 16:05:57 [error] 13268#13304: *2 CreateFile() "D:\Bureau\nginx-1.15.3/html/robots.txt" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /robots.txt HTTP/1.1", host: "localhost:91"
+2018/09/24 16:05:57 [error] 13268#13304: *2 CreateFile() "D:\Bureau\nginx-1.15.3/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:91"
+2018/09/24 16:05:58 [error] 13268#13304: *2 CreateFile() "D:\Bureau\nginx-1.15.3/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:91"
+2018/09/24 16:43:48 [error] 12476#12492: *1 CreateFile() "D:\Bureau\nginx-1.15.3/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost"
