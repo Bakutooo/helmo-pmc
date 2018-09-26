@@ -27,9 +27,9 @@ export default class Events extends React.Component {
                 <View style = {{backgroundColor : '#f7f7f7'}}>
                     <View style={style.header}> 
                         <TouchableOpacity onPress={() => this.setState({menuIsVisible: true})}>
-                            <Text style={{fontSize: 40, marginLeft:15, color : 'white'}}>&equiv;</Text>
+                            <Text style={{fontSize: 40, marginLeft:15, color : 'black'}}>&equiv;</Text>
                         </TouchableOpacity>
-                        <Text style={{fontSize: 30, marginLeft: 20, color : 'white'}}>Évènements</Text>
+                        <Text style={{fontSize: 30, marginLeft: 20, color : 'black'}}>Évènements</Text>
                     </View>
                     <FlatList
                         style = {{backgroundColor : '#f7f7f7'}}

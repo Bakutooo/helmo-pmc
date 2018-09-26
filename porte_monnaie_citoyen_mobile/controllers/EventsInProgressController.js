@@ -6,7 +6,7 @@ export default class EventsInProgressController {
     }
 
     getEvents(id){
-        fetch(server.url + '/citizen/' + id)
+        fetch(server.url + '/citizen/getById/' + id)
         .then(res => res.json())
         .then(res => {
             res.events_inprogress.forEach(element => {

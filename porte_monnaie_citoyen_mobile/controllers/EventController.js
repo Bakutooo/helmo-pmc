@@ -6,7 +6,7 @@ export default class EventController {
     }
 
     getCurrentCitizenEventInProgress(id){
-        fetch(server.url + '/citizen/' + id)
+        fetch(server.url + '/citizen/getById/' + id)
         .then(res => res.json())
         .then(res => {
             this.view.setState({citizen: res});

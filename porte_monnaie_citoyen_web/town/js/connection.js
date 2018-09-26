@@ -4,7 +4,7 @@ $(function() {
         let name = $("input[name='name']").val();
         let password = $("input[name='password'").val();
 
-        fetch('http://localhost/backend/town/connection', {
+        fetch('http://girafes.be/backend/town/connection', {
             method: "POST",
             body: JSON.stringify({name: name, password: password}),
             headers: {
@@ -13,6 +13,7 @@ $(function() {
         })
         .then(res => res.json())
         .then(res => {
+            $("#error").empty();
             if(res.error === undefined){
                 $.get('town/html/dashboard.html', (data) => {
                     $('main').empty();

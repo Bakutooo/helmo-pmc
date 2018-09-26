@@ -22,8 +22,9 @@ export default {
         marginLeft : 5,
         padding: 5,
         //backgroundColor: '#DBAD19',
+        backgroundColor: '#ffff6c',
         //backgroundColor : '#F7471E', 
-        backgroundColor : '#f7f7f7',
+        //backgroundColor : '#f7f7f7',
         borderWidth: 2,
         borderColor: 'black',
         borderRadius : 10, 
@@ -56,7 +57,6 @@ export default {
         padding: 5,
         fontSize: 15, 
         width: "100%",
-        bordeStyle: 'solid',
         borderWidth : 1,
         borderColor: 'black'  
     },
@@ -111,9 +111,9 @@ export default {
         padding: 10,
         backgroundColor: secondaryColor,
         flexDirection: 'row',
-        bordeStyle: 'solid',
         borderWidth : 1,
-        borderColor: 'black' 
+        borderColor: 'black',
+        backgroundColor: '#DBAD19',
     },
     normal_info:{
         padding: 7,

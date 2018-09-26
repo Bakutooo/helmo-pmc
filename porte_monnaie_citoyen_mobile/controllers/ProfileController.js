@@ -6,7 +6,7 @@ export default class ProfileController {
     }
 
     getCurrentUser(id){
-        fetch(server.url + '/citizen/'+id)
+        fetch(server.url + '/citizen/getById/'+id)
         .then(res => res.json())
         .then(result => this.view.setState({user: result})); 
     }

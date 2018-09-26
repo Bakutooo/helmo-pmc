@@ -46,6 +46,25 @@ $(function() {
             $("#qr_payment").remove();
         });
 
-        $("#qrcode").qrcode('http://10.30.200.232:30000/transaction/qr/' + partner._id + '/' + this.alt);
+        $("#qrcode").qrcode('http://girafes.be/backend/transaction/qr/' + partner._id + '/' + this.alt);
+    });
+
+    $("input[name='btn_qr_event']").on('click', function(evt){
+        evt.preventDefault();
+        $('main:first').append(`<div id='qr_payment'>
+                                    <h3>Participation</h3>
+                                    <div id='qrcode_p'></div>
+                                    <h3>Completion</h3>
+                                    <div id='qrcode_c'></div>
+                                    <input value='fermer' type='submit' name='button_fermer_qr'/>
+                                </div>`);
+
+        $("input[name='button_fermer_qr']").on('click', (evt) => {
+            evt.preventDefault();
+            $("#qr_payment").remove();
+        });
+
+        $("#qrcode_p").qrcode('http://girafes.be/backend/event/qr/participate/' + this.id);
+        $("#qrcode_c").qrcode('http://girafes.be/backend/event/qr/complete/' + this.id);
     });
 });

@@ -111,6 +111,14 @@
     margin: 5px;
 }
 
+.button_mini_ok {
+    width: 35px;
+    height: 35px;
+    background-color: rgb(93, 233, 13);
+    border-radius: 10px;
+    margin: 5px;
+}
+
 #qr_payment {
     position: fixed;
     top: 20px;

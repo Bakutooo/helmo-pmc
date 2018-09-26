@@ -74,26 +74,25 @@ router.post('/change',(req, res) => {
  * does the event exist
  * @route   event/participate/:id
  */
-router.get('/participate/:id', (req,res) => {
+router.get('/qr/participate/:id', (req,res) => {
     Event.findById(req.params.id)
     .then(result => {
-        if(event == null){
+        if(result == null){
             res.json({access: 'nok'});
         }else{
             res.json({access: 'ok'});
         }
     })
-    .catch(result => res.json({access: 'nok'}));
 });
 
 /**
  * is the event complete
  * @route event/complete/:id
  */
-router.get('/complete/:id', (req,res) => {
+router.get('/qr/complete/:id', (req,res) => {
     Event.findById(req.params.id)
     .then(result => {
-        if(event == null){
+        if(result == null){
             res.json({access: 'nok'});
         }else{
             res.json({access: 'ok'});
