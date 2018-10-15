@@ -3,35 +3,30 @@ const mongoose = require('mongoose');
 const PartnerSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     mail: {
         type: String,
         required: true,
         unique: true
     },
-    tel: {
-        type: String
+    phone: {
+        type: String,
+        require: true
     },
     password: {
         type: String,
         required: true
     },
-    events: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'event'
-        }
-    ],
-    deals: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'deal'
-        }
-    ],
-    request: {
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+    state: {
+        type: String,
+        required: true
+    },
+    town: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'town',
+        required: true
     }
 });
 

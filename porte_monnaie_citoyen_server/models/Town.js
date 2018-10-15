@@ -9,19 +9,7 @@ const TownSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    partners: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'partner'
-        }
-    ],
-    events: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'event'
-        }
-    ]
+    }
 });
 
 module.exports = Town = mongoose.model('town', TownSchema);
