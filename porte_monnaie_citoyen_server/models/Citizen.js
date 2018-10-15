@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const CitizenSchema = new mongoose.Schema({
-    name: {
+    lastname: {
         type: String,
         required: true
     },
@@ -9,39 +9,43 @@ const CitizenSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    birthday: {
+        type: Date,
+        required: true
+    },
     numNat: {
         type: String,
         required: true,
         unique: true
+    },
+    address: {
+        type: String,
+        required: true
     },
     mail: {
         type: String,
         required: true,
         unique: true
     },
-    tel: {
+    phone: {
         type: String
     },
     password: {
         type: String,
         required: true
     },
-    sold: {
+    image: {
+        type: String
+    },
+    points: {
         type: Number,
         default: 0
     },
-    events_inprogress: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'event'
-        }
-    ],
-    events: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'event'
-        }
-    ]
+    town: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "town"
+    }
 });
 
 module.exports = Citizen = mongoose.model('citizen', CitizenSchema);

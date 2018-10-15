@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-    title: {
+    name: {
         type: String,
         required: true
     },
@@ -9,19 +9,7 @@ const EventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    town: {
-        type: String,
-        required: true
-    },
-    adress: {
-        type: String,
-        required: true
-    },
-    latitude: {
-        type: String,
-        required: true
-    },
-    longitude: {
+    address: {
         type: String,
         required: true
     },
@@ -29,17 +17,23 @@ const EventSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    date_begin: {
+    date: {
         type: Date,
         required: true
     },
-    date_end: {
-        type: Date,
+    image: {
+        type: String,
         required: true
     },
-    request: {
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+    town: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "town"
+    },
+    partner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "partner"
     }
 });
 

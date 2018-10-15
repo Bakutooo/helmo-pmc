@@ -1,115 +1,70 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('./../models/Event');
-const hash = require('password-hash');
 
 /**
- * get all events
- * @route   /event/
+ * Route   GET /event/
+ * Récupère tous les "events"
  */
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
     Event.find()
-        .then(event => res.json(event));
+    .populate("town")
+    .populate("partner")
+    .then(events => res.json(events))
+    .catch(error => res.json({error : "Impossible de récupérer les events."}))
 });
 
 /**
- * post a event
- * @route   /event/
+ * Route    GET /event/:id
+ * Récupère un "event" par rapport à son id
  */
-router.post('/', (req, res) => {
+router.get("/:id", (req, res) => {
+    Event.findOne({_id : req.params.id})
+    .populate("town")
+    .populate("partner")
+    .then(event => res.json(event))
+    .catch(error => res.json({error : "Impossible de récupérer l'event"}))
+});
+
+/**
+ * Route    POST /event/
+ * Créé un nouvel "event"
+ */
+router.post("/", (req, res) => {
     let newEvent = new Event({
-        title: req.body.title,
+        name: req.body.name,
         description: req.body.description,
-        town: req.body.town,
-        adress: req.body.adress,
-        latitude: req.body.latitude,
-        longitude: req.body.longitude,
+        address: req.body.address,
         gain: req.body.gain,
-        date_begin: req.body.date_begin,
-        date_end: req.body.date_end,
-        request: req.body.request
-        });
+        date: Date.now(),
+        image: req.body.image,
+        town: req.body.town,
+        partner: req.body.partner
+    });
 
     newEvent.save()
-        .then(res.json(newEvent));
+    .then(event => res.json(event))
+    .catch(error => res.json({error}))
 });
 
 /**
- * Get event by id
- * @route   /event/getById/:id
+ * Route    PUT /event/
+ * Modifie un "event"
  */
-router.get('/getById/:id', (req, res) => {
-    Event.findOne({_id: req.params.id})
-    .then(event => {
-        if(event == null){
-            res.json({error : "Id incorrect"});
-        }else{
-            res.json(event);
-        }
-    }).catch(error => { res.json({error : "Id incorrect"})});
+router.put("/", (req, res) => {
+    Event.updateOne({_id : req.body.event._id}, req.body.event)
+    .then(event => res.json(event))
+    .catch(error => res.json({error : "Impossible de mettre à jour l'event"}))
 });
 
 /**
- * Update a event
- * @route   /event/change
+ * Route DELETE /event/:id
+ * Supprime un "event"
  */
-
-router.post('/change',(req, res) => {
-    Event.findOne({_id: req.body._id}, (err, doc) => {
-        doc.title= req.body.title,
-        doc.description= req.body.description,
-        doc.town= req.body.town,
-        doc.adress= req.body.adress,
-        doc.latitude= req.body.latitude,
-        doc.longitude= req.body.longitude,
-        doc.gain= req.body.gain,
-        doc.date_begin= req.body.date_begin,
-        doc.date_end= req.body.date_end
-        doc.save();
-        res.json(doc);
-    });
-})
-
-/**
- * does the event exist
- * @route   event/participate/:id
- */
-router.get('/qr/participate/:id', (req,res) => {
-    Event.findById(req.params.id)
-    .then(result => {
-        if(result == null){
-            res.json({access: 'nok'});
-        }else{
-            res.json({access: 'ok'});
-        }
-    })
+router.delete("/:id", (req, res) => {
+    Event.deleteOne({_id : req.params.id})
+    .then(result => res.json(result))
+    .catch(error => res.json({error : "Impossible de supprimer l'event"}))
 });
-
-/**
- * is the event complete
- * @route event/complete/:id
- */
-router.get('/qr/complete/:id', (req,res) => {
-    Event.findById(req.params.id)
-    .then(result => {
-        if(result == null){
-            res.json({access: 'nok'});
-        }else{
-            res.json({access: 'ok'});
-        }
-    })
-    .catch(result => res.json({access: 'nok'}));
-});
-
-/**
- * return the request
- * route event/requestEvent/:id
- */
-router.get('/requestEvent/:id',(req, res)=>{
-    Event.find({_id: req.body.id})
-    .then(result => {
-        res.json(request);
-    }).catch(result => res.json({access: 'nok'}));
-})
 
 module.exports = router;
