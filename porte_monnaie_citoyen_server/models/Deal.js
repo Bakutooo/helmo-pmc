@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const DealSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
+    name: {
         type: String,
         required: true
     },
@@ -13,6 +9,11 @@ const DealSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    partner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'partner',
+        required: true
+    }
 });
 
 module.exports = Deal = mongoose.model('deal', DealSchema);

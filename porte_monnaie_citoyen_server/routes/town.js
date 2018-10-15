@@ -1,95 +1,129 @@
 const express = require('express');
 const router = express.Router();
 const Town = require('./../models/Town');
+const Partner = require('./../models/Partner');
+const Citizen = require('./../models/Citizen');
+const _Event = require('./../models/Event');
 const hash = require('password-hash');
 
 /**
- * Recupère tous les commune
- * @route   /town/
+ * Route    GET /town/
+ * Récupère toutes les towns
  */
 router.get('/', (req, res) => {
     Town.find()
-        .then(town => res.json(town));
+        .then(towns => res.json(towns))
+        .catch(err => res.json(err));
 });
 
 /**
- * @route   /town/connexion
+ * Route    GET /town/:id
+ * Récupère la town avec l'id mentionné
  */
-router.post('/connection', (req, res) => {
-    Town.findOne({name: req.body.name})
-    .then(town => {
-        if(hash.verify(req.body.password, town.password)){
-            console.log(town.name + " vient de se connecter");
-            res.json(town);
-        } else {
-            res.json({erreur: "Identifiant incorrect"});
-        }
-    });
+router.get('/:id', (req, res) => {
+    Town.findById(req.params.id)
+        .then(town => res.json(town))
+        .catch(err => res.json(err));
+});
+
+
+/**
+ * Route    GET /town/partner/:id
+ * Récupère les partners lié à la town
+ */
+router.get('/partner/:id', (req, res) => {
+    Partner.find({town: req.params.id})
+        .then(partners => res.json(partners))
+        .catch(err => res.json(err));
 });
 
 /**
- * Creation d'un town
- * @route   /town/
+ * Route    GET /town/citizen/:id
+ * Récupère les citizens validé lié à la town
+ */
+router.get('/citizen/:id', (req, res) => {
+    Citizen.find({town: req.params.id, state: "A"})
+        .then(citizens => res.json(citizens))
+        .catch(err => res.json(err));
+});
+
+/**
+ * Route    GET /town/event/:id
+ * Récupère les events validé lié à town
+ */
+router.get('/event/:id', (req, res) => {
+    _Event.find({town: req.params.id, state: "A"})
+        .then(event => res.json(event))
+        .catch(err => res.json(err));
+});
+
+/**
+ * Route    GET /town/event/request/:id
+ * Récupère les requêtes d'évènement liè à town
+ */
+router.get('/event/request/:id', (req, res) => {
+    _Event.find({town: req.params.id, state: "C"})
+        .then(event => res.json(event))
+        .catch(err => res.json(err));
+});
+
+/**
+ * Route    GET /town/partner/request/:id
+ * Récupère les requêtes d'évènement liè à town
+ */
+router.get('/partner/request/:id', (req, res) => {
+    Partner.find({town: req.params.id, state: "C"})
+        .then(event => res.json(event))
+        .catch(err => res.json(err));
+});
+
+/**
+ * Route    POST /town/
+ * Ajoute la town mentionné dans le corp de la requête
  */
 router.post('/', (req, res) => {
-    let newTown = new Town({
+    newTown = new Town({
         name: req.body.name,
-        password: hash.generate(req.body.password),
+        password: hash.generate(req.body.password)
     });
 
     newTown.save()
-    .then(newTown =>{
-        if(newTown == null){
-        res.json({error : "La commune n'a pas été créé 1"});
-        }else{
-            res.json(newTown._id);
-        }
-    }).catch(error => { res.json({error : "La commune n'a pas été créé 2"})});
-});
-/**
- * find parteners of one town
- * @route   /town/partners
- */
-router.get('/partners', (req, res) => {
-    Town.findOne({_id: req.body.id}).select(partners);
-});
-/**
- * post parteners of town
- * @route   /town/postPartners
- */
-router.post('/postPartners',(req, res) => {
-    Town.findOne({_id: req.body._id}, (err, doc) => {
-        doc.partners = req.body.partners;
-        doc.save();
-        res.json(doc);
-    });
+            .then(town => res.json(town))
+            .catch(err => res.json(err));
 });
 
-router.post('/changePassword',(req, res) => {
-    Town.findOne({_id: req.body._id}, (err, doc) => {
-        doc.password = hash.generate(req.body.password);
-        doc.save();
-        res.json(doc);
-    });
-})
+/**
+ * Route    POST /town/connection
+ * Récupère la town avec les identifiants mentionnés dans le corp de la requête
+ */
+router.post('/connection', (req, res) => {
+    Town.findOne({name: req.body.name})
+        .then(town => {
+            if(hash.verify(req.body.password, town.password)) res.json(town);
+            else res.json({error: "Identifiant invalide"});
+        })
+        .catch(err => res.json(err));
+});
 
 /**
- * get events of town
- * @route   /town/events
+ * Route    PUT /town/
+ * Modifie la town mentionné dans le corp de la requête
  */
-router.get('/events', (req, res) => {
-    Town.findOne({_id: req.body.id}).select(events);
+router.put('/', (req, res) => {
+    Town.updateOne({_id: req.body.town._id}, req.body.town)
+        .then(town => res.json(town))
+        .catch(err => reS.json(err));
 });
+
 /**
- * post events of town
- * @route   /town/postEvents
+ * Route    DELETE /town/:id
+ * Supprime la town avec l'id mentionné
  */
-router.post('/postEvents',(req, res) => {
-    Town.findOne({_id: req.body._id}, (err, doc) => {
-        doc.events = req.body.events;
-        doc.save();
-        res.json(doc);
-    });
+router.delete('/:id', (req, res) => {
+    Town.deleteOne({_id: req.params.id})
+        .then(d => res.json(d))
+        .catch(err => res.json(err));
 });
+
 module.exports = router;
 

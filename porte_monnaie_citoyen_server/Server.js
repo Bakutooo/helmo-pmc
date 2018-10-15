@@ -18,7 +18,7 @@ let app = express();
 app.use(bodyParser.json());
 
 // Connection BD
-mongoose.connect(db.connection_string)
+mongoose.connect(db.connection_string, { useNewUrlParser: true})
 .then(() => console.log('Connected to mongodb'))
 .catch(err => console.log(err));
 
