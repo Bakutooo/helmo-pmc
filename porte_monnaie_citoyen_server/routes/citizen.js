@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
  */
 router.post("/connection", (req, res) => {
     Citizen.findOne({mail : req.body.mail})
-    .select("sold name firstname mail tel password")
+    .select("points lastname firstname mail phone password")
     .then(citizen => {
         if(hash.verify(req.body.password, citizen.password)){
             res.json(citizen);
@@ -46,8 +46,45 @@ router.post("/connection", (req, res) => {
  * Permet la création d'un citoyen
  */
 router.post("/", (req, res) => {
-    let newUser = new newUser({
-        
+    let newUser = new Citizen({
+        lastname : req.body.lastname,
+        firstname : req.body.firstname,
+        birthday : Date.now(),
+        numNat : req.body.numNat,
+        address : req.body.address,
+        mail : req.body.mail,
+        phone : req.body.phone,
+        password : hash.generate(req.body.password),
+        town : req.body.town
     })
-})
+
+    newUser.save()
+    .then(citizen => res.json(citizen))
+    .catch(error => res.json({error : "Impossible de créer le compte"}));
+});
+
+/**
+ * Route    PUT /citizen/
+ * Permet de mettre à jour les informations d'un citoyen
+ */
+router.put("/", (req, res) => {
+    if(req.body.citizen.password !== undefined){
+        req.body.citizen.password = hash.generate(req.body.citizen.password)
+    }
+
+    Citizen.updateOne({_id : req.body.citizen._id}, req.body.citizen)
+    .then(citizen => res.json(citizen))
+    .catch(error => res.json({error : "Impossible de mettre à jour le citoyen"}));
+});
+
+/**
+ * Route    DELETE /citizen/:id
+ * Permet de supprimer un citoyen
+ */
+router.delete("/:id", (req, res) => {
+    Citizen.deleteOne({_id : req.params.id})
+    .then(result => res.json(result))
+    .catch(error => res.json({error : "Impossible de supprimer le citoyen"}));
+});
+
 module.exports = router;

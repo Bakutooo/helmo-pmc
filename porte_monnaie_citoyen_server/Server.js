@@ -6,7 +6,7 @@ let db = require('./bd-info');
 let citizen = require('./routes/citizen');
 let mission = require('./routes/mission'); //non utiliser
 let town = require('./routes/town');
-let transaction = require('./routes/transaction');
+let payment = require('./routes/payment');
 let partner = require('./routes/partner');
 let deal = require('./routes/deal');
 let event = require('./routes/event');
@@ -26,7 +26,7 @@ mongoose.connect(db.connection_string, { useNewUrlParser: true})
 app.use('/citizen', citizen);
 app.use('/mission', mission);
 app.use('/town', town);
-app.use('/transaction', transaction);
+app.use('/payment', payment);
 app.use('/partner', partner);
 app.use('/deal', deal);
 app.use('/event', event);
