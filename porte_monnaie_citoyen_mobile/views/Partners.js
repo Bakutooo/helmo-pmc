@@ -21,7 +21,9 @@ export default class Partners extends React.Component{
     }
 
     static navigationOptions = {
-        title: "Partenaires"
+        title: "Partenaires",
+        headerStyle: {backgroundColor: style.header.backgroundColor},
+        headerTitleStyle: {color: "white"}
     }
 
     componentDidMount(){

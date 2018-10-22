@@ -1,6 +1,6 @@
 import React from 'react';
 import PartnerController from '../controllers/PartnerController';
-import {Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import style from '../style';
 
 export default class Partner extends React.Component{
@@ -24,13 +24,19 @@ export default class Partner extends React.Component{
     }
 
     static navigationOptions = {
-        title: "Missions partenaire"
+        title: "Deals partenaire",
+        headerStyle: {backgroundColor: style.header.backgroundColor},
+        headerTitleStyle: {color: "white"}
     }
 
     render(){
         return(
             <View>
                 <View style={style.partner_container}>
+                    <Image
+                        source={{uri: 'https://via.placeholder.com/100x90'}}
+                        style={{width : "30%", height : "100%", margin : 5, alignSelf : 'center'}}
+                    />
                     <View>
                         <Text style={style.title_row}>
                             {this.state.name}
@@ -51,7 +57,7 @@ export default class Partner extends React.Component{
                 <FlatList
                     data={this.state.deals}
                     renderItem={({item}) => 
-                    <TouchableOpacity style={style.row}>
+                    <TouchableOpacity style={style.row} key={item._id}>
                         <Text style={style.title_row}>{item.title}</Text>
                         <Text style={style.content_row}>{item.description}</Text>
                         <Text style={style.content_row}>Gagner {item.price} points de communauté !</Text>

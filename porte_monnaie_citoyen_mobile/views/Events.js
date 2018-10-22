@@ -1,14 +1,13 @@
 import React from 'react';
-import {View, Text, FlatList, Modal, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, FlatList, Modal, TouchableOpacity, ScrollView, Image} from 'react-native';
 import Menu from './Menu';
 import style from './../style';
 import EventsController from './../controllers/EventsController';
 
 export default class Events extends React.Component {
-    constructor(params){
-        super();
+    constructor(props){
+        super(props);
         this.controller = new EventsController(this);
-        this.navigation = params.navigation;
 
         this.state = {
             menuIsVisible: false,
@@ -22,22 +21,26 @@ export default class Events extends React.Component {
     }
 
     render(){
+        let { navigation } = this.props;
         return (
             <ScrollView>
-                <View style = {{backgroundColor : '#f7f7f7'}}>
+                <View>
                     <View style={style.header}> 
                         <TouchableOpacity onPress={() => this.setState({menuIsVisible: true})}>
-                            <Text style={{fontSize: 40, marginLeft:15, color : 'black'}}>&equiv;</Text>
+                            <Text style={{fontSize: 40, marginLeft:15, color : 'white'}}>&equiv;</Text>
                         </TouchableOpacity>
-                        <Text style={{fontSize: 30, marginLeft: 20, color : 'black'}}>Évènements</Text>
+                        <Text style={{fontSize: 30, marginLeft: 20, color : 'white'}}>Évènements</Text>
                     </View>
                     <FlatList
-                        style = {{backgroundColor : '#f7f7f7'}}
                         data={this.state.events}
                         renderItem={({item}) => 
                         <TouchableOpacity style={style.row} onPress={() => {this.controller.goToEvent(item)}}>
-                            <Text style={style.title_row}>{item.title}</Text>
-                            <Text style={style.content_row}>{item.description}</Text>
+                            <Image
+                                source={{uri: 'https://via.placeholder.com/300x120'}}
+                                style={{width: "100%", height:150}}
+                            />
+                            <Text style={style.title_row}>{item.name}</Text>
+                            <Text style={style.content_row}>{item.date}</Text>
                         </TouchableOpacity>}
                     />
 
@@ -47,7 +50,7 @@ export default class Events extends React.Component {
                         onRequestClose={() => this.setState({menuIsVisible: false})}
                     >
                         <Menu 
-                            navigation={this.props.navigation} 
+                            navigation={navigation} 
                             onPress={() => this.setState({menuIsVisible: false})}
                         />
                     </Modal>

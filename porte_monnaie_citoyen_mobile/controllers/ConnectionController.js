@@ -2,12 +2,11 @@ import server from '../server-info'
 import {AsyncStorage} from 'react-native'
 
 export default class ConnectionController{
-
     constructor(view){
         this.view = view;
     }
 
-    tryConnect(success){
+    connection(success){
         body = {
             "mail": this.view.state.connectionEmail,
             "password": this.view.state.connectionPassword
@@ -30,18 +29,21 @@ export default class ConnectionController{
         })
     }
 
-    registerNewUser(success){
-        if(this.view.state.password !== this.view.state.passwordConfirmation){
+    signup({firstname, lastname, mail, numNat, password, passwordConfirm, phone, birthday, address, town}, success){
+        if(password !== passwordConfirm){
             this.view.displayErrorMessage("Les deux mots de passe sont différents !")
         }
         else{
             body = {
-                name: this.view.state.name,
-                firstname: this.view.state.lastname,
-                numNat: this.view.state.nationalNumber,
-                mail: this.view.state.email,
-                tel: this.view.state.phone,
-                password: this.view.state.password
+                firstname: firstname,
+                lastname: lastname,
+                mail: mail,
+                numNat: numNat,
+                password: password,
+                phone: phone,
+                birthday: birthday,
+                address: address,
+                town: town
             };
 
             console.log(body);
@@ -63,8 +65,14 @@ export default class ConnectionController{
                     success();
                 }
             })
-
-
+            .catch(err => console.log(err));
         }        
+    }
+
+    fetchTowns(){
+        fetch(server.url + "/town")
+        .then(res => res.json())
+        .then(res => this.view.setState({towns: res}))
+        .catch(err => console.log(err));
     }
 }

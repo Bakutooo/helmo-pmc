@@ -17,6 +17,6 @@ export default class EventsController {
     }
 
     goToEvent(event){
-        this.view.navigation.navigate('Event', {event: event});
+        this.view.props.navigation.navigate('Event', {event: event});
     }
 }

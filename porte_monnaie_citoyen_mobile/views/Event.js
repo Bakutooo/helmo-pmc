@@ -24,7 +24,9 @@ export default class Event extends React.Component {
     }
 
     static navigationOptions = {
-        title: "Évenement"
+        title: "Évenement",
+        headerStyle: {backgroundColor: style.header.backgroundColor},
+        headerTitleStyle: {color: "white"}
     }
 
     componentDidMount(){
@@ -39,7 +41,7 @@ export default class Event extends React.Component {
 
     render(){
         let CurrentButton = () => (<TouchableOpacity onPress={() => this.props.navigation.navigate('CameraParticip')}> 
-                                        <Text style={style.button}>Participer</Text>
+                                        <Text style={style.button_connection}>Participer</Text>
                                     </TouchableOpacity>)
 
         this.state.citizen.events_inprogress.forEach((item) => {
@@ -52,13 +54,12 @@ export default class Event extends React.Component {
                 <View style={{padding: 10}}>
 
                     <Image
-                        //source={require('./../image/megumin.jpg')}
-                        source={{uri: 'https://via.placeholder.com/200x100'}}
-                        style={{width : 200, height : 100, marginTop : 20, alignSelf : 'center'}}
+                        source={{uri: 'https://via.placeholder.com/300x120'}}
+                        style={{width : "100%", height : 150, margin : 5, alignSelf : 'center'}}
                     />
 
                     <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>
-                        {this.state.event.title}
+                        {this.state.event.name}
                     </Text>
                     <Text style={{fontSize: 17, marginBottom: 10}}>
                         {this.state.event.description}
@@ -66,13 +67,13 @@ export default class Event extends React.Component {
                     
                 
                     <Text style={style.line}/>
-                    <Text style={{fontSize: 20, marginBottom: 20, textAlign : 'center'}}>{this.state.event.adress}</Text>
-                    <Text style={{fontSize: 20, marginBottom: 20, textAlign : 'center'}}>{this.state.event.gain} points citoyen</Text>
+                    <Text style={{fontSize: 20, marginBottom: 10}}>Récompense : {this.state.event.gain} PC</Text>
+                    <Text style={{fontSize: 20}}>Lieu : {this.state.event.address}</Text>
+                    <TouchableOpacity>
+                        <Text style={style.button_link}>Voir sur la carte</Text>
+                    </TouchableOpacity>
 
                     <CurrentButton/>
-                    <TouchableOpacity>
-                        <Text style={style.button}>Google map</Text>
-                    </TouchableOpacity>
                 </View>
             </ScrollView>
         );
