@@ -1,25 +1,19 @@
 import React from "react";
-import {View, Text, TouchableOpacity, Image, ScrollView, DeviceEventEmitter, AsyncStorage} from 'react-native';
+import {View, Text, TouchableOpacity, Image, ScrollView, DeviceEventEmitter} from 'react-native';
 import style from './../style';
-import EventController from './../controllers/EventController';
 
-export default class Event extends React.Component {
-    constructor(params){
-        super();
-        this.controller = new EventController(this);
+import { connect } from "react-redux";
+import { fetchEvent } from "./../actions/eventAction";
 
+class Event extends React.Component {
+    constructor(props){
+        super(props);
+        this.props.fetchEvent(this.props.navigation.getParam('event'));
         this.state = {
             citizen: {
                 events_inprogress: []
             },
-            isVisible: false,
-            event: {
-                _id: "N/C",
-                title: "",
-                description: "",
-                adress: "",
-                gain: 0
-            }       
+            isVisible: false, 
         }
     }
 
@@ -31,15 +25,13 @@ export default class Event extends React.Component {
 
     componentDidMount(){
         DeviceEventEmitter.addListener('participate', () => {
-            AsyncStorage.getItem('id_citizen')
-            .then(res => this.controller.participate(res));
+            res => console.log("Participate");
         });
-        AsyncStorage.getItem('id_citizen')
-        .then(res => this.controller.getCurrentCitizenEventInProgress(res));
-        this.controller.getEvent();
     }
 
     render(){
+        let { event } = this.props;
+
         let CurrentButton = () => (<TouchableOpacity onPress={() => this.props.navigation.navigate('CameraParticip')}> 
                                         <Text style={style.button_connection}>Participer</Text>
                                     </TouchableOpacity>)
@@ -59,16 +51,16 @@ export default class Event extends React.Component {
                     />
 
                     <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>
-                        {this.state.event.name}
+                        {event.name}
                     </Text>
                     <Text style={{fontSize: 17, marginBottom: 10}}>
-                        {this.state.event.description}
+                        {event.description}
                     </Text>
                     
                 
                     <Text style={style.line}/>
-                    <Text style={{fontSize: 20, marginBottom: 10}}>Récompense : {this.state.event.gain} PC</Text>
-                    <Text style={{fontSize: 20}}>Lieu : {this.state.event.address}</Text>
+                    <Text style={{fontSize: 20, marginBottom: 10}}>Récompense : {event.gain} PC</Text>
+                    <Text style={{fontSize: 20}}>Lieu : {event.address}</Text>
                     <TouchableOpacity>
                         <Text style={style.button_link}>Voir sur la carte</Text>
                     </TouchableOpacity>
@@ -79,3 +71,9 @@ export default class Event extends React.Component {
         );
     }    
 }
+
+const mapStateToProps = state => ({
+    event: state.event.event,
+});
+
+export default connect(mapStateToProps, { fetchEvent })(Event);

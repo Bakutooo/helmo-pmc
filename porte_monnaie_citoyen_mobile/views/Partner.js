@@ -4,11 +4,11 @@ import {Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import style from '../style';
 
 export default class Partner extends React.Component{
-    constructor(params){
-        super();
+    constructor(props){
+        super(props);
 
         this.controller = new PartnerController(this);
-        this.navigation = params.navigation;
+        this.navigation = props.navigation;
 
         this.state = {
             image: "",

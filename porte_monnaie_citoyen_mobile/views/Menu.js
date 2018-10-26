@@ -1,8 +1,10 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import style from './../style';
+import { connect } from "react-redux";
+import { logoutCitizen } from "./../actions/citizenAction";
 
-export default class Menu extends React.Component {
+class Menu extends React.Component {
     constructor(params){
         super();
         this.navigation = params.navigation;
@@ -42,7 +44,12 @@ export default class Menu extends React.Component {
                 }}>
                     <Text style={style.button_menu}>À propos</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.logoutCitizen()}>
+                    <Text style={style.button_menu}>Se déconnecter</Text>
+                </TouchableOpacity>
             </View>
         );
     }
 }
+
+export default connect(null, {logoutCitizen})(Menu);

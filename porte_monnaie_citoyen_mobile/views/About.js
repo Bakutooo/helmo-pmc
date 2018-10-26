@@ -3,14 +3,10 @@ import {View, Text, Image} from 'react-native';
 import style from './../style';
 
 export default class About extends React.Component{
-
-    constructor(params){
-        super();
-        this.navigation = params.navigation;
-    }
-
     static navigationOptions = {
-        title: 'A propos'
+        title: 'A propos',
+        headerStyle: {backgroundColor: style.header.backgroundColor},
+        headerTitleStyle: {color: "white"}
     }
 
     render(){

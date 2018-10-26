@@ -13,12 +13,6 @@ export default class EventController {
         });
     }
 
-    getEvent(){
-        this.view.setState({
-            event: this.view.props.navigation.getParam('event')
-        });
-    }
-
     participate(id_citizen){
         let data = {
             id: id_citizen,

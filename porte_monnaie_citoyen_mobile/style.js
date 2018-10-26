@@ -1,6 +1,9 @@
 let primaryColor = "#D32D27";
 let secondaryColor = "#F2F2F2";
 
+let primaryColorMenu = "#797979";
+let secondaryColorMenu = "#666666";
+
 export default {
     
     form_connection: {
@@ -66,15 +69,12 @@ export default {
     button_menu: {
         fontSize: 22,
         padding: 10,
-        borderWidth: 1,
-        borderColor: 'black',
+        color: "white"
     },
     menu: {
-        width: "70%",
+        width: "60%",
         height: "100%",
-        backgroundColor : '#f7f7f7',
-        borderWidth : 3,
-        borderColor: 'black',
+        backgroundColor : primaryColorMenu,
     },
     profile: {
         height: "100%",

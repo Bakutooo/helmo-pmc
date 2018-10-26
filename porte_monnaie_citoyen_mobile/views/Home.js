@@ -1,10 +1,9 @@
 import React from 'react';
-import {DeviceEventEmitter} from 'react-native';
 import ConnectionScreen from './Connection';
 import EventsScreen from './Events';
+import { connect } from "react-redux";
 
-export default class Home extends React.Component {
-    
+class Home extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -12,10 +11,12 @@ export default class Home extends React.Component {
         }
     }
 
-    componentWillMount(){
-        DeviceEventEmitter.addListener('connection', () => {
-            this.setState({currentHome: EventsScreen})
-        });  
+    componentWillReceiveProps(nextProp){
+        if(nextProp.citizen === null){
+            this.setState({currentHome: ConnectionScreen});
+        } else {
+            this.setState({currentHome: EventsScreen});
+        }
     }
 
     render(){
@@ -24,3 +25,9 @@ export default class Home extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    citizen: state.citizen.citizen
+})
+
+export default connect(mapStateToProps)(Home)
