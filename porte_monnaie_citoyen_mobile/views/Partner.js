@@ -1,35 +1,32 @@
 import React from 'react';
-import PartnerController from '../controllers/PartnerController';
-import {Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
+import {Text, View, FlatList, Image} from 'react-native';
 import style from '../style';
 
-export default class Partner extends React.Component{
+import { connect } from "react-redux";
+import { fetchPartner } from "./../actions/partnerAction";
+import { fetchDealsPartner } from "./../actions/dealAction";
+
+class Partner extends React.Component{
     constructor(props){
         super(props);
+        this.init = false;
+        this.props.fetchPartner(this.props.navigation.getParam('partner'));
+    }
 
-        this.controller = new PartnerController(this);
-        this.navigation = props.navigation;
-
-        this.state = {
-            image: "",
-            name : "",
-            mail: "",
-            phone: "",
-            deals: []
+    componentWillReceiveProps(nextProps){
+        let dealsInitOrChanged = (!this.init || nextProps.deals.length !== this.props.deals.length);
+        if(nextProps.partner !== null && dealsInitOrChanged){
+            this.props.fetchDealsPartner(nextProps.partner._id);
+            this.init = true;
         }
     }
 
-    componentWillMount(){
-        this.controller.getPartner();
-    }
-
     static navigationOptions = {
-        title: "Deals partenaire",
-        headerStyle: {backgroundColor: style.header.backgroundColor},
-        headerTitleStyle: {color: "white"}
+        title: "Deals partenaire"
     }
 
     render(){
+        let { partner, deals } = this.props;
         return(
             <View>
                 <View style={style.partner_container}>
@@ -39,30 +36,31 @@ export default class Partner extends React.Component{
                     />
                     <View>
                         <Text style={style.title_row}>
-                            {this.state.name}
+                            {partner.name}
                         </Text>
                         <Text style={style.normal_info}>
-                            Email : {this.state.mail}
+                            Email : {partner.mail}
                         </Text>
                         <Text style={style.normal_info}>
-                            Téléphone : {this.state.phone}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text>
-                            {this.state.image}
+                            Téléphone : {partner.phone}
                         </Text>
                     </View>
                 </View>
                 <FlatList
-                    data={this.state.deals}
+                    data={deals}
                     renderItem={({item}) => 
-                    <TouchableOpacity style={style.row} key={item._id}>
-                        <Text style={style.title_row}>{item.title}</Text>
-                        <Text style={style.content_row}>{item.description}</Text>
-                        <Text style={style.content_row}>Gagner {item.price} points de communauté !</Text>
-                    </TouchableOpacity>}/>
+                    <View style={style.row}>
+                        <Text style={style.title_row}>{item.name}</Text>
+                        <Text style={style.content_row}>Prix : {item.price}</Text>
+                    </View>}/>
             </View>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    partner: state.partner.partner,
+    deals: state.deal.deals,
+});
+
+export default connect(mapStateToProps, { fetchPartner, fetchDealsPartner })(Partner);

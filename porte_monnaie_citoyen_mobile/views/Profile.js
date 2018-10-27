@@ -1,14 +1,11 @@
 import React from 'react';
 import {View, Text, FlatList, Image, ScrollView} from 'react-native';
-import style from './../style';
 import { connect } from "react-redux";
 import { fetchCitizen } from "./../actions/citizenAction";
 
 class Profile extends React.Component {
     static navigationOptions = {
-        title: 'Profile',
-        headerStyle: {backgroundColor: style.header.backgroundColor},
-        headerTitleStyle: {color: "white"}
+        title: 'Profil'
     }
     
     render(){

@@ -1,64 +1,54 @@
 import React from 'react';
-import {View, ScrollView, Image, Text, DeviceEventEmitter, AsyncStorage, TouchableOpacity} from 'react-native';
+import {View, ScrollView, Text, TouchableOpacity, Modal} from 'react-native';
 import style from './../style';
-import EventController from './../controllers/EventController';
+import EventPresenter from "./components/EventPresenter";
+import QRScanner from './components/QRScanner';
 
-export default class EventsInProgress extends React.Component {
-    constructor(params){
-        super();
-        this.controller = new EventController(this);
+import { connect } from "react-redux";
+import { fetchParticipationCitizen } from "./../actions/citizenAction";
 
+class EventInProgress extends React.Component {
+    constructor(props){
+        super(props);
         this.state = {
-            isVisible: false,
-            event: {
-                title: "",
-                description: "",
-                adress: "",
-                gain: 0
-            }       
+            isVisible: false
+        }
+        this.props.fetchParticipationCitizen(this.props.navigation.getParam('event'));
+    }
+
+    componentWillReceiveProps(nextProp){
+        if(nextProp.participation.event.name !== this.props.participation.event.name){
+            this.props.navigation.setOptions({
+                headerTitle: nextProp.participation.event.name
+            });
         }
     }
 
-    componentDidMount(){
-        DeviceEventEmitter.addListener('complete', () => {
-            AsyncStorage.getItem('id_citizen')
-            .then(id => {
-                this.controller.complete(id, this.state.event._id, () => DeviceEventEmitter.emit('update_events_inprogress'));
-            });
-        });
-        this.controller.getEvent();
-    }
-
     render(){
+        let { event } = this.props.participation;
         return (
             <ScrollView>
                 <View style={{padding: 10}}>
-
-                    <Image
-                        source={{uri: 'https://via.placeholder.com/200x100'}}
-                        style={{width : 200, height : 100, marginTop : 20, alignSelf : 'center'}}
-                    />
-
-                    <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>
-                        {this.state.event.title}
-                    </Text>
-                    <Text style={{fontSize: 15, marginBottom: 10}}>
-                        {this.state.event.description}
-                    </Text>
-                    
-                
-                    <Text style={style.line}/>
-                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.event.adress}</Text>
-                    <Text style={{fontSize: 20, marginBottom: 20}}>{this.state.event.gain} points citoyen</Text>
-
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CameraComplete')}> 
-                        <Text style={style.button}>Completer</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Text style={style.button}>Google map</Text>
+                    <EventPresenter event={event}/>
+                    <TouchableOpacity onPress={() => this.setState({isVisible: true})}> 
+                        <Text style={style.button_connection}>Completer</Text>
                     </TouchableOpacity>
                 </View>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.isVisible}
+                    onRequestClose={() => {this.setState({isVisible : false})}}>
+                
+                    <QRScanner title="Scannez le QRCode pour completer" onQRCodeRead={(data) => console.log(data)}/>
+                </Modal>
             </ScrollView>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    participation: state.citizen.participation
+}); 
+
+export default connect(mapStateToProps, { fetchParticipationCitizen })(EventInProgress);

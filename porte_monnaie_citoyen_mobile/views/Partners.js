@@ -15,9 +15,7 @@ class Partners extends React.Component{
     }
 
     static navigationOptions = {
-        title: "Partenaires",
-        headerStyle: {backgroundColor: style.header.backgroundColor},
-        headerTitleStyle: {color: "white"}
+        title: "Partenaires"
     }
 
     render(){
@@ -26,7 +24,7 @@ class Partners extends React.Component{
                 <FlatList
                     data={this.props.partners}
                     renderItem={({item}) =>
-                    <TouchableOpacity style={style.row} onPress={() => console.log("gotoPartner")}>
+                    <TouchableOpacity style={style.row} onPress={() => this.props.navigation.navigate('Partner', {partner: item._id})}>
                         <Text style={style.title_row}>{item.name}</Text>
                     </TouchableOpacity>}/>
             </View>

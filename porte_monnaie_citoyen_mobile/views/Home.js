@@ -1,7 +1,8 @@
 import React from 'react';
 import ConnectionScreen from './Connection';
-import EventsScreen from './Events';
+import AppNavigator from "./components/AppNavigator";
 import { connect } from "react-redux";
+import style from "./../style";
 
 class Home extends React.Component {
     constructor(){
@@ -15,13 +16,13 @@ class Home extends React.Component {
         if(nextProp.citizen === null){
             this.setState({currentHome: ConnectionScreen});
         } else {
-            this.setState({currentHome: EventsScreen});
+            this.setState({currentHome: AppNavigator});
         }
     }
 
     render(){
         return(
-            <this.state.currentHome navigation={this.props.navigation}/>
+            <this.state.currentHome/>
         );
     }
 }

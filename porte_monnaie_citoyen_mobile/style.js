@@ -44,9 +44,7 @@ export default {
     
     header:{
         backgroundColor : primaryColor,
-        paddingTop: 35,
-        flexDirection: 'row',
-        alignItems: 'center',
+        color: "white"
     },
 
 

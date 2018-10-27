@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import style from './../style';
+import style from '../../style';
 import { connect } from "react-redux";
-import { logoutCitizen } from "./../actions/citizenAction";
+import { logoutCitizen } from "../../actions/citizenAction";
 
 class Menu extends React.Component {
     constructor(params){
@@ -18,7 +18,7 @@ class Menu extends React.Component {
                         this.navigation.navigate('Profile');
                         this.onPress();
                     }}>
-                    <Text style={style.button_menu}>Profile</Text>
+                    <Text style={style.button_menu}>Profil</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>{
                     this.navigation.navigate('Partners');

@@ -4,10 +4,13 @@ import server from "./../server-info";
 export const fetchAllEvents = () => dispatch => {
     fetch(server.url + "/event")
     .then(res => res.json())
-    .then(res => dispatch({
-        type: FETCH_ALL_EVENTS,
-        payload: res
-    }))
+    .then(res => {
+        res = res.map(e => ({...e, key: e._id}));
+        dispatch({
+            type: FETCH_ALL_EVENTS,
+            payload: res
+        })
+    })
     .catch(err => console.log(err));
 }
 

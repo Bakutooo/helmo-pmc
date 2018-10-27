@@ -2,7 +2,12 @@ import { FETCH_ALL_PARTNERS, FETCH_PARTNER } from "./../actions/types";
 
 const initialState = {
     partners: [],
-    partner: null
+    partner: {
+        name: "",
+        mail: "",
+        phone: "",
+        image: "",
+    }
 }
 
 export default (state = initialState, action) => {
@@ -17,7 +22,7 @@ export default (state = initialState, action) => {
             console.log(FETCH_PARTNER);
             return {
                 ...state,
-                partner: action.payload
+                partner: state.partners.find(p => p._id === action.payload)
             }
         default: return state;
     }

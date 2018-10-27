@@ -1,12 +1,9 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
-import style from './../style';
 
 export default class About extends React.Component{
     static navigationOptions = {
-        title: 'A propos',
-        headerStyle: {backgroundColor: style.header.backgroundColor},
-        headerTitleStyle: {color: "white"}
+        title: 'A propos'
     }
 
     render(){

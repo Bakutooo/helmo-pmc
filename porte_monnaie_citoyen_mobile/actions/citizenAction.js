@@ -1,4 +1,4 @@
-import { FETCH_CITIZEN, SHOW_ERROR, ADD_CITIZEN, LOGOUT_CITIZEN, FETCH_PARTICIPATION_CITIZEN } from "./types";
+import { FETCH_CITIZEN, SHOW_ERROR, ADD_CITIZEN, LOGOUT_CITIZEN, FETCH_PARTICIPATION_CITIZEN, FETCH_ALL_PARTICIPATION_CITIZEN } from "./types";
 import server from './../server-info';
 
 export const fetchCitizen = (citizen) => dispatch => {
@@ -49,12 +49,22 @@ export const logoutCitizen = () => dispatch => {
     });
 }
 
-export const fetchParticipationCitizen = (citizen) => dispatch => {
+export const fetchAllParticipationsCitizen = (citizen) => dispatch => {
     fetch(server.url + '/participation/citizen/' + citizen)
     .then(res => res.json())
-    .then(res => dispatch({
-        type: FETCH_PARTICIPATION_CITIZEN,
-        payload: res
-    }))
+    .then(res => {
+        res = res.map(e => ({...e, key: e._id}));
+        dispatch({
+            type: FETCH_ALL_PARTICIPATION_CITIZEN,
+            payload: res
+        });
+    })
     .catch(err => console.log(err));
+}
+
+export const fetchParticipationCitizen = (id) => dispatch => {
+    dispatch({
+        type: FETCH_PARTICIPATION_CITIZEN,
+        payload: id
+    });
 }

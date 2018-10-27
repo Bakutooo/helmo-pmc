@@ -1,72 +1,58 @@
 import React from "react";
-import {View, Text, TouchableOpacity, Image, ScrollView, DeviceEventEmitter} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView, Modal} from 'react-native';
 import style from './../style';
+import EventPresenter from './components/EventPresenter';
+import QRScanner from './components/QRScanner';
 
 import { connect } from "react-redux";
 import { fetchEvent } from "./../actions/eventAction";
+import { fetchAllParticipationsCitizen } from './../actions/citizenAction';
 
 class Event extends React.Component {
     constructor(props){
         super(props);
-        this.props.fetchEvent(this.props.navigation.getParam('event'));
         this.state = {
-            citizen: {
-                events_inprogress: []
-            },
-            isVisible: false, 
+            isVisible: false
+        }
+
+        this.props.fetchEvent(this.props.navigation.getParam('event'));
+        this.props.fetchAllParticipationsCitizen(this.props.citizen._id);
+    }
+
+    componentWillReceiveProps(nextProp){
+        if(nextProp.event.name !== this.props.event.name){
+            this.props.navigation.setOptions({
+                headerTitle: nextProp.event.name
+            });
         }
     }
 
-    static navigationOptions = {
-        title: "Évenement",
-        headerStyle: {backgroundColor: style.header.backgroundColor},
-        headerTitleStyle: {color: "white"}
-    }
-
-    componentDidMount(){
-        DeviceEventEmitter.addListener('participate', () => {
-            res => console.log("Participate");
-        });
-    }
-
     render(){
-        let { event } = this.props;
+        let { event, participations } = this.props;
 
-        let CurrentButton = () => (<TouchableOpacity onPress={() => this.props.navigation.navigate('CameraParticip')}> 
+        let CurrentButton = () => (<TouchableOpacity onPress={() => this.setState({isVisible: true})}> 
                                         <Text style={style.button_connection}>Participer</Text>
                                     </TouchableOpacity>)
 
-        this.state.citizen.events_inprogress.forEach((item) => {
-            console.log(item._id + " /// " + this.state.event._id);
-            if(item._id === this.state.event._id) CurrentButton = () => (<Text>ACCEPTÉ</Text>);
+        participations.forEach((item) => {
+            console.log(item.event._id + " === " + event._id);
+            if(item.event._id === event._id) CurrentButton = () => (<Text>ACCEPTÉ</Text>);
         });
 
         return (
             <ScrollView>
                 <View style={{padding: 10}}>
-
-                    <Image
-                        source={{uri: 'https://via.placeholder.com/300x120'}}
-                        style={{width : "100%", height : 150, margin : 5, alignSelf : 'center'}}
-                    />
-
-                    <Text style={{fontSize: 20, fontWeight: "bold", textAlign: "center", margin: 15}}>
-                        {event.name}
-                    </Text>
-                    <Text style={{fontSize: 17, marginBottom: 10}}>
-                        {event.description}
-                    </Text>
-                    
-                
-                    <Text style={style.line}/>
-                    <Text style={{fontSize: 20, marginBottom: 10}}>Récompense : {event.gain} PC</Text>
-                    <Text style={{fontSize: 20}}>Lieu : {event.address}</Text>
-                    <TouchableOpacity>
-                        <Text style={style.button_link}>Voir sur la carte</Text>
-                    </TouchableOpacity>
-
+                    <EventPresenter event={event}/>
                     <CurrentButton/>
                 </View>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.isVisible}
+                    onRequestClose={() => {this.setState({isVisible : false})}}>
+                
+                    <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => console.log(data)}/>
+                </Modal>
             </ScrollView>
         );
     }    
@@ -74,6 +60,8 @@ class Event extends React.Component {
 
 const mapStateToProps = state => ({
     event: state.event.event,
+    participations: state.citizen.participations,
+    citizen: state.citizen.citizen,
 });
 
-export default connect(mapStateToProps, { fetchEvent })(Event);
+export default connect(mapStateToProps, { fetchEvent, fetchAllParticipationsCitizen })(Event);
