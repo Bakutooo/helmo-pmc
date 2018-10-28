@@ -1,7 +1,9 @@
 import React from 'react';
+import { fetchTown } from '../actions/connectionAction';
+import { connect } from 'react-redux';
 //import '../style.css';
 
-export default class ConnectionForm extends React.Component {
+class ConnectionForm extends React.Component {
 
     constructor(props){
         super(props);
@@ -24,7 +26,7 @@ export default class ConnectionForm extends React.Component {
                     }}
                     onSubmit={(event) => {
                         event.preventDefault();
-                        this.onSubmit(this.state);
+                        this.props.fetchTown({mail : this.state.mail, password : this.state.password})
                         this.setState({mail : "", password : ""});
                 }}>
                     <input type="text"
@@ -40,3 +42,10 @@ export default class ConnectionForm extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    //town : state.town.town,
+    //errorMessage : state.town.error
+});
+
+export default connect(mapStateToProps, {fetchTown})(ConnectionForm)

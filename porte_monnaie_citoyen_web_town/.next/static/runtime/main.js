@@ -5706,7 +5706,7 @@ function connect(options) {
       error.name = err.name;
       error.stack = err.stack; // __NEXT_DIST_DIR is provided by webpack
 
-      (0, _sourceMapSupport.rewriteStacktrace)(error, "D:\\workspaces\\JS\\porte_monnaie_citoyen\\porte_monnaie_citoyen_web_town\\.next");
+      (0, _sourceMapSupport.rewriteStacktrace)(error, "D:\\workspaces\\Javascript\\porte_monnaie_citoyen\\porte_monnaie_citoyen_web_town\\.next");
       return error;
     }
   };
@@ -17966,7 +17966,7 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\workspaces\JS\porte_monnaie_citoyen\porte_monnaie_citoyen_web_town\node_modules\next\dist\client\next-dev */"./node_modules/next/dist/client/next-dev.js");
+module.exports = __webpack_require__(/*! D:\workspaces\Javascript\porte_monnaie_citoyen\porte_monnaie_citoyen_web_town\node_modules\next\dist\client\next-dev */"./node_modules/next/dist/client/next-dev.js");
 
 
 /***/ }),

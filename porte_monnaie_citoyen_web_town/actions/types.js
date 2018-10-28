@@ -1,1 +1,1 @@
-export const CONNECTION = "CONNECTION";
+export const FETCH_TOWN = "FETCH_TOWN";
