@@ -1,43 +1,29 @@
 import React from 'react';
-import {View, FlatList, Text, AsyncStorage, TouchableOpacity, DeviceEventEmitter} from 'react-native';
-import style from './../style';
-import EventsInProgressController from './../controllers/EventsInProgressController';
+import {View, FlatList} from 'react-native';
+import EventRow from './components/EventRow';
 
-export default class EventsInProgress extends React.Component {
-    
-    constructor(){
-        super();
-        this.controller = new EventsInProgressController(this);
-    
-        this.state = {
-            events: []
-        }
+import { connect } from "react-redux";
+import { fetchAllParticipationsCitizen } from "./../actions/citizenAction";
+
+class EventsInProgress extends React.Component {
+    constructor(props){
+        super(props);
+        this.props.fetchAllParticipationsCitizen(this.props.citizen._id);
     }
     
     static navigationOptions = {
         title: "Événements en cours"
     }
 
-    componentWillMount(){
-        DeviceEventEmitter.addListener('update_events_inprogress', () => {
-            AsyncStorage.getItem('id_citizen')
-                        .then((id) => this.controller.getEvents(id));
-        });
-        
-        AsyncStorage.getItem('id_citizen')
-                    .then((id) => this.controller.getEvents(id));
-    }
-
     render(){
         return(
             <View>
                 <FlatList
-                    data={this.state.events}
+                    data={this.props.events}
                     renderItem={({item}) => (
-                        <TouchableOpacity style={style.row} onPress={() => this.controller.goToEvent(item)}>
-                            <Text style={style.title_row}>{item.title}</Text>
-                            <Text style={style.content_row}>{item.description}</Text>
-                        </TouchableOpacity>
+                        <EventRow 
+                            event={item.event}
+                            onClick={() => this.props.navigation.navigate('EventInProgress', {event: item._id})}/>    
                     )}
                 >
                 </FlatList>
@@ -45,3 +31,10 @@ export default class EventsInProgress extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    citizen: state.citizen.citizen,
+    events: state.citizen.participations,
+});
+
+export default connect(mapStateToProps, { fetchAllParticipationsCitizen })(EventsInProgress);

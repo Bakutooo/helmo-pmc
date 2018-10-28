@@ -1,10 +1,10 @@
 import React from 'react';
-import {DeviceEventEmitter} from 'react-native';
 import ConnectionScreen from './Connection';
-import EventsScreen from './Events';
+import AppNavigator from "./components/AppNavigator";
+import { connect } from "react-redux";
+import style from "./../style";
 
-export default class Home extends React.Component {
-    
+class Home extends React.Component {
     constructor(){
         super();
         this.state = {
@@ -12,15 +12,23 @@ export default class Home extends React.Component {
         }
     }
 
-    componentWillMount(){
-        DeviceEventEmitter.addListener('connection', () => {
-            this.setState({currentHome: EventsScreen})
-        });  
+    componentWillReceiveProps(nextProp){
+        if(nextProp.citizen === null){
+            this.setState({currentHome: ConnectionScreen});
+        } else {
+            this.setState({currentHome: AppNavigator});
+        }
     }
 
     render(){
         return(
-            <this.state.currentHome navigation={this.props.navigation}/>
+            <this.state.currentHome/>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    citizen: state.citizen.citizen
+})
+
+export default connect(mapStateToProps)(Home)

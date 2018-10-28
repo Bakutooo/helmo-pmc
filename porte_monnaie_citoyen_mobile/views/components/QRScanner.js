@@ -1,22 +1,16 @@
-import React from 'react';
-import {View, DeviceEventEmitter, Text, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import {View, Text} from 'react-native';
+import style from './../../style';
 import {BarCodeScanner, Permissions} from 'expo';
-import ConfirmParticipationController from './../controllers/ConfirmParticipationController';
 
-export default class ConfirmComplete extends React.Component{
-    constructor(){
-        super();
-        this.controller = new ConfirmParticipationController(this);
-
+class QRScanner extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
             hasCameraPermission: null,
         }
     }
-    
-    static navigationOptions = {
-        title: "Scannez le QRcode"
-    }
-
+  
     async componentWillMount(){
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({hasCameraPermission: status === 'granted'});
@@ -26,8 +20,11 @@ export default class ConfirmComplete extends React.Component{
         if(this.state.hasCameraPermission === true){
             return(
                 <View style={{ flex: 1 }}>
-                  <BarCodeScanner style={StyleSheet.absoluteFill}
-                    onBarCodeRead={({data}) => this.controller.testQREvenement(data, () => DeviceEventEmitter.emit('complete'))}/>
+                    <View style={{height: "7%", backgroundColor: style.header.backgroundColor}}>
+                        <Text style={{marginLeft: 10, marginTop: 10, fontWeight: "bold",fontSize: 21, color: style.header.color}}>{this.props.title}</Text>
+                    </View>
+                    <BarCodeScanner style={{width: "100%", height:"93%"}}
+                        onBarCodeRead={({data}) => this.props.onQRCodeRead(data)}/>
                 </View>
             );
         } else {
@@ -39,3 +36,5 @@ export default class ConfirmComplete extends React.Component{
         } 
     }
 }
+
+export default QRScanner;

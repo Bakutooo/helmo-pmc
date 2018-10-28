@@ -1,44 +1,47 @@
 import React from 'react';
-import {View, Text, FlatList, Modal, TouchableOpacity, ScrollView} from 'react-native';
-import Menu from './Menu';
-import style from './../style';
-import EventsController from './../controllers/EventsController';
+import {View, FlatList, Modal, ScrollView, TouchableOpacity, Text} from 'react-native';
+import Menu from './components/Menu';
+import EventRow from "./components/EventRow";
 
-export default class Events extends React.Component {
-    constructor(params){
-        super();
-        this.controller = new EventsController(this);
-        this.navigation = params.navigation;
+import { connect } from "react-redux";
+import { fetchAllEvents } from "./../actions/eventAction";
 
+class Events extends React.Component {
+    constructor(props){
+        super(props);
         this.state = {
             menuIsVisible: false,
-            events: []
         }
 
+        this.props.fetchAllEvents();
     }
 
-    componentDidMount(){
-        this.controller.getAllEvents();
+    componentWillMount(){
+        this.props.navigation.setOptions({
+            headerTitle: "Évenements",
+            headerLeft: (
+                <TouchableOpacity onPress={() => this.showMenu()}>
+                    <Text style={{fontSize: 40, marginLeft:15, color : 'white'}}>&equiv;</Text>
+                </TouchableOpacity>)
+        });
+    }
+
+    showMenu(){
+        this.setState({menuIsVisible: true});
     }
 
     render(){
+        let { navigation } = this.props;
         return (
             <ScrollView>
-                <View style = {{backgroundColor : '#f7f7f7'}}>
-                    <View style={style.header}> 
-                        <TouchableOpacity onPress={() => this.setState({menuIsVisible: true})}>
-                            <Text style={{fontSize: 40, marginLeft:15, color : 'black'}}>&equiv;</Text>
-                        </TouchableOpacity>
-                        <Text style={{fontSize: 30, marginLeft: 20, color : 'black'}}>Évènements</Text>
-                    </View>
+                <View>
                     <FlatList
-                        style = {{backgroundColor : '#f7f7f7'}}
-                        data={this.state.events}
-                        renderItem={({item}) => 
-                        <TouchableOpacity style={style.row} onPress={() => {this.controller.goToEvent(item)}}>
-                            <Text style={style.title_row}>{item.title}</Text>
-                            <Text style={style.content_row}>{item.description}</Text>
-                        </TouchableOpacity>}
+                        data={this.props.events}
+                        renderItem={({item}) => (
+                            <EventRow
+                                event={item} 
+                                onClick={() => this.props.navigation.navigate('Event', {event: item._id})}/>
+                        )}
                     />
 
                     <Modal
@@ -47,7 +50,7 @@ export default class Events extends React.Component {
                         onRequestClose={() => this.setState({menuIsVisible: false})}
                     >
                         <Menu 
-                            navigation={this.props.navigation} 
+                            navigation={navigation} 
                             onPress={() => this.setState({menuIsVisible: false})}
                         />
                     </Modal>
@@ -57,3 +60,9 @@ export default class Events extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    events: state.event.events,
+})
+
+export default connect(mapStateToProps, { fetchAllEvents })(Events);
