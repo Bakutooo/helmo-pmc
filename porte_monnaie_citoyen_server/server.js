@@ -1,3 +1,6 @@
+/**
+ * API Rest de Porte Monnaie Citoyen
+ */
 let express = require('express');
 let mongoose = require('mongoose');
 let bodyParser = require("body-parser");

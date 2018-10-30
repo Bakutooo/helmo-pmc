@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, ScrollView, Modal} from 'react-native';
 import style from './../style';
 import EventPresenter from './components/EventPresenter';
 import QRScanner from './components/QRScanner';
+import MapPresenter from './components/MapPresenter';
 
 import { connect } from "react-redux";
 import { fetchEvent } from "./../actions/eventAction";
@@ -12,7 +13,8 @@ class Event extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isVisible: false
+            isVisible: false,
+            mapIsVisible: false,
         }
 
         this.props.fetchEvent(this.props.navigation.getParam('event'));
@@ -30,6 +32,8 @@ class Event extends React.Component {
     render(){
         let { event, participations } = this.props;
 
+        console.log(event);
+
         let CurrentButton = () => (<TouchableOpacity onPress={() => this.setState({isVisible: true})}> 
                                         <Text style={style.button_connection}>Participer</Text>
                                     </TouchableOpacity>)
@@ -42,16 +46,22 @@ class Event extends React.Component {
         return (
             <ScrollView>
                 <View style={{padding: 10}}>
-                    <EventPresenter event={event}/>
+                    <EventPresenter event={event} onMap={() => this.setState({mapIsVisible: true})}/>
                     <CurrentButton/>
                 </View>
                 <Modal
                     animationType="slide"
-                    transparent={true}
                     visible={this.state.isVisible}
                     onRequestClose={() => {this.setState({isVisible : false})}}>
                 
                     <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => console.log(data)}/>
+                </Modal>
+                <Modal
+                    animationType="slide"
+                    visible={this.state.mapIsVisible}
+                    onRequestClose={() => {this.setState({mapIsVisible : false})}}>
+                
+                    <MapPresenter address={event.address + ", " + event.town.name}/>
                 </Modal>
             </ScrollView>
         );

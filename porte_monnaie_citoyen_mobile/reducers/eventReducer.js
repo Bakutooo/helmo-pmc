@@ -6,7 +6,10 @@ const initialState = {
         name: "N/C",
         description: "",
         gain: 0,
-        address: ""
+        address: "",
+        town: {
+            name: ""
+        }
     }
 }
 

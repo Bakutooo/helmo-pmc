@@ -27,7 +27,7 @@ class EventPresenter extends Component {
         <Text style={style.line}/>
         <Text style={{fontSize: 20, marginBottom: 10}}>Récompense : {event.gain} PC</Text>
         <Text style={{fontSize: 20}}>Lieu : {event.address}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.onMap()}>
             <Text style={style.button_link}>Voir sur la carte</Text>
         </TouchableOpacity>
       </View>
