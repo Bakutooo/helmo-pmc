@@ -1,0 +1,3 @@
+export const FETCH_TOWN = "FETCH_TOWN";
+export const SHOW_ERROR = "SHOW_ERROR";
+export const FETCH_PARTNER_DEMANDS = "FETCH_PARTNER_DEMANDS";

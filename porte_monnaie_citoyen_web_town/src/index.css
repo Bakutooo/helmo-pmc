@@ -6,9 +6,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#root {
+  background-color: #f3f1ff;
+  height: 100%;
+}
+
+.pmc-bg-primary{
+  background-color: #D32D27;
+  color: white;
+}
+
+.partner-demande {
+  border-left: 1px solid #333;
 }

@@ -38,6 +38,7 @@ router.post("/", (req, res) => {
         gain: req.body.gain,
         date: Date.now(),
         image: req.body.image,
+        state: "W",
         town: req.body.town,
         partner: req.body.partner
     });

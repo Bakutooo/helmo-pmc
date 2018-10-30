@@ -99,7 +99,7 @@ router.post('/', (req, res) => {
 router.post('/connection', (req, res) => {
     Town.findOne({name: req.body.name})
         .then(town => {
-            if(hash.verify(req.body.password, town.password)) res.json(town);
+            if(town !== null && hash.verify(req.body.password, town.password)) res.json(town);
             else res.json({error: "Identifiant invalide"});
         })
         .catch(err => res.json(err));
