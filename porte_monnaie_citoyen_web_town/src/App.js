@@ -1,6 +1,6 @@
 import React from 'react';
-import Home from './home';
-import Dashboard from './dashboard';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import { Provider } from 'react-redux';
 import store from './store';
 import { BrowserRouter, Route } from "react-router-dom";
