@@ -1,0 +1,11 @@
+.title{
+    border-width: 0px;
+    left: 0px;
+    top: 0px;
+    width: 71px;
+    white-space: nowrap;
+}
+.connection-form{
+    display: flex;
+    flex-direction: column;
+}

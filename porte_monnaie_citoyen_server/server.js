@@ -34,4 +34,4 @@ app.use('/event', event);
 app.use('/participation', participation);
 
 //Server
-app.listen(30000, () => console.log('Server started on port 30000'));
+app.listen(50001, () => console.log('Server started on port 50001'));
