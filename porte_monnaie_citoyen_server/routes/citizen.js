@@ -9,6 +9,7 @@ const hash = require('password-hash');
  */
 router.get("/", (req, res) => {
     Citizen.find()
+    .populate('town')
     .then(citizens => res.json(citizens))
     .catch(error => res.json({error : "Impossible de récupérer les citoyens"}))
 });
@@ -19,6 +20,7 @@ router.get("/", (req, res) => {
  */
 router.get("/:id", (req, res) => {
     Citizen.findOne({_id : req.params.id})
+    .populate('town')
     .then(citizen => res.json(citizen))
     .catch(error => res.json({error : "Impossible de récupérer le citoyen"}))
 });
@@ -29,7 +31,7 @@ router.get("/:id", (req, res) => {
  */
 router.post("/connection", (req, res) => {
     Citizen.findOne({mail : req.body.mail})
-    .select("points lastname firstname mail phone password")
+    .populate("town")
     .then(citizen => {
         if(hash.verify(req.body.password, citizen.password)){
             res.json(citizen);
@@ -38,7 +40,7 @@ router.post("/connection", (req, res) => {
             res.json({error : "Identifiants incorrectes"})
         }
     })
-    .catch(error => res.json({error : "Impossible de se connecter"}))
+    .catch(error => res.json({error : "Identifiants incorrectes"}))
 });
 
 /**
@@ -49,7 +51,7 @@ router.post("/", (req, res) => {
     let newUser = new Citizen({
         lastname : req.body.lastname,
         firstname : req.body.firstname,
-        birthday : Date.now(),
+        birthday : req.body.birthday,
         numNat : req.body.numNat,
         address : req.body.address,
         mail : req.body.mail,
@@ -60,7 +62,10 @@ router.post("/", (req, res) => {
 
     newUser.save()
     .then(citizen => res.json(citizen))
-    .catch(error => res.json({error : "Impossible de créer le compte"}));
+    .catch(error => {
+        console.log(error);
+        res.json({error : "Impossible de créer le compte"});
+    });
 });
 
 /**

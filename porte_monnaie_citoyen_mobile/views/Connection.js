@@ -3,145 +3,82 @@ import {View,
         TextInput, 
         TouchableOpacity, 
         Text,
-        Modal,
-        ScrollView,
-        DeviceEventEmitter
+        Modal
 } from 'react-native';
 import style from '../style'
-import ConnectionController from '../controllers/ConnectionController';
+import SignupForm from "./forms/SignupForm";
+import { connect } from "react-redux";
+import { fetchCitizen, addCitizen } from "./../actions/citizenAction";
 
-export default class Connection extends React.Component{
-
+class Connection extends React.Component{
     constructor(){
         super();
-        
         this.state = {
             isVisible : false,
-            connectionEmail : "",
-            connectionPassword : "",
-            email : "",
-            name : "",
-            lastname : "",
+            mail : "",
             password : "",
-            passwordConfirmation : "",
-            nationalNumber : "",
-            phone : "",
-            errorMessage: ""
         }
-
-        this.controller = new ConnectionController(this);
-    }
-
-    displayErrorMessage(error){
-        this.setState({errorMessage: error});
     }
 
     render(){
+        let { mail, password } = this.state;
         return (
-         <View Style={{backgroundColor : '#F3F7F7'}}>
-
-                <Text style={{marginTop : 70, fontSize : 20, textAlign : 'center', fontWeight : 'bold'}}>Porte-monnaie citoyen</Text>
+         <View>
+                <Text style={{marginTop : 70, fontSize : 35, textAlign : 'center', fontWeight : 'bold'}}>PMC</Text>
 
                 <View style={style.form_connection}>
-                    <Text style={{color: "red"}}>{this.state.errorMessage}</Text>
-                    <Text style = {{fontSize : 17}}>
-                        Email
-                    </Text>
+                    <Text style={{color: "red"}}>{this.props.errorMessage}</Text>
+                    <Text style={{color: "green"}}>{this.props.message}</Text>
                     <TextInput
-                        style={style.input}
+                        placeholder="Entrez votre email..."
+                        style={style.input_connection}
                         underlineColorAndroid="transparent"
                         keyboardType="email-address"
-                        onChangeText={(text) => this.setState({connectionEmail : text})}/>
+                        onChangeText={(text) => this.setState({mail : text})}/>
 
-                    <Text style = {{fontSize : 17}}>
-                        Mot de passe
-                    </Text>
                     <TextInput
-                        style={style.input }
+                        placeholder="Entrez votre mot de passe..."
+                        style={style.input_connection}
                         underlineColorAndroid="transparent"
                         secureTextEntry={true}
-                        onChangeText={(text) => this.setState({connectionPassword : text})}/>
-                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}> */}
-                    <TouchableOpacity onPress={() => this.controller.tryConnect(() => DeviceEventEmitter.emit('connection'))}>
-                        <Text style={style.button}>
+                        onChangeText={(text) => this.setState({password : text})}/>
+
+                    <TouchableOpacity onPress={() => this.props.fetchCitizen({mail: mail, password: password})}>
+                        <Text style={style.button_connection}>
                             Connexion
                         </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => this.setState({isVisible : true})}>
-                        <Text style={style.button}>
+                        <Text style={style.button_link}>
                             Inscription
                         </Text>
                     </TouchableOpacity>
 
                     <Modal
-                        animationType="fade"
+                        animationType="slide"
                         transparent={true}
                         visible={this.state.isVisible}
                         onRequestClose={() => {this.setState({isVisible : false})}}>
 
-                        <ScrollView style={style.form_inscription}>
-                            <Text>Nom</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.setState({name : text})}/>
-
-                            <Text>Prénom</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.setState({lastname : text})}/>
-
-                            <Text>Mot de passe</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                secureTextEntry={true}
-                                onChangeText={(text) => this.setState({password : text})}/>
-
-                            <Text>Confirmer mot de passe</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                secureTextEntry={true}
-                                onChangeText={(text) => this.setState({passwordConfirmation : text})}/>
-
-                            <Text>N° national</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.setState({nationalNumber : text})}/>
-
-                            <Text>Email</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                keyboardType="email-address"
-                                onChangeText={(text) => this.setState({email : text})}/>
-
-                            <Text>Téléphone</Text>
-                            <TextInput
-                                style={style.input}
-                                underlineColorAndroid="transparent"
-                                keyboardType="phone-pad"
-                                onChangeText={(text) => this.setState({phone : text})}/>
-
-                            <TouchableOpacity onPress={() => {
-                                this.controller.registerNewUser(() => DeviceEventEmitter.emit('connection'));
-                                this.setState({isVisible : false});
-                                }
-                            }>
-                                <Text style={style.button}>S'inscrire</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => this.setState({isVisible : false})}>
-                                <Text style={style.button}>Annuler</Text>
-                            </TouchableOpacity>
-                        </ScrollView>
+                        <SignupForm
+                            onSubmit={(citizen) => {
+                                this.props.addCitizen(citizen);
+                                this.setState({isVisible: false});
+                            }}
+                            onCancel={() => this.setState({isVisible: false})}
+                        />
                     </Modal>
                 </View>
             </View>
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    citizen: state.citizen.citizen,
+    errorMessage: state.citizen.error,
+    message: state.citizen.message,
+})
+
+export default connect(mapStateToProps, {fetchCitizen, addCitizen})(Connection)

@@ -9,6 +9,7 @@ let payment = require('./routes/payment');
 let partner = require('./routes/partner');
 let deal = require('./routes/deal');
 let event = require('./routes/event');
+let participation = require('./routes/participation');
 
 let app = express();
 
@@ -27,6 +28,7 @@ app.use('/payment', payment);
 app.use('/partner', partner);
 app.use('/deal', deal);
 app.use('/event', event);
+app.use('/participation', participation);
 
 //Server
-app.listen(30000, () => console.log('Server started on port 30000'));
+app.listen(50001, () => console.log('Server started on port 50001'));

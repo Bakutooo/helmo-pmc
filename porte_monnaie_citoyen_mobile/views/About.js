@@ -1,14 +1,7 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
-import style from './../style';
 
 export default class About extends React.Component{
-
-    constructor(params){
-        super();
-        this.navigation = params.navigation;
-    }
-
     static navigationOptions = {
         title: 'A propos'
     }

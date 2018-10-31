@@ -25,6 +25,10 @@ const EventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    state: {
+        type: String,
+        required: true
+    },
     town: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
