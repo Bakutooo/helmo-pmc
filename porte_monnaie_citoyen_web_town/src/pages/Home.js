@@ -3,11 +3,6 @@ import Connection from './forms/ConnectionForm'
 import {connect} from 'react-redux'
 
 class Home extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
             <Connection/>

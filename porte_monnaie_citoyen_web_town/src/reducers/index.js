@@ -1,8 +1,12 @@
 import {combineReducers} from 'redux';
-import connectionReducer from './connectionReducer';
+import townReducer from './townReducer';
+import citizenReducer from './citizenReducer'
 import eventReducer from './eventReducer';
+import partnerReducer from './partnerReducer';
 
 export default combineReducers({
-    connection : connectionReducer,
-    event : eventReducer
+    town : townReducer,
+    event : eventReducer,
+    citizen: citizenReducer,
+    partner: partnerReducer
 })

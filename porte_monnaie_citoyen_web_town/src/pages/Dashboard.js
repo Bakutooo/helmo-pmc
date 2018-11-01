@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEvents } from './actions/connectionAction';
+import { fetchEvents } from './../actions/connectionAction';
 
 class Dashboard extends Component {
-
-    constructor(props){
-        super(props);
-    }
-
     render() {
         
         return (
