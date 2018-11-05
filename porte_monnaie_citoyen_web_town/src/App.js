@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './pages/components/Header';
+import Navbar from './pages/components/Navbar';
 import Home from './pages/Home';
 import Citizen from "./pages/Citizen";
 import Dashboard from './pages/Dashboard';
@@ -16,9 +17,12 @@ export default class App extends React.Component{
                         <div>
                             <Header/>
                         </div>
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/dashboard" component={Dashboard}/>
-                        <Route path="/citizen" component={Citizen}/>
+                        <div className="d-flex flex-row">
+                            <Navbar/>
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/dashboard" component={Dashboard}/>
+                            <Route path="/citizen" component={Citizen}/>
+                        </div>
                     </div>
                 </BrowserRouter>
             </Provider>
