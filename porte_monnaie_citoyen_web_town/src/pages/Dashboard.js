@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEvents } from '../actions/connectionAction';
+import { fetchEventWaiting } from "./../actions/eventAction";
 import Event from './components/Event'
 import Partner from './components/Partner'
 
@@ -62,7 +62,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    town : state.connection.town
+    town : state.town.town
 });
 
-export default connect(mapStateToProps, {fetchEvents})(Dashboard)
+export default connect(mapStateToProps, { fetchEventWaiting })(Dashboard)

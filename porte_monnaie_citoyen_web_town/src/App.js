@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './pages/components/Header';
 import Home from './pages/Home';
+import Citizen from "./pages/Citizen";
 import Dashboard from './pages/Dashboard';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -17,6 +18,7 @@ export default class App extends React.Component{
                         </div>
                         <Route exact path="/" component={Home}/>
                         <Route path="/dashboard" component={Dashboard}/>
+                        <Route path="/citizen" component={Citizen}/>
                     </div>
                 </BrowserRouter>
             </Provider>

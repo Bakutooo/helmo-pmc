@@ -11,7 +11,7 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    town : state.connection.town
+    town : state.town.town
 });
 
 export default connect(mapStateToProps)(Home);

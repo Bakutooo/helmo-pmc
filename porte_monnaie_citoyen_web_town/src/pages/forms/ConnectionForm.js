@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchTown } from '../../actions/connectionAction';
+import { fetchTown } from "./../../actions/townAction";
 import { connect } from 'react-redux';
 import '../../style.css';
 
@@ -57,8 +57,8 @@ class ConnectionForm extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    town : state.connection.town,
-    error : state.connection.error
+    town : state.town.town,
+    error : state.town.error
 });
 
 export default connect(mapStateToProps, {fetchTown})(ConnectionForm)
