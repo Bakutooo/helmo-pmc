@@ -27,6 +27,26 @@ code {
   color: white;
 }
 
+.pmc-search {
+  opacity: 0.5;
+}
+
+.pmc-navbar {
+  background-color: #797979;
+  width: 12%;
+}
+
+.pmc-navbar div {
+  width: 100%;
+  height: 40px;
+  color: white;
+}
+
+.pmc-navbar div:hover{
+  width: 100%;
+  background-color: #3B4A54;
+}
+
 .event-demande {
   border-right: 1px solid #333;
 }

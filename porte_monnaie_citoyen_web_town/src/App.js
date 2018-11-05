@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './pages/components/Header';
+import Navbar from './pages/components/Navbar';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import { Provider } from 'react-redux';
@@ -15,8 +16,11 @@ export default class App extends React.Component{
                         <div>
                             <Header/>
                         </div>
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/dashboard" component={Dashboard}/>
+                        <div className="d-flex flex-row">
+                            <Navbar/>
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/dashboard" component={Dashboard}/>
+                        </div>
                     </div>
                 </BrowserRouter>
             </Provider>
