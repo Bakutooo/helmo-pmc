@@ -1,22 +1,60 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEvents } from './../actions/connectionAction';
+import { fetchEvents } from '../actions/connectionAction';
+import Event from './components/Event'
+import Partner from './components/Partner'
 
 class Dashboard extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            events : [
+                {title : 'Fête de la bière', date : '21/12/2012', image : 'placeholder.png'},
+                {title : 'Fête de la musique', date : '31/10/2018', image : 'placeholder.png'},
+                {title : 'Retro MIA', date : '31/10/2018', image : 'placeholder.png'},
+                {title : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png'}
+            ],
+            partners : [
+                {name : "La ruche qui dit oui"},
+                {name : "Jupiler"},
+                {name : "Radio contact"},
+            ]
+        };
+    }
+
+    renderEvents(){
+        return (
+            <div className="d-flex flex-row flex-wrap justify-content-between p-2">
+                {this.state.events.map((item, index) => (
+                    item = <Event data={item} />
+                ))}
+            </div>
+        )
+    }
+
+    renderPartners(){
+        return (
+            <div>
+                {this.state.partners.map((item, index) => (
+                    item = <Partner data={item} />
+                ))}
+            </div>
+        )
+    }
+
     render() {
         
         return (
-            <div className="container row">
-                <button onClick={this.props.fetchEvents()}>test</button>
-                <div>
+            <div className="row w-75">
+                <div className="w-75 p-3 event-demande">
                     <h4>Dernières demandes d'évènement :</h4>
-                    <div>
-
-                    </div>
+                    {this.renderEvents()}
                 </div>
 
-                <div className="partner-demande">
+                <div className="w-25 p-3">
                     <h4>Dernières demandes de partenariat :</h4>
+                    {this.renderPartners()}
                 </div>
             </div>
         )

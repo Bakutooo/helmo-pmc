@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './pages/components/Header';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import { Provider } from 'react-redux';
@@ -11,6 +12,9 @@ export default class App extends React.Component{
             <Provider store={store}>
                 <BrowserRouter>
                     <div>
+                        <div>
+                            <Header/>
+                        </div>
                         <Route exact path="/" component={Home}/>
                         <Route path="/dashboard" component={Dashboard}/>
                     </div>
