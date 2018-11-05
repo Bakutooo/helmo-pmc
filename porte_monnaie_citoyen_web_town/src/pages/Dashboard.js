@@ -1,23 +1,37 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEvents } from './actions/connectionAction';
+import { fetchEvents } from '../actions/connectionAction';
+import Event from './components/Event'
 
 class Dashboard extends Component {
 
     constructor(props){
         super(props);
+        this.state = {
+            events : [
+                {title : 'Fête de la bière', date : '21/12/2012'},
+                {title : 'Fête de la musique', date : '31/10/2018'}
+            ]
+        };
+    }
+
+    renderEvents(){
+        return (
+            <div>
+                {this.state.events.map((item, index) => (
+                    item = <Event data={item} />
+                ))}
+            </div>
+        )
     }
 
     render() {
         
         return (
             <div className="container row">
-                <button onClick={this.props.fetchEvents()}>test</button>
                 <div>
                     <h4>Dernières demandes d'évènement :</h4>
-                    <div>
-
-                    </div>
+                    {this.renderEvents()}
                 </div>
 
                 <div className="partner-demande">

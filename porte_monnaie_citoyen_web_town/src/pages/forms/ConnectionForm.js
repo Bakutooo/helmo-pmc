@@ -1,7 +1,7 @@
 import React from 'react';
-import { fetchTown } from '../actions/connectionAction';
+import { fetchTown } from '../../actions/connectionAction';
 import { connect } from 'react-redux';
-import '../style.css';
+import '../../style.css';
 
 class ConnectionForm extends React.Component {
 
