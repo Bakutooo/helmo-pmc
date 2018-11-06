@@ -10,10 +10,10 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             events : [
-                {title : 'Fête de la bière', date : '21/12/2012', image : 'placeholder.png'},
-                {title : 'Fête de la musique', date : '31/10/2018', image : 'placeholder.png'},
-                {title : 'Retro MIA', date : '31/10/2018', image : 'placeholder.png'},
-                {title : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png'}
+                {id : 1, name : 'Fête de la bière', date : '21/12/2012', image : 'placeholder.png', address : "Rue de la bière n°85", description : "Venez boire des bonnes bières"},
+                {id : 2, name : 'Fête de la musique', date : '31/10/2018', image : 'placeholder.png'},
+                {id : 3, name : 'Retro MIA', date : '31/10/2018', image : 'placeholder.png'},
+                {id : 4, name : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png'}
             ],
             partners : [
                 {name : "La ruche qui dit oui"},
