@@ -6,6 +6,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+    let index;
     switch(action.type){
         case FETCH_EVENT_ACCEPTED:
             return {
@@ -18,14 +19,14 @@ export default (state = initialState, action) => {
                 eventWaiting: action.payload
             }
         case ACCEPT_EVENT:
-            const index = state.eventWaiting.findIndex(e => e._id === action.payload);
+            index = state.eventWaiting.findIndex(e => e._id === action.payload);
             return {
                 ...state,
                 eventAccepted: [...state.eventAccepted, state.eventWaiting.find(e => e._id === action.payload)],
                 eventWaiting: state.eventWaiting.splice(index, 1)
             }
         case REFUSE_EVENT:
-            const index = state.eventWaiting.findIndex(e => e._id === action.payload);
+            index = state.eventWaiting.findIndex(e => e._id === action.payload);
             return {
                 ...state,
                 eventWaiting: state.eventWaiting.splice(index, 1)
