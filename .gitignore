@@ -6,3 +6,4 @@ porte_monnaie_citoyen_server/npm-debug.*
 logs/*
 .vscode/**/*
 porte_monnaie_citoyen_web_town/node_modules/**/*
+porte_monnaie_citoyen_web_town/src/assets/*
