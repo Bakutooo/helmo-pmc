@@ -3,11 +3,6 @@ import Connection from './forms/ConnectionForm'
 import {connect} from 'react-redux'
 
 class Home extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
             <Connection/>
@@ -16,7 +11,7 @@ class Home extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    town : state.connection.town
+    town : state.town.town
 });
 
 export default connect(mapStateToProps)(Home);

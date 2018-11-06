@@ -50,3 +50,7 @@ code {
 .event-demande {
   border-right: 1px solid #333;
 }
+
+.pmc-citizen-width {
+  width: 500px;
+}

@@ -1,5 +1,5 @@
 export default {
-    url: "http://192.168.0.9:30000",
+    url: "https://pmc.girafes.be/api",
     postConfig: (data) => ({
         method: "POST",
         body: JSON.stringify(data),

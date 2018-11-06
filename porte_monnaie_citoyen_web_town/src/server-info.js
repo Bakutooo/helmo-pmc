@@ -6,5 +6,12 @@ export default {
         headers : {
             "Content-Type" : "application/json; charset=utf-8"
         }
+    }),
+    putConfig: (data) => ({
+        method : "UPDATE",
+        body : JSON.stringify(data),
+        headers : {
+            "Content-Type" : "application/json; charset=utf-8"
+        }
     })
 }

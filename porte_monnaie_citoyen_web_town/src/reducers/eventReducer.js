@@ -1,16 +1,36 @@
-import {FETCH_PARTNER_DEMANDS} from '../actions/types'
+import { FETCH_EVENT_ACCEPTED, FETCH_EVENT_WAITING, ACCEPT_EVENT, REFUSE_EVENT } from "./../actions/types";
 
-const initialState = {};
+const initialState = {
+    eventAccepted: [],
+    eventWaiting: []
+}
 
 export default (state = initialState, action) => {
+    let index;
     switch(action.type){
-        case FETCH_PARTNER_DEMANDS:
-            console.log("ICI");
+        case FETCH_EVENT_ACCEPTED:
             return {
                 ...state,
-                events : action.payload
+                eventAccepted: action.payload
             }
-        default:
-            return state;
+        case FETCH_EVENT_WAITING:
+            return {
+                ...state,
+                eventWaiting: action.payload
+            }
+        case ACCEPT_EVENT:
+            index = state.eventWaiting.findIndex(e => e._id === action.payload);
+            return {
+                ...state,
+                eventAccepted: [...state.eventAccepted, state.eventWaiting.find(e => e._id === action.payload)],
+                eventWaiting: state.eventWaiting.splice(index, 1)
+            }
+        case REFUSE_EVENT:
+            index = state.eventWaiting.findIndex(e => e._id === action.payload);
+            return {
+                ...state,
+                eventWaiting: state.eventWaiting.splice(index, 1)
+            }
+        default: return state;
     }
 }
