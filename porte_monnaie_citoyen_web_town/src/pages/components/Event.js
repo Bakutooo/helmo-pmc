@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import Modal from './ModalEventValidation';
+import ModalValidation from './modals/ModalEventValidation';
+import ModalAccepted from './modals/ModalEventAccepted';
 
 export default class Event extends Component {
 
     render() {
+        let modal = null;
+        if(this.props.data.state === "A"){
+            modal = <ModalAccepted data={this.props.data}/>;
+        }
+        else if(this.props.data.state === "W"){
+            modal = <ModalValidation data={this.props.data}/>
+        }
         return (
             <div>
                 <div className="pmc-event mr-1 mt-2 bg-white" data-toggle="modal" data-target={"#manageEvent" + this.props.data.id}>
@@ -13,7 +21,7 @@ export default class Event extends Component {
                         <p>Date : {this.props.data.date}</p>
                     </div>
                 </div>
-                <Modal data={this.props.data}/>
+                {modal}
             </div>
         )
     }
