@@ -54,3 +54,7 @@ code {
 .pmc-citizen-width {
   width: 500px;
 }
+
+.pmc-event:hover{
+  cursor: pointer;
+}
