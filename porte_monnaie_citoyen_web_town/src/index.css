@@ -58,3 +58,7 @@ code {
 .pmc-event:hover{
   cursor: pointer;
 }
+
+.pmc-partner:hover{
+  cursor: pointer;
+}

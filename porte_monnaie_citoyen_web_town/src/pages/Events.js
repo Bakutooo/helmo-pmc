@@ -44,11 +44,11 @@ export default class Events extends Component {
         return (
             <div className="row w-75">
                 <div className="w-75 p-3 event-demande">
-                    <h4>Evènements :</h4>
+                    <h4>Evènements :</h4>
                     {this.renderEventsAccepted()}
                 </div>
                 <div className="w-25 p-3">
-                    <h4>Demandes d'évènement :</h4>
+                    <h4>Demandes d'évènement :</h4>
                     {this.renderEventsWaiting()}
                 </div>
             </div>

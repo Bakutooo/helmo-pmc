@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchEventWaiting } from "./../actions/eventAction";
 import Event from './components/Event'
-import Partner from './components/Partner'
+import Partner from './components/PartnerShort'
 
 class Dashboard extends Component {
 
@@ -16,7 +16,7 @@ class Dashboard extends Component {
                 {id : 4, name : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png', state : "W"}
             ],
             partners : [
-                {name : "La ruche qui dit oui"},
+                {name : "La ruche qui dit oui", mail : "laruche@quidit.oui", phone : "+3256894520"},
                 {name : "Jupiler"},
                 {name : "Radio contact"},
             ]
