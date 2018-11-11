@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { fetchEventWaiting } from "./../actions/eventAction";
 import { fetchPartnerWaiting } from "./../actions/partnerAction";
 import Event from './components/Event'
-import Partner from './components/Partner'
+import Partner from './components/PartnerShort'
 
 class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
             partners : [
-                {name : "La ruche qui dit oui"},
+                {name : "La ruche qui dit oui", mail : "laruche@quidit.oui", phone : "+3256894520"},
                 {name : "Jupiler"},
                 {name : "Radio contact"},
             ]
