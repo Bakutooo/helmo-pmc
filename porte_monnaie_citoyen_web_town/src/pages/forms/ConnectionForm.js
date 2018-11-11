@@ -2,6 +2,7 @@ import React from 'react';
 import { fetchTown } from "./../../actions/townAction";
 import { connect } from 'react-redux';
 import '../../style.css';
+import { Redirect } from "react-router-dom";
 
 class ConnectionForm extends React.Component {
 
@@ -15,9 +16,8 @@ class ConnectionForm extends React.Component {
     }
 
     render() {
-        if(this.props.town !== undefined){
-            console.log(this.props.town);
-            window.location.href += "dashboard";
+        if(this.props.town !== null){
+            return <Redirect to="/dashboard"/>
         }
         return (
             <div className="container w-50">
@@ -27,7 +27,7 @@ class ConnectionForm extends React.Component {
                         event.preventDefault();
                         this.props.fetchTown({name : this.state.name, password : this.state.password});
                     }}>
-                    {this.props.error !== undefined &&
+                    {this.props.error !== "" &&
                         <div className="alert alert-danger">{this.props.error}</div>
                     }                    
                     <div className="form-group">

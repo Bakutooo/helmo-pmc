@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchEventWaiting } from "./../actions/eventAction";
+import { fetchPartnerWaiting } from "./../actions/partnerAction";
 import Event from './components/Event'
 import Partner from './components/Partner'
 
 class Dashboard extends Component {
-
     constructor(props){
         super(props);
         this.state = {
-            events : [
-                {title : 'Fête de la bière', date : '21/12/2012', image : 'placeholder.png'},
-                {title : 'Fête de la musique', date : '31/10/2018', image : 'placeholder.png'},
-                {title : 'Retro MIA', date : '31/10/2018', image : 'placeholder.png'},
-                {title : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png'}
-            ],
             partners : [
                 {name : "La ruche qui dit oui"},
                 {name : "Jupiler"},
@@ -23,10 +17,15 @@ class Dashboard extends Component {
         };
     }
 
+    componentWillMount(){
+        this.props.fetchEventWaiting(this.props.town._id);
+        this.props.fetchPartnerWaiting(this.props.town._id);
+    }
+
     renderEvents(){
         return (
             <div className="d-flex flex-row flex-wrap justify-content-between p-2">
-                {this.state.events.map((item, index) => (
+                {this.props.eventWaiting.map((item, index) => (
                     item = <Event data={item} />
                 ))}
             </div>
@@ -36,7 +35,7 @@ class Dashboard extends Component {
     renderPartners(){
         return (
             <div>
-                {this.state.partners.map((item, index) => (
+                {this.props.partnerWaiting.map((item, index) => (
                     item = <Partner data={item} />
                 ))}
             </div>
@@ -62,7 +61,9 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    town : state.town.town
+    town : state.town.town,
+    eventWaiting: state.event.eventWaiting,
+    partnerWaiting: state.partner.partnerWaiting
 });
 
-export default connect(mapStateToProps, { fetchEventWaiting })(Dashboard)
+export default connect(mapStateToProps, { fetchEventWaiting, fetchPartnerWaiting })(Dashboard)

@@ -6,17 +6,17 @@ export const fetchEventAccepted = (town) => dispatch => {
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_EVENT_ACCEPTED,
-        payload: res.filter(e => e.state === "A")
+        payload: res
     }))
     .catch(err => console.log(err));
 }
 
 export const fetchEventWaiting = (town) => dispatch => {
-    fetch(server.url + "/town/event/" + town)
+    fetch(server.url + "/town/event/request/" + town)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_EVENT_WAITING,
-        payload: res.filter(e => e.state === "W")
+        payload: res
     }))
     .catch(err => console.log(err));
 }

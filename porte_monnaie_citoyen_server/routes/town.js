@@ -32,7 +32,7 @@ router.get('/:id', (req, res) => {
  * Récupère les partners lié à la town
  */
 router.get('/partner/:id', (req, res) => {
-    Partner.find({town: req.params.id})
+    Partner.find({town: req.params.id, state: "A"})
         .then(partners => res.json(partners))
         .catch(err => res.json(err));
 });
@@ -62,7 +62,7 @@ router.get('/event/:id', (req, res) => {
  * Récupère les requêtes d'évènement liè à town
  */
 router.get('/event/request/:id', (req, res) => {
-    _Event.find({town: req.params.id, state: "C"})
+    _Event.find({town: req.params.id, state: "W"})
         .then(event => res.json(event))
         .catch(err => res.json(err));
 });
@@ -72,7 +72,7 @@ router.get('/event/request/:id', (req, res) => {
  * Récupère les requêtes d'évènement liè à town
  */
 router.get('/partner/request/:id', (req, res) => {
-    Partner.find({town: req.params.id, state: "C"})
+    Partner.find({town: req.params.id, state: "W"})
         .then(event => res.json(event))
         .catch(err => res.json(err));
 });

@@ -6,17 +6,17 @@ export const fetchPartnerAccepted = (town) => dispatch => {
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_PARTNER_ACCEPTED,
-        payload: res.filter(e => e.state === "A")
+        payload: res
     }))
     .catch(err => console.log(err));
 }
 
 export const fetchPartnerWaiting = (town) => dispatch => {
-    fetch(server.url + "/town/partner/" + town)
+    fetch(server.url + "/town/partner/request/" + town)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_PARTNER_WAITING,
-        payload: res.filter(e => e.state === "W")
+        payload: res
     }))
     .catch(err => console.log(err));
 }
