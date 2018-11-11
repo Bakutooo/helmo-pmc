@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchEventWaiting } from "./../actions/eventAction";
 import Event from './components/Event'
-import Partner from './components/Partner'
+import Partner from './components/PartnerShort'
 
 class Dashboard extends Component {
 
@@ -10,13 +10,13 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             events : [
-                {title : 'Fête de la bière', date : '21/12/2012', image : 'placeholder.png'},
-                {title : 'Fête de la musique', date : '31/10/2018', image : 'placeholder.png'},
-                {title : 'Retro MIA', date : '31/10/2018', image : 'placeholder.png'},
-                {title : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png'}
+                {id : 1, name : 'Fête de la bière', date : '21/12/2012', image : 'placeholder.png', address : "Rue de la bière n°85", description : "Venez boire des bonnes bières", state : "W"},
+                {id : 2, name : 'Fête de la musique', date : '31/10/2018', image : 'placeholder.png', state : "W"},
+                {id : 3, name : 'Retro MIA', date : '31/10/2018', image : 'placeholder.png', state : "W"},
+                {id : 4, name : 'Salon de l\'auto', date : '31/10/2018', image : 'placeholder.png', state : "W"}
             ],
             partners : [
-                {name : "La ruche qui dit oui"},
+                {name : "La ruche qui dit oui", mail : "laruche@quidit.oui", phone : "+3256894520"},
                 {name : "Jupiler"},
                 {name : "Radio contact"},
             ]
