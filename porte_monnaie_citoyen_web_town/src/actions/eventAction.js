@@ -1,4 +1,4 @@
-import { FETCH_EVENT_ACCEPTED, FETCH_EVENT_WAITING, ACCEPT_EVENT, REFUSE_EVENT } from "./types";
+import { FETCH_EVENT_ACCEPTED, FETCH_EVENT_WAITING, ACCEPT_EVENT, REFUSE_EVENT, DELETE_EVENT } from "./types";
 import server from './../server-info';
 
 export const fetchEventAccepted = (town) => dispatch => {
@@ -22,21 +22,32 @@ export const fetchEventWaiting = (town) => dispatch => {
 }
 
 export const acceptEvent = (event) => dispatch => {
-    fetch(server.url + "/event", server.putConfig({...event, state: "A"}))
+    fetch(server.url + "/event", server.putConfig({event: {...event, state: "A"}}))
     .then(res => res.json())
-    .then(res => dispatch({
+    .then(res => {
+        console.log(res);
+        dispatch({
         type: ACCEPT_EVENT,
-        payload: res._id
-    }))
+        payload: res
+    })})
     .catch(err => console.log(err));
 }
 
 export const refuseEvent = (event) => dispatch => {
-    fetch(server.url + "/event", server.putConfig({...event, state: "R"}))
+    fetch(server.url + "/event", server.putConfig({event: {...event, state: "R"}}))
     .then(res => res.json())
     .then(res => dispatch({
         type: REFUSE_EVENT,
-        payload: res._id
+        payload: res
+    }))
+    .catch(err => console.log(err));
+}
+
+export const deleteEvent = (event) => dispatch => {
+    fetch(server.url + "/event/" + event, {method: "DELETE"})
+    .then(res => dispatch({
+        type: DELETE_EVENT,
+        payload: res
     }))
     .catch(err => console.log(err));
 }

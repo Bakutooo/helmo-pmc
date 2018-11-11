@@ -7,29 +7,33 @@ export default class ModalEventValidation extends Component {
         this.state = {
             feedbackHidden : true,
             feedbackValue : "",
-            password : ""
+            password : "",
+            onSubmit: () => this.props.onAccept()
         }
     }
 
     changeFeedbackReportVisibility(){
         this.setState({feedbackHidden : !this.state.feedbackHidden});
         if(!this.state.feedbackHidden){
+            this.setState({onSubmit: () => this.props.onAccept()});
             this.setState({feedbackValue : ""});
         }
         else{
+            this.setState({onSubmit: () => this.props.onRefuse()});
             this.setState({password : ""});
         }
     }
     
     render() {
+        let { _id, name, description, address, phone, mail} = this.props.data;
         return (
             <div>
-                <div className="modal fade" id={"manageEvent" + this.props.data.id} tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
+                <div className="modal fade" id={"manageEvent" + _id} tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h4 className="modal-title" id="manageEventLabel">
-                                    Validation du partenaire : <br/>{this.props.data.name}
+                                    Validation du partenaire : <br/>{name}
                                 </h4>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -40,8 +44,8 @@ export default class ModalEventValidation extends Component {
                                     <h5>
                                         Information :
                                     </h5>
-                                    <p>{this.props.data.mail}</p>
-                                    <p>{this.props.data.phone}</p>
+                                    <p>{mail}</p>
+                                    <p>{phone}</p>
                                 </div>
                                 <hr />
                                 <div className="d-flex flex-column">
@@ -66,7 +70,7 @@ export default class ModalEventValidation extends Component {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                <button type="button" className="btn btn-primary">Envoyer</button>
+                                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.state.onSubmit()}>Envoyer</button>
                             </div>
                         </div>
                     </div>

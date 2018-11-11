@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Event = require('./../models/Event');
+const _Event = require('./../models/Event');
 
 /**
  * Route   GET /event/
  * Récupère tous les "events"
  */
 router.get("/", (req, res) => {
-    Event.find()
+    _Event.find()
     .populate("town")
     .populate("partner")
     .then(events => res.json(events))
@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
  * Récupère un "event" par rapport à son id
  */
 router.get("/:id", (req, res) => {
-    Event.findOne({_id : req.params.id})
+    _Event.findOne({_id : req.params.id})
     .populate("town")
     .populate("partner")
     .then(event => res.json(event))
@@ -31,7 +31,7 @@ router.get("/:id", (req, res) => {
  * Créé un nouvel "event"
  */
 router.post("/", (req, res) => {
-    let newEvent = new Event({
+    let newEvent = new _Event({
         name: req.body.name,
         description: req.body.description,
         address: req.body.address,
@@ -53,8 +53,8 @@ router.post("/", (req, res) => {
  * Modifie un "event"
  */
 router.put("/", (req, res) => {
-    Event.updateOne({_id : req.body.event._id}, req.body.event)
-    .then(event => res.json(event))
+    _Event.updateOne({_id : req.body.event._id}, req.body.event)
+    .then(event => res.json(req.body.event._id))
     .catch(error => res.json({error : "Impossible de mettre à jour l'event"}))
 });
 
@@ -63,7 +63,7 @@ router.put("/", (req, res) => {
  * Supprime un "event"
  */
 router.delete("/:id", (req, res) => {
-    Event.deleteOne({_id : req.params.id})
+    _Event.deleteOne({_id : req.params.id})
     .then(result => res.json(result))
     .catch(error => res.json({error : "Impossible de supprimer l'event"}))
 });

@@ -42,7 +42,7 @@ router.get('/partner/:id', (req, res) => {
  * Récupère les citizens validé lié à la town
  */
 router.get('/citizen/:id', (req, res) => {
-    Citizen.find({town: req.params.id, state: "A"})
+    Citizen.find({town: req.params.id})
         .then(citizens => res.json(citizens))
         .catch(err => res.json(err));
 });

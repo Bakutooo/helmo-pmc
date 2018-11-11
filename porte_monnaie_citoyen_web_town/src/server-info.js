@@ -8,7 +8,7 @@ export default {
         }
     }),
     putConfig: (data) => ({
-        method : "UPDATE",
+        method : "PUT",
         body : JSON.stringify(data),
         headers : {
             "Content-Type" : "application/json; charset=utf-8"

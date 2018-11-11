@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from "moment";
 
 export default class ModalEventValidation extends Component {
     
@@ -7,29 +8,33 @@ export default class ModalEventValidation extends Component {
         this.state = {
             feedbackHidden : true,
             feedbackValue : "",
-            gainValue : 0
+            gainValue : 0,
+            onSubmit: () => this.props.onAccept()
         }
     }
 
     changeFeedbackReportVisibility(){
         this.setState({feedbackHidden : !this.state.feedbackHidden});
         if(!this.state.feedbackHidden){
+            this.setState({onSubmit: () => this.props.onAccept()});
             this.setState({feedbackValue : ""});
         }
         else{
+            this.setState({onSubmit: () => this.props.onRefuse()});
             this.setState({gainValue : 0});
         }
     }
     
     render() {
+        let { _id, name, description, address, date} = this.props.data;
         return (
             <div>
-                <div className="modal fade" id={"manageEvent" + this.props.data.id} tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
+                <div className="modal fade" id={"manageEvent" + _id} tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
                                 <h4 className="modal-title" id="manageEventLabel">
-                                    Validation de l'évènement : <br/>{this.props.data.name}
+                                    Validation de l'évènement : <br/>{name}
                                 </h4>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -40,11 +45,11 @@ export default class ModalEventValidation extends Component {
                                     <h5>
                                         Description :
                                     </h5>
-                                    <p>{this.props.data.description}</p>
+                                    <p>{description}</p>
                                 </div>
                                 <div>
-                                    <p>{this.props.data.address}</p>
-                                    <p>{this.props.data.date}</p>
+                                    <p>{address}</p>
+                                    <p>{new moment(new Date(date)).format("DD/MM/YYYY")}</p>
                                 </div>
                                 <div className="d-flex flex-column">
                                     <select className="w-25 mb-2" onChange={() => this.changeFeedbackReportVisibility()}>
@@ -69,7 +74,7 @@ export default class ModalEventValidation extends Component {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                <button type="button" className="btn btn-primary">Envoyer</button>
+                                <button type="button" className="btn btn-primary" onClick={() => this.state.onSubmit()} data-dismiss="modal">Envoyer</button>
                             </div>
                         </div>
                     </div>

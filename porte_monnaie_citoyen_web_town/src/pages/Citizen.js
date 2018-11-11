@@ -5,20 +5,15 @@ import CitizenBlock from "./components/Citizen";
 
 class Citizen extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            citizens: [
-                {firstname: "Bastien", lastname: "Pierre", image: "placeholder.png", numNat: "971219-501.80", address: "Rue du Rêwe 9/1", town: {name: "Liège"}, points: 25}
-            ]
-        }
+    componentWillMount(){
+        this.props.fetchCitizens(this.props.town._id);
     }
 
     render() {
         return (
             <div>
-                <header className="d-flex justify-content-between m-1">
-                    <h2>Citoyens :</h2>
+                <header className="d-flex flex-wrap w-100 justify-content-between m-1">
+                    <h4>Citoyens :</h4>
                     <span>Trier par : {" "}
                         <select>
                             <option>Nom croissant</option>
@@ -28,8 +23,8 @@ class Citizen extends Component {
                         </select>
                     </span>
                 </header>
-                <div>
-                    {this.state.citizens.map(c => (
+                <div className="d-flex flex-wrap">
+                    {this.props.citizens.map(c => (
                         <CitizenBlock data={c}/>
                     ))}
                 </div>

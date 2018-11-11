@@ -6,17 +6,6 @@ import Event from './components/Event'
 import Partner from './components/PartnerShort'
 
 class Dashboard extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            partners : [
-                {name : "La ruche qui dit oui", mail : "laruche@quidit.oui", phone : "+3256894520"},
-                {name : "Jupiler"},
-                {name : "Radio contact"},
-            ]
-        };
-    }
-
     componentWillMount(){
         this.props.fetchEventWaiting(this.props.town._id);
         this.props.fetchPartnerWaiting(this.props.town._id);
@@ -25,7 +14,7 @@ class Dashboard extends Component {
     renderEvents(){
         return (
             <div className="d-flex flex-row flex-wrap justify-content-between p-2">
-                {this.props.eventWaiting.map((item, index) => (
+                {this.props.eventsWaiting.map((item, index) => (
                     item = <Event data={item} />
                 ))}
             </div>
@@ -35,7 +24,7 @@ class Dashboard extends Component {
     renderPartners(){
         return (
             <div>
-                {this.props.partnerWaiting.map((item, index) => (
+                {this.props.partnersWaiting.map((item, index) => (
                     item = <Partner data={item} />
                 ))}
             </div>
@@ -43,9 +32,8 @@ class Dashboard extends Component {
     }
 
     render() {
-        
         return (
-            <div className="row w-75">
+            <div className="row w-100">
                 <div className="w-75 p-3 event-demande">
                     <h4>Dernières demandes d'évènement :</h4>
                     {this.renderEvents()}
@@ -62,8 +50,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     town : state.town.town,
-    eventWaiting: state.event.eventWaiting,
-    partnerWaiting: state.partner.partnerWaiting
+    eventsWaiting: state.event.eventsWaiting,
+    partnersWaiting: state.partner.partnersWaiting
 });
 
 export default connect(mapStateToProps, { fetchEventWaiting, fetchPartnerWaiting })(Dashboard)

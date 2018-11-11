@@ -2,25 +2,28 @@ import React, { Component } from 'react';
 import moment from "moment";
 import ModalValidation from './modals/ModalEventValidation';
 import ModalAccepted from './modals/ModalEventAccepted';
+import { connect } from "react-redux";
+import { acceptEvent, refuseEvent, deleteEvent } from "./../../actions/eventAction";
 
-export default class Event extends Component {
+class Event extends Component {
 
     render() {
-        let { date, name} = this.props.data;
+        let { data, acceptEvent, refuseEvent, deleteEvent } = this.props;
+        let { date, name, state, _id} = data;
         let modal = null;
-        if(this.props.data.state === "A"){
-            modal = <ModalAccepted data={this.props.data}/>;
+        if(state === "A"){
+            modal = <ModalAccepted data={data} onCancel={() => deleteEvent(data._id)}/>;
         }
-        else if(this.props.data.state === "W"){
-            modal = <ModalValidation data={this.props.data}/>
+        else if(state === "W"){
+            modal = <ModalValidation data={data} onAccept={() => acceptEvent(data)} onRefuse={() => refuseEvent(data)}/>
         }
         return (
             <div>
-                <div className="pmc-event mr-1 mt-2 bg-white" data-toggle="modal" data-target={"#manageEvent" + this.props.data.id}>
-                    <img alt="placeholder" src={require('../../assets/'+ this.props.data.image)}/>
+                <div className="pmc-event mr-1 mt-2 bg-white" data-toggle="modal" data-target={"#manageEvent" + _id}>
+                    <img alt="placeholder" src={require('../../assets/placeholder.png')}/>
                     <div className="px-2">
-                        <h4>{this.props.data.name}</h4>
-                        <p>Date : {this.props.data.date}</p>
+                        <h4>{name}</h4>
+                        <p>Date : {new moment(new Date(date)).format("DD/MM/YYYY")}</p>
                     </div>
                 </div>
                 {modal}
@@ -28,3 +31,5 @@ export default class Event extends Component {
         )
     }
 }
+
+export default connect(null, { acceptEvent, refuseEvent, deleteEvent })(Event);

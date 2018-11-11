@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
         mail: req.body.mail,
         phone: req.body.phone,
         password: hash.generate(req.body.password),
-        state: "C",
+        state: "W",
         town: req.body.town
     });
 
@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
 router.post('/connection', (req, res) => {
     Partner.findOne({mail: req.body.mail})
            .then(partner => {
-               if(partner.state === "C") res.json({error: "Partenariat pas encore validé"});
+               if(partner.state === "W") res.json({error: "Partenariat pas encore validé"});
                else if(hash.verify(req.body.password, partner.password)) res.json(partner);
                else res.json({error: "Identifiants incorrect"});
            })
@@ -74,9 +74,13 @@ router.post('/connection', (req, res) => {
  * Modifie la partner mentionné dans le corp de la requête
  */
 router.put('/', (req, res) => {
+    console.log("PUT /partner/");
     Partner.updateOne({_id: req.body.partner._id}, req.body.partner)
-           .then(partner => res.json(partner))
-           .catch(err => res.json(err));
+           .then(partner => res.json(req.body.partner._id))
+           .catch(err => {
+                console.log("ERROR");
+               res.json(err)
+            });
 });
 
 /**
