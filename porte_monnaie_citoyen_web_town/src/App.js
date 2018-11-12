@@ -9,15 +9,13 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 class App extends React.Component{
-    componentWillMount(){
-    }
-    
     render() {
         return (
             <BrowserRouter>
                 <div className="h-100">
                     <div>
-                        <Navbar/>
+                        {this.props.town !== null && 
+                        <Navbar/>}
                     </div>
                     <div className="d-flex flex-row h-100 w-100 pmc-container">
                         <Route exact path="/" component={Home}/>

@@ -88,7 +88,7 @@ router.put("/", (req, res) => {
  */
 router.delete("/:id", (req, res) => {
     Citizen.deleteOne({_id : req.params.id})
-    .then(result => res.json(result))
+    .then(result => res.json(req.params.id))
     .catch(error => res.json({error : "Impossible de supprimer le citoyen"}));
 });
 
