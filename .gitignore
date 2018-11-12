@@ -4,7 +4,7 @@ porte_monnaie_citoyen_mobile/.expo/*
 porte_monnaie_citoyen_mobile/npm-debug.*
 porte_monnaie_citoyen_server/npm-debug.*
 logs/*
-.vscode/**/*
+.vscode
 porte_monnaie_citoyen_web_town/node_modules/**/*
 porte_monnaie_citoyen_web_town/src/assets/*
 porte_monnaie_citoyen_web_town/*.env
