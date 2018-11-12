@@ -14,3 +14,4 @@ export const REFUSE_EVENT = "REFUSE_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
 
 export const FETCH_CITIZENS = "FETCH_CITIZENS";
+export const DELETE_CITIZEN = "DELETE_CITIZEN";

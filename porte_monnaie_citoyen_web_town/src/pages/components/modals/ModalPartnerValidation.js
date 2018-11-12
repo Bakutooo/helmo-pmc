@@ -44,8 +44,10 @@ export default class ModalEventValidation extends Component {
                                     <h5>
                                         Information :
                                     </h5>
+                                    <p>{description}</p>
                                     <p>{mail}</p>
                                     <p>{phone}</p>
+                                    <p>{address}</p>
                                 </div>
                                 <hr />
                                 <div className="d-flex flex-column">
