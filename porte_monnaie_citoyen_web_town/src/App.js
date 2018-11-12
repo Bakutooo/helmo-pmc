@@ -9,6 +9,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 class App extends React.Component{
+    componentWillMount(){
+    }
+    
     render() {
         return (
             <BrowserRouter>

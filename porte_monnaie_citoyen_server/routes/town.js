@@ -33,6 +33,7 @@ router.get('/:id', (req, res) => {
  */
 router.get('/partner/:id', (req, res) => {
     Partner.find({town: req.params.id, state: "A"})
+        .populate("town")
         .then(partners => res.json(partners))
         .catch(err => res.json(err));
 });
@@ -53,6 +54,8 @@ router.get('/citizen/:id', (req, res) => {
  */
 router.get('/event/:id', (req, res) => {
     _Event.find({town: req.params.id, state: "A"})
+        .populate("town")
+        .populate("partner")
         .then(event => res.json(event))
         .catch(err => res.json(err));
 });
@@ -63,6 +66,8 @@ router.get('/event/:id', (req, res) => {
  */
 router.get('/event/request/:id', (req, res) => {
     _Event.find({town: req.params.id, state: "W"})
+        .populate("town")
+        .populate("partner")
         .then(event => res.json(event))
         .catch(err => res.json(err));
 });
@@ -73,6 +78,7 @@ router.get('/event/request/:id', (req, res) => {
  */
 router.get('/partner/request/:id', (req, res) => {
     Partner.find({town: req.params.id, state: "W"})
+        .populate("town")
         .then(event => res.json(event))
         .catch(err => res.json(err));
 });

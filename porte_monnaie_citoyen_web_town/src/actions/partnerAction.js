@@ -31,7 +31,13 @@ export const acceptPartner = (partner) => dispatch => {
     .catch(err => console.log(err));
 }
 
-export const refusePartner = (partner) => dispatch => {
+export const refusePartner = (partner, feedback) => dispatch => {
+    fetch(server.url + "/smtp", server.postConfig({
+        to: partner.mail,
+        subject: "Refus partenariat",
+        text: feedback
+    }));
+
     fetch(server.url + "/partner", server.putConfig({partner: {...partner, state: "R"}}))
     .then(res => res.json())
     .then(res => dispatch({

@@ -33,7 +33,13 @@ export const acceptEvent = (event) => dispatch => {
     .catch(err => console.log(err));
 }
 
-export const refuseEvent = (event) => dispatch => {
+export const refuseEvent = (event, feedback) => dispatch => {
+    fetch(server.url + "/smtp", server.postConfig({
+        to: event.partner.mail,
+        subject: "Refus d'évènement",
+        text: feedback
+    }));
+
     fetch(server.url + "/event", server.putConfig({event: {...event, state: "R"}}))
     .then(res => res.json())
     .then(res => dispatch({

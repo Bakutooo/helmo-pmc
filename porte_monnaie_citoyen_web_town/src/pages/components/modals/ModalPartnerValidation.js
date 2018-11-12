@@ -19,7 +19,7 @@ export default class ModalEventValidation extends Component {
             this.setState({feedbackValue : ""});
         }
         else{
-            this.setState({onSubmit: () => this.props.onRefuse()});
+            this.setState({onSubmit: () => this.props.onRefuse(this.state.feedbackValue)});
             this.setState({password : ""});
         }
     }
