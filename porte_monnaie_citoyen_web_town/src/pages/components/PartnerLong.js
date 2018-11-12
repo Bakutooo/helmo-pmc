@@ -7,7 +7,7 @@ class PartnerLong extends Component {
     render() {
         let {_id, name, address, town, description} = this.props.data;
         return (
-            <div className="pmc-partner w-100 mb-2 p-2 d-flex flex-row bg-white" data-toggle="modal" data-target={"#managePartner" + _id}>
+            <div className="shadow pmc-partner w-100 mb-2 p-2 d-flex flex-row bg-white" data-toggle="modal" data-target={"#managePartner" + _id}>
                 <img className="pmc-logo-partner" alt="placeholder" src='https://via.placeholder.com/125x125'/>
                 <div className="mx-4">
                     <div className="d-flex flex-row justify-content-between w-100">

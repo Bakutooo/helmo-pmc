@@ -47,7 +47,8 @@ router.post('/', (req, res) => {
         phone: req.body.phone,
         password: hash.generate(req.body.password),
         state: "W",
-        town: req.body.town
+        town: req.body.town,
+        description: req.body.description
     });
 
     newPartner.save()

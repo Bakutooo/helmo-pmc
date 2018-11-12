@@ -25,7 +25,7 @@ class Citizen extends Component {
                 </header>
                 <div className="d-flex flex-wrap">
                     {this.props.citizens.map(c => (
-                        <CitizenBlock data={c}/>
+                        <CitizenBlock className="pmc-citizen" data={c}/>
                     ))}
                 </div>
             </div>

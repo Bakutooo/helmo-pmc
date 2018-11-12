@@ -20,8 +20,8 @@ class ConnectionForm extends React.Component {
             return <Redirect to="/dashboard"/>
         }
         return (
-            <div className="container w-50">
-                <h1 className="text-center">PMC</h1>
+            <div className="mx-auto my-5 bg-white p-5 rounded w-50 shadow">
+                <h1 className="text-center">Porte Monnaie Citoyen</h1>
                 <form
                     onSubmit={(event) => {
                         event.preventDefault();

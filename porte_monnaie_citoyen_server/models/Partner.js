@@ -19,6 +19,10 @@ const PartnerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
     state: {
         type: String,
         required: true

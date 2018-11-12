@@ -19,7 +19,7 @@ class Event extends Component {
         }
         return (
             <div>
-                <div className="pmc-event mr-1 mt-2 bg-white" data-toggle="modal" data-target={"#manageEvent" + _id}>
+                <div className="shadow pmc-event mr-1 mt-2 bg-white" data-toggle="modal" data-target={"#manageEvent" + _id}>
                     <img alt="placeholder" src={require('../../assets/placeholder.png')}/>
                     <div className="px-2">
                         <h4>{name}</h4>

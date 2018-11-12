@@ -6,7 +6,7 @@ import {deleteCitizen} from './../../actions/citizenAction'
 class Citizen extends Component {
   render() {
     return (
-        <div className="m-1 p-1 bg-white d-flex d-row" data-toggle="modal" data-target={"#manageCitizen" + this.props.data._id}>
+        <div className="shadow m-1 p-1 bg-white d-flex d-row" data-toggle="modal" data-target={"#manageCitizen" + this.props.data._id}>
             <img alt="placeholder" src='https://via.placeholder.com/125x125'/>
             <div className="px-2">
                 <span className="d-flex justify-content-between">
