@@ -1,8 +1,10 @@
 <script>
 import { mapState, mapActions } from "vuex";
+import ModalSignup from './modals/ModalSignup.vue'
 
 export default {
     name: "Home",
+    components: {ModalSignup},
     data: () => ({
         mail: "",
         password: ""
@@ -33,6 +35,10 @@ export default {
             <div class="form-group">
                 <input type="submit" value="Se connecter" class="btn pmc-bg-primary w-100"/>
             </div>
+            <div class="text-left" data-toggle="modal" data-target="#signup">
+                <p class="pmc-color-primary">Demander partenariat</p>
+            </div>
         </form>
+        <ModalSignup/>
     </div>
 </template>

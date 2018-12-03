@@ -36,6 +36,11 @@ body {
     color: white;
   }
   
+  .pmc-color-primary {
+    color: #D32D27;
+    cursor: pointer;
+  }
+
   .pmc-header {
     position: fixed;
     width: 100%;
