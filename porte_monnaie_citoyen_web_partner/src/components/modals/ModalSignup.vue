@@ -11,8 +11,8 @@
                     </button>
                 </div>
                 <div class="modal-body d-flex flex-column">
-                    <input v-model="nom" class="form-group" type="text" placeholder="Entrez le nom de votre société..."/>
-                    <input v-model="email" class="form-group" type="text" placeholder="Entrez l'email de votre société..."/>
+                    <input v-model="name" class="form-group" type="text" placeholder="Entrez le nom de votre société..."/>
+                    <input v-model="mail" class="form-group" type="text" placeholder="Entrez l'email de votre société..."/>
                     <input v-model="phone" class="form-group" type="tel" placeholder="Entrez le numéro de téléphone de votre société..." />
                     <input v-model="tva" class="form-group" type="text" placeholder="Entrez votre numéro de TVA..."/>
                     <input v-model="address" class="form-group" type="text" placeholder="Entrez l'adresse de votre société..."/>
