@@ -30,6 +30,14 @@
                     <div class="form-group">
                         <textarea v-model="description" class="form-control" type="text" placeholder="Décrivez votre société et ses activités..."/>
                     </div>
+                    <div class="form-group">
+                        <select class="form-control" v-model="town">
+                            <option disabled value="">Choisissez une ville...</option>
+                            <option v-for="town in towns" v-bind:value="town._id" v-bind:key="town._id">
+                                {{ town.name }}
+                            </option>
+                        </select>
+                    </div>
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -54,7 +62,16 @@ export default {
             phone : "",
             tva : "",
             address : "",
-            description : ""
+            description : "",
+            town : "",
+            towns : [
+                {"_id":"5bd633f29860092f078b70ec","name":"Liège", "__v":0},
+                {"_id":"5bd633f29860092f078b70ed","name":"Vervier", "__v":0},
+                {"_id":"5bd633f29860092f078b70ee","name":"Seraing", "__v":0},
+                {"_id":"5bd633f29860092f078b70ef","name":"Bruxelles", "__v":0},
+                {"_id":"5bd633f29860092f078b70eg","name":"Anvers", "__v":0},
+                {"_id":"5bd633f29860092f078b70eh","name":"Turnoit", "__v":0},
+            ]
         }
     },
     computed: {
