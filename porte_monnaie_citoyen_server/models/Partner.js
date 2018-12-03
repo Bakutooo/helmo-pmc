@@ -23,6 +23,14 @@ const PartnerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    address: {
+        type: String,
+        required: true
+    },
+    tva: {
+        type: String,
+        required: true
+    },
     state: {
         type: String,
         required: true

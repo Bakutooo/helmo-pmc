@@ -1,13 +1,21 @@
 <script>
+import { mapState, mapActions } from "vuex";
 
 export default {
     name: "Home",
     data: () => ({
-        email: "",
+        mail: "",
         password: ""
     }),
     computed: {
-        fetchPartner: function(partner){ return this.store.fetchPartner(partner)}
+        ...mapState([
+            'partner'
+        ]),
+    },
+    methods: {
+        ...mapActions([
+            'fetchPartner'
+        ])
     }
 }
 </script>
@@ -15,9 +23,9 @@ export default {
 <template>
     <div class="mx-auto my-5 bg-white p-5 rounded w-50 shadow">
         <h1>Porte Monnaie Citoyen</h1>
-        <form @submit.prevent="fetchPartner({email: email, password: password})">
+        <form @submit.prevent="$store.dispatch('fetchPartner', {mail, password})">
             <div class="form-group">
-                <input type="text" name="email" class="form-control" placeholder="Entrez votre email..." v-model="email"/>
+                <input type="text" name="email" class="form-control" placeholder="Entrez votre email..." v-model="mail"/>
             </div>
             <div class="form-group">
                 <input type="password" name="password" class="form-control" placeholder="Entrez votre mot de passe..." v-model="password"/>
