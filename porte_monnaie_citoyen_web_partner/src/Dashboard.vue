@@ -1,6 +1,6 @@
 <template>
-    <div className="row w-100">
-        <div className="w-75 p-3 event-demande">
+    <div class="row w-100">
+        <div class="w-75 p-3 event-demande">
             <h4>Dernières demandes d'évènement :</h4>
             <div v-for="event in events" :key="event._id">
                 <Event v-bind:data="event"/>

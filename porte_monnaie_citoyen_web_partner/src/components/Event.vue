@@ -25,9 +25,3 @@
         }
     }
 </script>
-
-<style scoped>
-    pmc-event{
-
-    }
-</style>
