@@ -33,17 +33,20 @@
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button @click="$store.dispatch('sendDemand', {name, mail, phone, twa, address, description})" type="button" class="btn pmc-bg-primary" data-dismiss="modal">Envoyer</button>
+                    <button v-on:click="sendDemand()" type="button" class="btn pmc-bg-primary" data-dismiss="modal">Envoyer</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script>
-import { mapActions } from "vuex";
+<script>/* eslint-disable no-console */
+import { mapActions, mapState } from "vuex";
 
 export default {
+    created: function(){
+        this.$store.dispatch("fetchAllTowns");
+    },
     data: () => {
         return {
             name : "",
@@ -54,10 +57,26 @@ export default {
             description : ""
         }
     },
+    computed: {
+        ...mapState([
+            'town'
+        ]),
+    },
     methods: {
         ...mapActions([
-            'sendDemand'
+            'sendDemand',
+            'fetchAllTowns'
         ]),
-    }
+        sendDemand: function(){
+            this.$store.dispatch('sendDemand', {
+                name: this.name, 
+                mail : this.mail,
+                phone : this.phone,
+                tva : this.tva,
+                address : this.address,
+                description : this.description
+            })
+        }
+    } 
 }
 </script>

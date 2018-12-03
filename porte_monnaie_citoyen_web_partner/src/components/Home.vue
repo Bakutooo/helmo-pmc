@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import ModalSignup from './modals/ModalSignup.vue'
 
 export default {
@@ -9,11 +9,6 @@ export default {
         mail: "",
         password: ""
     }),
-    computed: {
-        ...mapState([
-            'partner'
-        ]),
-    },
     methods: {
         ...mapActions([
             'fetchPartner'
