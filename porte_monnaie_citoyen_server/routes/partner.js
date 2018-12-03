@@ -46,8 +46,9 @@ router.post('/', (req, res) => {
         mail: req.body.mail,
         phone: req.body.phone,
         tva: req.body.tva,
-        password: null,
+        password: "N/A",
         state: "W",
+        address: req.body.address,
         town: req.body.town,
         description: req.body.description
     });

@@ -31,10 +31,10 @@
                         <textarea v-model="description" class="form-control" type="text" placeholder="Décrivez votre société et ses activités..."/>
                     </div>
                     <div class="form-group">
-                        <select class="form-control" v-model="town">
+                        <select class="form-control" v-model="townSelected">
                             <option disabled value="">Choisissez une ville...</option>
-                            <option v-for="town in towns" v-bind:value="town._id" v-bind:key="town._id">
-                                {{ town.name }}
+                            <option v-for="t in town.towns" v-bind:value="t._id" v-bind:key="t._id">
+                                {{ t.name }}
                             </option>
                         </select>
                     </div>
@@ -63,15 +63,7 @@ export default {
             tva : "",
             address : "",
             description : "",
-            town : "",
-            towns : [
-                {"_id":"5bd633f29860092f078b70ec","name":"Liège", "__v":0},
-                {"_id":"5bd633f29860092f078b70ed","name":"Vervier", "__v":0},
-                {"_id":"5bd633f29860092f078b70ee","name":"Seraing", "__v":0},
-                {"_id":"5bd633f29860092f078b70ef","name":"Bruxelles", "__v":0},
-                {"_id":"5bd633f29860092f078b70eg","name":"Anvers", "__v":0},
-                {"_id":"5bd633f29860092f078b70eh","name":"Turnoit", "__v":0},
-            ]
+            townSelected : "",
         }
     },
     computed: {
@@ -91,7 +83,8 @@ export default {
                 phone : this.phone,
                 tva : this.tva,
                 address : this.address,
-                description : this.description
+                description : this.description,
+                town: this.townSelected
             })
         }
     } 

@@ -12,7 +12,10 @@ export default {
     methods: {
         ...mapActions([
             'fetchPartner'
-        ])
+        ]),
+        fetchPartner: function() {
+            this.$store.dispatch('fetchPartner', {mail: this.mail, password: this.password});
+        }
     }
 }
 </script>
@@ -20,7 +23,7 @@ export default {
 <template>
     <div class="mx-auto my-5 bg-white p-5 rounded w-50 shadow">
         <h1>Porte Monnaie Citoyen</h1>
-        <form @submit.prevent="$store.dispatch('fetchPartner', {mail, password})">
+        <form @submit.prevent="fetchPartner()">
             <div class="form-group">
                 <input type="text" name="email" class="form-control" placeholder="Entrez votre email..." v-model="mail"/>
             </div>

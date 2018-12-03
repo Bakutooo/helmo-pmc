@@ -20,6 +20,7 @@ export default {
             
         },
         sendDemand: ({commit}, payload) => {
+            console.log(payload)
             fetch(serverInfo.url + "/partner", serverInfo.postConfig(payload))
             .then(res => res.json())
             .then(res => commit('SEND_DEMAND', res))
