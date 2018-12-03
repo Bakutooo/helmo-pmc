@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" data-toggle="modal" data-target="#signup">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Dashboard />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Dashboard from './Dashboard.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Dashboard
   }
 }
 </script>
