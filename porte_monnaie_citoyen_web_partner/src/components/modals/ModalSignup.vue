@@ -31,8 +31,8 @@
 export default {
     data () {
         return {
-            nom : "",
-            email : "",
+            name : "",
+            mail : "",
             phone : "",
             tva : "",
             address : "",
