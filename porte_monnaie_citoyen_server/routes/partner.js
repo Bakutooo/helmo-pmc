@@ -45,7 +45,8 @@ router.post('/', (req, res) => {
         name: req.body.name,
         mail: req.body.mail,
         phone: req.body.phone,
-        password: hash.generate(req.body.password),
+        tva: req.body.tva,
+        password: null,
         state: "W",
         town: req.body.town,
         description: req.body.description
@@ -75,7 +76,7 @@ router.post('/connection', (req, res) => {
  * Modifie la partner mentionné dans le corp de la requête
  */
 router.put('/', (req, res) => {
-    console.log("PUT /partner/");
+    if(!hash.isHashed(req.body.partner.password)) req.body.partner.password = hash.generate(req.body.partner.password);
     Partner.updateOne({_id: req.body.partner._id}, req.body.partner)
            .then(partner => res.json(req.body.partner._id))
            .catch(err => {
