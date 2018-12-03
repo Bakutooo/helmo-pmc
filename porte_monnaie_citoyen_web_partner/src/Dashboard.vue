@@ -2,16 +2,26 @@
     <div className="row w-100">
         <div className="w-75 p-3 event-demande">
             <h4>Dernières demandes d'évènement :</h4>
-            {this.renderEvents()}
-        </div>
-
-        <div className="w-25 p-3">
-            <h4>Dernières demandes de partenariat :</h4>
-            {this.renderPartners()}
+            <div v-for="event in events" :key="event._id">
+                <Event v-bind:data="event"/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    
+import Event from './components/Event.vue'
+    export default{
+        components : {
+            Event
+        },
+        data() {
+            return {
+                events : [
+                    {"_id":"5bd48cfda8425d12fc7867ca","name":"Le salon du fromage","description":"La participation consiste à nous aider à mettre en place les stands, ranger après la journée, nettoyer et démonter les stands et les ranger à la fin du salon. Je me trouverai à l'entrée du hall des foires vers 08h00, sinon vous me trouverez à l'intérieur si nous avons déjà commencé. Nous accepterons que 10 personnes maximum.","address":"Avenue Maurice Denis 4","gain":420,"date":"2018-10-27T16:06:21.374Z","image":"fromage.png", "state":"A"},
+                    {"_id":"5bd7558726dcf850fa82c5dc","name":"Fête des évènements","description":"Même les évènements ont droit à leurs évènements","address":"Avenue Maurice Denis 4","gain":1000,"date":"2018-10-29T18:46:31.955Z","image":"event.png","state":"W"}
+                ]
+            }
+        }
+    }
 </script>
