@@ -1,10 +1,12 @@
 <template>
     <div class="d-flex flex-column">
-        <div class="w-100 d-flex flex-row justify-content-between">
-            <h4 class="mt-3 ml-3">Évènements :</h4>
-            <div class="d-flex flex-row">
-                <button class="btn btn-primary mx-5">Ajouter un évènement</button>
-                <p class="mr-3">Trier par </p>
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center mt-3 ml-3">
+            <h4 class="">Évènements :</h4>
+            <div class="d-flex flex-row align-items-center">
+                <button class="shadow btn btn-primary mx-5">Ajouter un évènement</button>
+                <div class="align-middle mr-3">
+                    Trier par
+                </div>                
                 <select>
                     <option value="Date">Date</option>
                     <option value="Nom">Nom</option>
@@ -20,8 +22,8 @@
 </template>
 
 <script>
-import Event from './components/Event.vue'
-    export default{
+    import Event from './components/Event.vue';
+    export default {
         components : {
             Event
         },
