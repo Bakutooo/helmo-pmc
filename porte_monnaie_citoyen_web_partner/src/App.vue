@@ -1,15 +1,24 @@
 <template>
-  <div id="app">
+  <div>
+    <navbar v-if="partner.partner !== null"/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import store from "./store";
+import Navbar from "./components/Navbar.vue";
+import { mapState } from 'vuex';
 
 export default {
   name: 'app',
-  store
+  components: {navbar: Navbar},
+  store,
+  computed: {
+    ...mapState([
+      'partner'
+    ])
+  }
 }
 </script>
 

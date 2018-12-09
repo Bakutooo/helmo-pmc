@@ -5,10 +5,13 @@ export default {
     state: {partner: null, message: ""},
     mutations: {
         FETCH_PARTNER(state, payload) {
-            state.partner = payload
+            state.partner = payload;
         },
         SEND_DEMAND(state, payload){
-            state.message = payload
+            state.message = payload;
+        },
+        DECONNECTION(state){
+            state.partner = null;
         }
     },
     actions: {
@@ -25,6 +28,9 @@ export default {
             .then(res => res.json())
             .then(res => commit('SEND_DEMAND', res))
             .catch(err => console.log(err));
-        } 
+        },
+        deconnection: ({commit}) => {
+            commit('DECONNECTION')
+        }
     },
 };

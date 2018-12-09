@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from "vuex";
-import ModalSignup from './modals/ModalSignup.vue'
+import ModalSignup from './modals/ModalSignup.vue';
 
 export default {
     name: "Home",
