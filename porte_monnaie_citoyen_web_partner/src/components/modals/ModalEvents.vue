@@ -1,0 +1,49 @@
+<template>
+    <div>
+        <div class="modal fade" id="manageEvent" tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="manageEventLabel">
+                            Informations de l'évènement : <br/> {name}
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h5>
+                                Description :
+                            </h5>
+                            <p>{description}</p>
+                        </div>
+                        <hr/>
+                        <div>
+                            <p>{address}</p>
+                            <p>{new moment(new Date(date)).format("DD/MM/YYYY")}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler l'évènement</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name : "ModalEvents",
+        props : [
+            "data"
+        ],
+        data() {
+            return {
+                name : this.data.name
+            }
+        }
+    }
+</script>

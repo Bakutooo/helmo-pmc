@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <navbar v-if="partner.partner !== null"/>
     <router-view/>
   </div>
