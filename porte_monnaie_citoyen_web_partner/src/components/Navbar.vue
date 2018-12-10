@@ -1,13 +1,13 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top pmc-bg-primary">
-        <router-link to="/dashboard"><div class="navbar-brand">Tableau de bord</div></router-link>
+        <router-link to="/"><div class="navbar-brand">Tableau de bord</div></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav mr-auto">
-                <router-link to="/dashboard"><div class="nav-link">Accueil</div></router-link>                
+                <router-link to="/"><div class="nav-link">Accueil</div></router-link>                
                 <router-link to="#"><div class="nav-link">Évènements</div></router-link>
                 <router-link to="#"><div class="nav-link">Deals</div></router-link>
             </div>

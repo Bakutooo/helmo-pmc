@@ -18,20 +18,22 @@
                 <Event v-bind:data="e"/>
             </div>
         </div>
-        <Modal />
+        <modal-add-event />
     </div>
 </template>
 
 <script>/* eslint-disable no-console */
-import Event from './components/Event.vue';
+import Event from './Event.vue';
 import { mapState, mapActions, mapGetters } from 'vuex';
+import ModalAddEvent from "./modals/ModalAddEvent.vue";
 
 export default {
     created: function(){
         this.$store.dispatch("fetchAllEvents", this.$store.state.partner.partner._id);
     },
     components : {
-        Event
+        Event,
+        ModalAddEvent
     },
     computed: {
         ...mapGetters([

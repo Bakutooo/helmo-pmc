@@ -1,4 +1,5 @@
 <template>
+import { mapActions } from 'vuex';
     <div>
         <div class="modal fade" id="AddEvent" tabIndex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -50,6 +51,18 @@
                 description : "",
                 address : "",
                 date : "",
+            }
+        },
+        method: {
+            ...mapActions([
+                'addEvent'
+            ]),
+            addEvent: function() {
+                this.$store.dispatch("addEvent", {
+                    name: this.name,
+                    description: this.description,
+                    address: this.address,
+                })
             }
         }
     }

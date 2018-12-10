@@ -1,7 +1,7 @@
 <script>
 import { mapState } from "vuex";
 import Connection from './Connection.vue';
-import Dashboard from './../Dashboard.vue';
+import Dashboard from './Dashboard.vue';
 
 export default {
     name: "Home",
