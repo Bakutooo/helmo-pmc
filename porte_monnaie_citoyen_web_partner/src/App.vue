@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div>
     <navbar v-if="partner.partner !== null"/>
-    <router-view/>
+    <router-view class="container"/>
   </div>
 </template>
 

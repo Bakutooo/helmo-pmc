@@ -14,26 +14,37 @@
             </div>
         </div>
         <div class="w-100 p-3 d-flex flex-row flex-wrap">
-            <div v-for="event in events" :key="event._id" class="">
-                <Event v-bind:data="event"/>
+            <div v-for="e in event.events" :key="e._id" class="">
+                <Event v-bind:data="e"/>
             </div>
         </div>
     </div>
 </template>
 
-<script>
-    import Event from './components/Event.vue';
-    export default {
-        components : {
-            Event
-        },
-        data() {
-            return {
-                events : [
-                    {"_id":"5bd48cfda8425d12fc7867ca","name":"Le salon du fromage","description":"La participation consiste à nous aider à mettre en place les stands, ranger après la journée, nettoyer et démonter les stands et les ranger à la fin du salon. Je me trouverai à l'entrée du hall des foires vers 08h00, sinon vous me trouverez à l'intérieur si nous avons déjà commencé. Nous accepterons que 10 personnes maximum.","address":"Avenue Maurice Denis 4","gain":420,"date":"2018-10-27T16:06:21.374Z","image":"fromage.png", "state":"A"},
-                    {"_id":"5bd7558726dcf850fa82c5dc","name":"Fête des évènements","description":"Même les évènements ont droit à leurs évènements","address":"Avenue Maurice Denis 4","gain":1000,"date":"2018-10-29T18:46:31.955Z","image":"event.png","state":"W"}
-                ]
-            }
-        }
+<script>/* eslint-disable no-console */
+import Event from './components/Event.vue';
+import { mapState, mapActions, mapGetters } from 'vuex';
+
+export default {
+    created: function(){
+        this.$store.dispatch("fetchAllEvents", this.$store.state.partner.partner._id);
+    },
+    components : {
+        Event
+    },
+    computed: {
+        ...mapGetters([
+            'currentPartner'
+        ]),
+        ...mapState([
+            'event',
+            'partner'
+        ])
+    },
+    methods: {
+        ...mapActions([
+            'fetchAllEvents'
+        ])
     }
+}
 </script>

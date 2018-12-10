@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Partner = require('./../models/Partner');
 const Deal = require('./../models/Deal');
+const _Event = require('./../models/Event');
 const hash = require('password-hash');
 
 /**
@@ -28,12 +29,22 @@ router.get('/:id', (req, res) => {
 
 /**
  * Route    GET /partner/deal/:id
- * Récupère les deals lié à partner
+ * Récupère les deals lié à partner id
  */
 router.get('/deal/:id', (req, res) => {
     Deal.find({partner: req.params.id})
         .then(deals => res.json(deals))
         .catch(err => res.json(err));
+});
+
+/**
+ * Route    GET /partner/event/:id
+ * Récupère les events lié à partner id
+ */
+router.get('/event/:id', (req, res) => {
+    _Event.find({partner: req.params.id})
+          .then(events => res.json(events))
+          .catch(err => req.json(err));
 });
 
 /**
