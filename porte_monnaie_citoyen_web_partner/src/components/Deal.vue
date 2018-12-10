@@ -1,9 +1,9 @@
 <template>
     <div class="mr-3 mt-2 p-2 bg-white">
         <h5>{{name}}</h5>
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row justify-content-between">
             <p>Points citoyens : {{price}}</p>
-            <a class="ml-5" href="#">Supprimer</a>
+            <a class="text-danger" href="#">Supprimer</a>
         </div>
     </div>
 </template>
