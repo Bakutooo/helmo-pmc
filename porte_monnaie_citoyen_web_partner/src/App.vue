@@ -1,16 +1,16 @@
 <template>
   <div class="container">
-    <Dashboard />
+    <Deals />
   </div>
 </template>
 
 <script>
-import Dashboard from './Dashboard.vue'
+import Deals from './components/Deals.vue'
 
 export default {
   name: 'app',
   components: {
-    Dashboard
+    Deals
   }
 }
 </script>
