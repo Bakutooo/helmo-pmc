@@ -29,6 +29,15 @@
                                 <div class="form-group">
                                     <input class="form-control" type="file" accept="image/png, image/jpeg" />
                                 </div>
+                                <div class="form-group">
+                                    <select class="form-control" v-model="townSelected">
+                                        <option disabled value="">Choisissez une ville...</option>
+                                        <option v-for="t in town.towns" v-bind:value="t._id" v-bind:key="t._id">
+                                            {{ t.name }}
+                                        </option>
+                                    </select>
+                                </div>
+
                             </form>
                         </div>
                     </div>
