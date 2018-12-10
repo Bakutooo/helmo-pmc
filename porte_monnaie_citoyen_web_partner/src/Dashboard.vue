@@ -3,7 +3,7 @@
         <div class="w-100 d-flex flex-row justify-content-between align-items-center mt-3 ml-3">
             <h4 class="">Évènements :</h4>
             <div class="d-flex flex-row align-items-center">
-                <button class="shadow btn btn-primary mx-5">Ajouter un évènement</button>
+                <button class="shadow btn btn-primary mx-5" data-toggle="modal" data-target="#AddEvent">Ajouter un évènement</button>
                 <div class="align-middle mr-3">
                     Trier par
                 </div>                
@@ -18,14 +18,18 @@
                 <Event v-bind:data="event"/>
             </div>
         </div>
+        <Modal />
     </div>
 </template>
 
 <script>
     import Event from './components/Event.vue';
+    import Modal from './components/modals/ModalAddEvent.vue';
+
     export default {
         components : {
-            Event
+            Event,
+            Modal
         },
         data() {
             return {

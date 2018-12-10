@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="modal fade" id="manageEvent" tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
+        <div class="modal fade" v-bind:id="modalId" tabIndex="-1" role="dialog" aria-labelledby="manageEventLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="manageEventLabel">
-                            Informations de l'évènement : <br/> {name}
+                            Informations de l'évènement : <br/> {{name}}
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -16,12 +16,13 @@
                             <h5>
                                 Description :
                             </h5>
-                            <p>{description}</p>
+                            <p>{{description}}</p>
+                            <p>Gain : {{gain}} points citoyen</p>
                         </div>
                         <hr/>
                         <div>
-                            <p>{address}</p>
-                            <p>{new moment(new Date(date)).format("DD/MM/YYYY")}</p>
+                            <p>{{address}}</p>
+                            <p>{{date}}</p>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -35,6 +36,8 @@
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         name : "ModalEvents",
         props : [
@@ -42,7 +45,12 @@
         ],
         data() {
             return {
-                name : this.data.name
+                modalId : "manageEvent" + this.data._id,
+                name : this.data.name,
+                description : this.data.description,
+                address : this.data.address,
+                date : new moment(new Date(this.data.date)).format("DD/MM/YYYY"),
+                gain : this.data.gain
             }
         }
     }
