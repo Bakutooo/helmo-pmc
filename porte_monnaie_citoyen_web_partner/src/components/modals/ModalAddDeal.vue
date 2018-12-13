@@ -15,10 +15,12 @@
                         <div>
                             <form class="modal-body d-flex flex-column">
                                 <div class="form-group">
+                                    <label>Nom</label>
                                     <input v-model="name" class="form-control" type="text" placeholder="Entrez le nom du deal..."/>
                                 </div>
                                 <div class="form-group">
-                                    <input v-model="price" class="form-control" type="number" placeholder="Entrez le nombre de point à dépenser..."/>
+                                    <label>Nombre de point</label>
+                                    <input v-model="price" class="form-control" type="number" min="1" placeholder="Entrez le nombre de point à dépenser..."/>
                                 </div>
                             </form>
                         </div>
@@ -38,7 +40,7 @@
         data(){
             return {
                 name : "",
-                price : 0
+                price : null
             }
         }
     }
