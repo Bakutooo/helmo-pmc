@@ -35,9 +35,9 @@ router.post("/", (req, res) => {
         name: req.body.name,
         description: req.body.description,
         address: req.body.address,
-        gain: req.body.gain,
+        gain: 0,
         date: Date.now(),
-        image: req.body.image,
+        image: "",
         state: "W",
         town: req.body.town,
         partner: req.body.partner

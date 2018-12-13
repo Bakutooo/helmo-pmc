@@ -1,5 +1,4 @@
 <template>
-import { mapActions } from 'vuex';
     <div>
         <div class="modal fade" id="AddEvent" tabIndex="-1" role="dialog" aria-labelledby="addEventLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -14,7 +13,7 @@ import { mapActions } from 'vuex';
                     </div>
                     <div class="modal-body">
                         <div>
-                            <form class="modal-body d-flex flex-column">
+                            <form class="modal-body d-flex flex-column" @submit="{}">
                                 <div class="form-group">
                                     <input v-model="name" class="form-control" type="text" placeholder="Entrez le nom de l'évènement..."/>
                                 </div>
@@ -35,7 +34,7 @@ import { mapActions } from 'vuex';
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary">Soumettre l'évènement</button>
+                        <button type="button" class="btn pmc-bg-primary">Soumettre l'évènement</button>
                     </div>
                 </div>
             </div>
@@ -44,26 +43,36 @@ import { mapActions } from 'vuex';
 </template>
 
 <script>
-    export default {
-        data(){
-            return {
-                name : "",
-                description : "",
-                address : "",
-                date : "",
-            }
-        },
-        method: {
-            ...mapActions([
-                'addEvent'
-            ]),
-            addEvent: function() {
-                this.$store.dispatch("addEvent", {
-                    name: this.name,
-                    description: this.description,
-                    address: this.address,
-                })
-            }
+import { mapActions, mapState } from 'vuex';
+
+export default {
+    data(){
+        return {
+            name : "",
+            description : "",
+            address : "",
+            date : "",
+            selectedTown: ""
+        }
+    },
+    computed: {
+        ...mapState([
+            'partner'
+        ])
+    },
+    method: {
+        ...mapActions([
+            'addEvent'
+        ]),
+        addEvent: function() {
+            this.$store.dispatch("addEvent", {
+                name: this.name,
+                description: this.description,
+                address: this.address,
+                partner: this.partner.partner,
+                town: this.selectedTown
+            })
         }
     }
+}
 </script>
