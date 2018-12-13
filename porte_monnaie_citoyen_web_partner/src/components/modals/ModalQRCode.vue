@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="modal fade" id="QRCode" tabIndex="-1" role="dialog" aria-labelledby="QRCodeLabel" aria-hidden="true">
+        <div class="modal fade" :id="id" tabIndex="-1" role="dialog" aria-labelledby="QRCodeLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -12,8 +12,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="qrcode">
-                            
+                        <div id="qrcode" class="d-flex justify-content-center align-items-center">
+                            <qrcode-vue :value="qrcode" :size="450"></qrcode-vue>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -27,14 +27,20 @@
 </template>
 
 <script>
+    import QrcodeVue from 'qrcode.vue';
+
     export default {
+        components : {
+            QrcodeVue
+        },
         props : [
             "data"
         ],
         data(){
             return {
+                id : "QRCode" + this.data._id,
                 name : this.data.name,
-                qrcode : this.data.qrcode
+                qrcode : this.data._id
             }
         }
     }

@@ -19,7 +19,7 @@
                                     <input v-model="name" class="form-control" type="text" placeholder="Entrez le nom du deal..."/>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nombre de point</label>
+                                    <label>Points</label>
                                     <input v-model="price" class="form-control" type="number" min="1" placeholder="Entrez le nombre de point à dépenser..."/>
                                 </div>
                             </form>
