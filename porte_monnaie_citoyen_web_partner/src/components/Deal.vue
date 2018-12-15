@@ -6,8 +6,8 @@
                 Points citoyens : {{price}}
             </div>
             <div class="d-flex flex-column align-items-center">
-                <a class="text-primary" data-toggle="modal" :data-target="IdModal">Voir QR Code</a>
-                <a class="text-danger">Supprimer</a>
+                <a class="text-primary pmc-pointer" data-toggle="modal" :data-target="IdModal">Voir QR Code</a>
+                <a class="text-danger pmc-pointer" v-on:click="deleteDeal()">Supprimer</a>
             </div>
         </div>
         <modal-q-r-code :data="this.data"/>
@@ -16,10 +16,19 @@
 
 <script>
     import ModalQRCode from './modals/ModalQRCode';
+import { mapActions } from 'vuex';
 
     export default {
         components : {
             ModalQRCode
+        },
+        methods: {
+            ...mapActions([
+                'deleteDeal'
+            ]),
+            deleteDeal: function(){
+                this.$store.dispatch('deleteDeal', this.data._id)
+            }
         },
         props : [
             "data"

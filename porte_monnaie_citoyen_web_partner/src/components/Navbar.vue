@@ -7,9 +7,8 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav mr-auto">
-                <router-link to="/"><div class="nav-link">Accueil</div></router-link>                
-                <router-link to="#"><div class="nav-link">Évènements</div></router-link>
-                <router-link to="#"><div class="nav-link">Deals</div></router-link>
+                <router-link to="/"><div class="nav-link">Accueil</div></router-link>       
+                <router-link to="/deals"><div class="nav-link">Deals</div></router-link>
             </div>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control rounded-0 pmc-search" type="search" placeholder="Rechercher..." aria-label="Search"/>

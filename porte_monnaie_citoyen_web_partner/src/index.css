@@ -79,6 +79,10 @@ body {
   .pmc-partner:hover{
     cursor: pointer;
   }
+
+  .pmc-pointer:hover{
+    cursor: pointer;
+  }
   
   .pmc-logo-partner {
     width: 125px;

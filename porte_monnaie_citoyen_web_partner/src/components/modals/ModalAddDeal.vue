@@ -27,7 +27,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary">Ajouter le deal</button>
+                        <button type="button" class="btn btn-primary" v-on:click="addDeal()">Ajouter le deal</button>
                     </div>
                 </div>
             </div>
@@ -36,12 +36,31 @@
 </template>
 
 <script>
-    export default {
-        data(){
-            return {
-                name : "",
-                price : null
-            }
+import { mapActions, mapState } from 'vuex';
+
+export default {
+    data(){
+        return {
+            name : "",
+            price : null
+        }
+    },
+    computed: {
+        ...mapState([
+            'partner'
+        ])
+    },
+    methods: {
+        ...mapActions([
+            'addDeal'
+        ]),
+        addDeal: function(){
+            this.$store.dispatch('addDeal', {
+                name: this.name,
+                price: this.price,
+                partner: this.partner.partner
+            })
         }
     }
+}
 </script>

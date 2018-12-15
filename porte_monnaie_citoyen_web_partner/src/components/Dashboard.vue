@@ -24,7 +24,7 @@
 
 <script>/* eslint-disable no-console */
 import Event from './Event.vue';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import ModalAddEvent from "./modals/ModalAddEvent.vue";
 
 export default {
@@ -36,9 +36,6 @@ export default {
         ModalAddEvent
     },
     computed: {
-        ...mapGetters([
-            'currentPartner'
-        ]),
         ...mapState([
             'event',
             'partner'

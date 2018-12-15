@@ -56,7 +56,7 @@ router.put('/', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
     Deal.deleteOne({_id: req.params.id})
-        .then(d => res.json(d))
+        .then(d => res.json(req.params.id))
         .catch(err => res.json(err));
 });
 
