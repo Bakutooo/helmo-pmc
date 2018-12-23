@@ -13,3 +13,10 @@ export const fetchDealsPartner = (id) => dispatch => {
     })
     .catch(err => console.log(err));
 }
+
+export const buyDeal = (citizen, deal) => {
+    fetch(server.url + "/payment", server.postConfig({citizen, deal}))
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+}

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Participation = require('./../models/Participation');
+const _Event = require('./../models/Event');
 
 /**
  * Route    GET /participation
@@ -72,14 +73,22 @@ router.get('/event/:id', (req, res) => {
  * Ajoute une participation
  */
 router.post('/', (req, res) => {
-    newParticipation = new Participation({
-        citizen: req.body.citizen,
-        event: req.body.event
-    });
 
-    newParticipation.save()
-                    .then(p => res.json({message: "Participation ajouté"}))
-                    .catch(err => res.json(err));
+    let event = null;
+
+    _Event.find({password: req.body.password})
+        .then(e => event = e);
+
+    if(e !== null){
+        newParticipation = new Participation({
+            citizen: req.body.citizen,
+            event: req.body.event
+        });
+
+        newParticipation.save()
+                        .then(p => res.json({message: "Participation ajouté"}))
+                        .catch(err => res.json(err));
+    }
 });
 
 module.exports = router;

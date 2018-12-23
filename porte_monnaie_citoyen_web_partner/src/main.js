@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from "vuex";
 import VueRouter from "vue-router";
 import Home from "./components/Home";
+import Deals from "./components/Deals";
 import './index.css';
 
 Vue.use(VueRouter);
@@ -13,6 +14,10 @@ const router = new VueRouter({
     path: '/',
     component: Home,
     name: "Home"
+  },{
+    path: '/deals',
+    component: Deals,
+    name: "Deals"
   }]
 })
 

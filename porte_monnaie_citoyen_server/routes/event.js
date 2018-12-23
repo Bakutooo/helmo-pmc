@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const _Event = require('./../models/Event');
+const generatePassword = require('generate-password');
 
 /**
  * Route   GET /event/
@@ -36,8 +37,9 @@ router.post("/", (req, res) => {
         description: req.body.description,
         address: req.body.address,
         gain: 0,
-        date: Date.now(),
-        image: "",
+        password: generatePassword.generate({length: 24, numbers: true}),
+        date: new Date(req.body.date),
+        image: "placeholder.png",
         state: "W",
         town: req.body.town,
         partner: req.body.partner

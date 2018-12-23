@@ -6,7 +6,7 @@ import QRScanner from './components/QRScanner';
 import MapPresenter from './components/MapPresenter';
 
 import { connect } from "react-redux";
-import { fetchEvent } from "./../actions/eventAction";
+import { fetchEvent, participateEvent } from "./../actions/eventAction";
 import { fetchAllParticipationsCitizen } from './../actions/citizenAction';
 
 class Event extends React.Component {
@@ -30,7 +30,7 @@ class Event extends React.Component {
     }
 
     render(){
-        let { event, participations } = this.props;
+        let { event, participations, citizen } = this.props;
 
         console.log(event);
 
@@ -54,7 +54,7 @@ class Event extends React.Component {
                     visible={this.state.isVisible}
                     onRequestClose={() => {this.setState({isVisible : false})}}>
                 
-                    <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => console.log(data)}/>
+                    <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => this.props.participateEvent(citizen, event, data)}/>
                 </Modal>
                 <Modal
                     animationType="slide"
@@ -74,4 +74,4 @@ const mapStateToProps = state => ({
     citizen: state.citizen.citizen,
 });
 
-export default connect(mapStateToProps, { fetchEvent, fetchAllParticipationsCitizen })(Event);
+export default connect(mapStateToProps, { fetchEvent, fetchAllParticipationsCitizen, participateEvent })(Event);

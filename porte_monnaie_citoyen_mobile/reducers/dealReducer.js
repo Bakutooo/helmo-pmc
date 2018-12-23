@@ -7,7 +7,6 @@ const initialState = {
 export default (state = initialState, action) => {
     switch(action.type){
         case FETCH_DEAL_PARTNER: 
-            console.log(FETCH_DEAL_PARTNER);
             return {
                 ...state,
                 deals: action.payload

@@ -15,7 +15,7 @@ class Event extends Component {
             modal = <ModalAccepted data={data} onCancel={() => deleteEvent(data._id)}/>;
         }
         else if(state === "W"){
-            modal = <ModalValidation data={data} onAccept={() => acceptEvent(data)} onRefuse={(feedback) => refuseEvent(data, feedback)}/>
+            modal = <ModalValidation data={data} onAccept={(gain) => acceptEvent(data, gain)} onRefuse={(feedback) => refuseEvent(data, feedback)}/>
         }
         return (
             <div>

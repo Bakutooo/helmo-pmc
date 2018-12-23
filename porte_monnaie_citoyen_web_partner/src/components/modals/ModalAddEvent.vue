@@ -30,7 +30,7 @@
                                     <input class="form-control" type="file" accept="image/png, image/jpeg" />
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control" v-model="townSelected">
+                                    <select class="form-control" v-model="selectedTown">
                                         <option disabled value="">Choisissez une ville...</option>
                                         <option v-for="t in town.towns" v-bind:value="t._id" v-bind:key="t._id">
                                             {{ t.name }}
@@ -43,7 +43,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn pmc-bg-primary">Soumettre l'évènement</button>
+                        <button type="button" class="btn pmc-bg-primary" v-on:click='addEvent()'>Soumettre l'évènement</button>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,10 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-    data(){
+    created: function(){
+        this.$store.dispatch('fetchAllTowns');
+    },
+    data:() => {
         return {
             name : "",
             description : "",
@@ -66,20 +69,23 @@ export default {
     },
     computed: {
         ...mapState([
-            'partner'
+            'partner',
+            'town'
         ])
     },
-    method: {
+    methods: {
         ...mapActions([
-            'addEvent'
+            'addEvent',
+            'fetchAllTowns'
         ]),
         addEvent: function() {
             this.$store.dispatch("addEvent", {
                 name: this.name,
                 description: this.description,
                 address: this.address,
+                date: this.date,
                 partner: this.partner.partner,
-                town: this.selectedTown
+                town: this.selectedTown,
             })
         }
     }
