@@ -32,7 +32,10 @@ class Payment extends React.Component {
                     visible={this.state.isVisible}
                     onRequestClose={() => {this.setState({isVisible : false})}}>
                 
-                    <QRScanner title="Scannez le QRCode pour la paiement" onQRCodeRead={(data) => this.props.buyDeal(citizen, data)}/>
+                    <QRScanner title="Scannez le QRCode pour la paiement" onQRCodeRead={(data) => {
+                        this.setState({isVisible: false});
+                        this.props.buyDeal(citizen, data);
+                    }}/>
                 </Modal>
             </View>
         )

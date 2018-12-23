@@ -15,7 +15,7 @@
         </div>
         <div class="w-100 p-3 d-flex flex-row flex-wrap">
             <div v-for="e in event.events" :key="e._id" class="">
-                <Event v-bind:data="e"/>
+                <Event v-bind:event="e"/>
             </div>
         </div>
         <modal-add-event />

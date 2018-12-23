@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Payment = require('./../models/Payment');
 const Citizen = require('./../models/Citizen');
+const Deal = require('./../models/Deal');
 
 /**
  * Route    GET /payment/
@@ -27,7 +28,7 @@ router.get("/:id", (req, res) => {
  * Route    POST /payment/
  * Créé un payement
  */
-router.post("/", (res, req) => {
+router.post("/", (req, res) => {
     let { citizen, deal } = req.body;
 
     let newPayment = new Payment({
@@ -36,10 +37,13 @@ router.post("/", (res, req) => {
         deal : deal
     });
 
+
     newPayment.save()
     .then(r => {
-        Citizen.updateOne({_id: citizen._id}, {...citizen, sold: citizen.sold - deal.price});
-        res.json({message: "Payement effectué"});
+        Deal.findById(deal).then(d => {
+            Citizen.updateOne({_id: citizen._id}, {...citizen, points: (citizen.points - d.price)})
+            .then(c => res.json({message: "Payement effectué"}));
+        });
     })
     .catch(err => res.json({message : "Impossible d'effectuer le payement"}))
 });

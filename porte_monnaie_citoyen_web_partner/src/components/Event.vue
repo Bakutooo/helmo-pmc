@@ -7,7 +7,7 @@
                     <p>Date : {{date}}</p>
                 </div>
             </div>
-            <Modal v-bind:data="this.data"/>
+            <Modal v-bind:data="data"/>
         </div>
 </template>
 
@@ -21,13 +21,14 @@
             Modal,
         },
         props : [
-            "data"
+            "event"
         ],
         data(){
             return{
-                modalId : "#manageEvent" + this.data._id,
-                name : this.data.name,
-                date : new moment(new Date(this.data.date)).format("DD/MM/YYYY")
+                data: this.event,
+                modalId : "#manageEvent" + this.event._id,
+                name : this.event.name,
+                date : new moment(new Date(this.event.date)).format("DD/MM/YYYY")
             }
         }
     }
