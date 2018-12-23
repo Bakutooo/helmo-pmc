@@ -8,15 +8,15 @@ export default class ModalEventValidation extends Component {
         this.state = {
             feedbackHidden : true,
             feedbackValue : "",
-            gainValue : 0,
-            onSubmit: () => this.props.onAccept()
+            gainValue: 0,
+            onSubmit: () => this.props.onAccept(this.state.gainValue)
         }
     }
 
     changeFeedbackReportVisibility(){
         this.setState({feedbackHidden : !this.state.feedbackHidden});
         if(!this.state.feedbackHidden){
-            this.setState({onSubmit: () => this.props.onAccept()});
+            this.setState({onSubmit: () => this.props.onAccept(this.state.gainValue)});
             this.setState({feedbackValue : ""});
         }
         else{

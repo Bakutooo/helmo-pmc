@@ -21,8 +21,8 @@ export const fetchEventWaiting = (town) => dispatch => {
     .catch(err => console.log(err));
 }
 
-export const acceptEvent = (event) => dispatch => {
-    fetch(server.url + "/event", server.putConfig({event: {...event, state: "A"}}))
+export const acceptEvent = (event, gain) => dispatch => {
+    fetch(server.url + "/event", server.putConfig({event: {...event, state: "A", gain}}))
     .then(res => res.json())
     .then(res => {
         console.log(res);

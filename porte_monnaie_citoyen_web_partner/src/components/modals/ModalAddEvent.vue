@@ -83,6 +83,7 @@ export default {
                 name: this.name,
                 description: this.description,
                 address: this.address,
+                date: this.date,
                 partner: this.partner.partner,
                 town: this.selectedTown,
             })

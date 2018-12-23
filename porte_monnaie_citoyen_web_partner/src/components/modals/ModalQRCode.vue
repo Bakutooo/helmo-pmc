@@ -40,7 +40,7 @@
             return {
                 id : "QRCode" + this.data._id,
                 name : this.data.name,
-                qrcode : this.data._id
+                qrcode : this.data.password
             }
         }
     }

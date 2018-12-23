@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Deal = require('./../models/Deal');
+const genratePassword = require('generate-password');
 
 /**
  * Route    GET /deal/
@@ -31,6 +32,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     newDeal = new Deal({
         name: req.body.name,
+        password: genratePassword.generate({length: 24, numbers: true}),
         price: req.body.price,
         partner: req.body.partner
     });

@@ -5,6 +5,7 @@ export const fetchAllEvents = () => dispatch => {
     fetch(server.url + "/event")
     .then(res => res.json())
     .then(res => {
+        res = res.filter(e => e.state === "A");
         res = res.map(e => ({...e, key: e._id}));
         dispatch({
             type: FETCH_ALL_EVENTS,
@@ -19,4 +20,11 @@ export const fetchEvent = (id) => dispatch => {
         type: FETCH_EVENT,
         payload: id
     });
+}
+
+export const participateEvent = (citizen, event, password) => {
+    fetch(server.url + "/participate", server.postConfig({citizen, event, password}))
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 }

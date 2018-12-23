@@ -2,10 +2,12 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Modal} from 'react-native';
 import QRScanner from './components/QRScanner';
 import style from './../style';
+import { buyDeal } from "./../actions/dealAction";
+import { connect } from "react-redux";
 
-export default class Payment extends React.Component {
-    constructor(){
-        super();
+class Payment extends React.Component {
+    constructor(props){
+        super(props);
         this.state = {
             isVisible: false
         }
@@ -16,6 +18,8 @@ export default class Payment extends React.Component {
     }
 
     render(){
+        let { citizen } = this.props;
+
         return (
             <View>
                 <TouchableOpacity onPress={() => this.setState({isVisible: true})} style={{margin: 5}}>
@@ -28,9 +32,15 @@ export default class Payment extends React.Component {
                     visible={this.state.isVisible}
                     onRequestClose={() => {this.setState({isVisible : false})}}>
                 
-                    <QRScanner title="Scannez le QRCode pour la paiement" onQRCodeRead={(data) => console.log(data)}/>
+                    <QRScanner title="Scannez le QRCode pour la paiement" onQRCodeRead={(data) => this.props.buyDeal(citizen, data)}/>
                 </Modal>
             </View>
         )
     }
 }
+
+const mapStateToProps = state => ({
+    citizen: state.citizen.citizen
+});
+
+export default connect(mapStateToProps, { buyDeal })(Payment);
