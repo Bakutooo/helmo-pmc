@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Citizen = require('./../models/Citizen');
 const hash = require('password-hash');
+const Payment = require('./../models/Payment');
 
 /**
  * Route    GET /citizen/
@@ -23,6 +24,17 @@ router.get("/:id", (req, res) => {
     .populate('town')
     .then(citizen => res.json(citizen))
     .catch(error => res.json({error : "Impossible de récupérer le citoyen"}))
+});
+
+/**
+ * Route    GET /citizen/payment/:id
+ * Récupère les paiements du citoyen avec l'id correspondant
+ */
+router.get("/payment/:id", (req, res) => {
+    Payment.find({citizen: req.params.id})
+            .populate('deal')
+            .then(payment => res.json(payment))
+            .catch(err => console.log(err));
 });
 
 /**

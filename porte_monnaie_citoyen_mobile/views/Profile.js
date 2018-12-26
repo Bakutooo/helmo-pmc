@@ -1,16 +1,21 @@
 import React from 'react';
 import {View, Text, FlatList, Image, ScrollView} from 'react-native';
 import { connect } from "react-redux";
-import { fetchCitizen } from "./../actions/citizenAction";
+import { fetchCitizen, refreshCitizen, fetchAllPaymentsCitizen } from "./../actions/citizenAction";
 
 class Profile extends React.Component {
+
+    componentWillMount(){
+        this.props.refreshCitizen(this.props.citizen._id);
+        this.props.fetchAllPaymentsCitizen(this.props.citizen._id);        
+    }
+
     static navigationOptions = {
         title: 'Profil'
     }
     
     render(){
-        console.log(this.props.citizen);
-        let citizen = this.props.citizen;
+        let { citizen } = this.props;
         return (
             <ScrollView>
                 <View style={{padding : 10}}>
@@ -32,7 +37,16 @@ class Profile extends React.Component {
                     <Text>Tel: {citizen.phone}</Text>
                     <Text style={{marginBottom: 15}}>Email: {citizen.mail}</Text>
                     
-                    <Text style={{fontSize: 22, fontWeight : 'bold'}}>Activités :</Text>
+                    <Text style={{fontSize: 22, fontWeight : 'bold'}}>Achats :</Text>
+                    <FlatList
+                        data={this.props.payments}
+                        renderItem={({item}) => (
+                            <View key={item._id} style={{width:"100%", justifyContent: "space-between", flexDirection: "row"}}>
+                                <Text style={{fontSize: 25}}>{item.deal.name}</Text>
+                                <Text style={{fontSize: 25, color: "red"}}>-{item.deal.price}</Text>
+                            </View>
+                        )}
+                    />
                 </View>
             </ScrollView>
         );
@@ -40,7 +54,8 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    citizen: state.citizen.citizen
+    citizen: state.citizen.citizen,
+    payments: state.citizen.payments
 });
 
-export default connect(mapStateToProps, { fetchCitizen })(Profile);
+export default connect(mapStateToProps, { fetchCitizen, refreshCitizen, fetchAllPaymentsCitizen })(Profile);

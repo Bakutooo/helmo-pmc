@@ -9,6 +9,10 @@ const DealSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    state: {
+        type: String,
+        required: true
+    },
     partner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'partner',

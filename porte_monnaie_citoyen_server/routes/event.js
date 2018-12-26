@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const _Event = require('./../models/Event');
 const generatePassword = require('generate-password');
+const socketInfo = require('./../socket-info');
 
 /**
  * Route   GET /event/
@@ -46,7 +47,10 @@ router.post("/", (req, res) => {
     });
 
     newEvent.save()
-    .then(event => res.json(event))
+    .then(event => {
+        socketInfo.socket.emit("newEvent");
+        res.json(event)
+    })
     .catch(error => res.json({error}))
 });
 
@@ -56,7 +60,10 @@ router.post("/", (req, res) => {
  */
 router.put("/", (req, res) => {
     _Event.updateOne({_id : req.body.event._id}, req.body.event)
-    .then(event => res.json(req.body.event._id))
+    .then(event => {
+        socketInfo.socket.emit("changedEvent");
+        res.json(req.body.event._id)
+    })
     .catch(error => res.json({error : "Impossible de mettre à jour l'event"}))
 });
 

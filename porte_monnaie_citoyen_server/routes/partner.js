@@ -4,6 +4,7 @@ const Partner = require('./../models/Partner');
 const Deal = require('./../models/Deal');
 const _Event = require('./../models/Event');
 const hash = require('password-hash');
+const socketInfo = require('./../socket-info');
 
 /**
  * Route    GET /partner/
@@ -65,7 +66,10 @@ router.post('/', (req, res) => {
     });
 
     newPartner.save()
-              .then(partner => res.json(partner))
+              .then(partner => {
+                    socketInfo.socket.emit("newPartner");
+                    res.json(partner);
+                })
               .catch(err => res.json(err));
 });
 

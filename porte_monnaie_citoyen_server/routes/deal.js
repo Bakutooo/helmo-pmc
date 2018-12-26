@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Deal = require('./../models/Deal');
-const genratePassword = require('generate-password');
+const generatePassword = require('generate-password');
+const Payment = require('./../models/Payment');
 
 /**
  * Route    GET /deal/
@@ -32,8 +33,9 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     newDeal = new Deal({
         name: req.body.name,
-        password: genratePassword.generate({length: 24, numbers: true}),
+        password: generatePassword.generate({length: 24, numbers: true}),
         price: req.body.price,
+        state: "O",
         partner: req.body.partner
     });
 
@@ -58,7 +60,10 @@ router.put('/', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
     Deal.deleteOne({_id: req.params.id})
-        .then(d => res.json(req.params.id))
+        .then(d => {
+            Payment.deleteMany({deal: req.params.id})
+                .then(() => res.json(req.params.id))
+        })
         .catch(err => res.json(err));
 });
 

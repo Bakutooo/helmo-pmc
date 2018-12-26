@@ -3,9 +3,12 @@ import serverInfo from "../server-info";
 
 export default {
     state: { events: [] },
+    getters: {
+        allEvents: (state) => state.events
+    },
     mutations: {
         FETCH_ALL_EVENTS: (state, payload) => {
-            state.events = payload;
+            state.events = [...payload];
         },
         ADD_EVENT: (state, payload) => {
             state.events = [...state.events, payload]

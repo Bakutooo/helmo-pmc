@@ -1,13 +1,16 @@
 <template>
         <div>
-            <div class="shadow pmc-event mr-3 mt-2 bg-white" data-toggle="modal" v-bind:data-target="modalId">
+            <div class="shadow pmc-event mr-3 mt-2 bg-white" data-toggle="modal" v-bind:data-target="'#manageEvent' + this.event._id">
                 <img alt="placeholder" src="https://via.placeholder.com/250x100"/>
                 <div class="px-2">
-                    <h4>{{name}}</h4>
-                    <p>Date : {{date}}</p>
+                    <h4>{{this.event.name}}</h4>
+                    <div class="d-flex justify-content-between d-row">
+                        <span>Date : {{getDate(this.event.date)}}</span>
+                        <div :class="'dot-'+this.event.state"></div>
+                    </div>
                 </div>
             </div>
-            <Modal v-bind:data="data"/>
+            <Modal v-bind:data="this.event"/>
         </div>
 </template>
 
@@ -23,12 +26,9 @@
         props : [
             "event"
         ],
-        data(){
-            return{
-                data: this.event,
-                modalId : "#manageEvent" + this.event._id,
-                name : this.event.name,
-                date : new moment(new Date(this.event.date)).format("DD/MM/YYYY")
+        methods: {
+            getDate: function(date)  {
+                return new moment(new Date(date)).format("DD/MM/YYYY");
             }
         }
     }

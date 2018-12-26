@@ -3,10 +3,17 @@ import PartnerShort from './components/PartnerShort'
 import PartnerLong from './components/PartnerLong'
 import { connect } from "react-redux";
 import { fetchPartnerAccepted, fetchPartnerWaiting } from "./../actions/partnerAction";
+import socketClient from 'socket.io-client';
 
 class Partners extends Component {
     
+    constructor(props){
+        super(props);
+        this.io = socketClient("https://pmc.girafes.be");
+    }
+
     componentWillMount(){
+        this.io.on("newPartner", () => this.props.fetchPartnerWaiting(this.props.town._id));
         this.props.fetchPartnerAccepted(this.props.town._id);
         this.props.fetchPartnerWaiting(this.props.town._id);
     }

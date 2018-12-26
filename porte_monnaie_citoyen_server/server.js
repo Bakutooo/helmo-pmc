@@ -6,6 +6,7 @@ let mongoose = require('mongoose');
 let bodyParser = require("body-parser");
 let db = require('./bd-info');
 let email = require('emailjs/email');
+let socketInfo = require('./socket-info');
 
 let citizen = require('./routes/citizen');
 let town = require('./routes/town');
@@ -16,6 +17,10 @@ let event = require('./routes/event');
 let participation = require('./routes/participation');
 
 let app = express();
+let http = require('http').Server(app);
+
+socketInfo.socket = require('socket.io')(http);
+http.listen(50003, () => console.log("Socket server listen on 50003"));
 
 //Pour utiliser les json dans les réponses
 app.use(bodyParser.json());
@@ -26,7 +31,7 @@ mongoose.connect(db.connection_string, { useNewUrlParser: true})
 .catch(err => console.log(err));
 
 //Connection SMTP
-let server = email.server.connect({
+let serverMail = email.server.connect({
     user: "bastien.pierre@girafes.be",
     password: "bK9-Vfj@4W",
     port: 465,
@@ -43,7 +48,7 @@ app.use('/deal', deal);
 app.use('/event', event);
 app.use('/participation', participation);
 app.post('/smtp', (req, res) => {
-    server.send({
+    serverMail.send({
         from: "Bastien PIERRE [PMC] <bastien.pierre@girafes.be>",
         to: req.body.to,
         subject: req.body.subject,
