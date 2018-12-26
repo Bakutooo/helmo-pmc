@@ -1,4 +1,4 @@
-import { FETCH_TOWN, SHOW_ERROR } from "./../actions/types";
+import { FETCH_TOWN, SHOW_ERROR, DECONNECTION } from "./../actions/types";
 
 const initialState = {
     town: null,
@@ -16,6 +16,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 error: action.payload
+            }
+        case DECONNECTION:
+            return {
+                ...state,
+                town: null
             }
         default: return state;
     }

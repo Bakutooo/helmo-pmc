@@ -83,3 +83,7 @@ body {
 .pmc-citizen:hover {
   cursor: pointer;
 }
+
+.pmc-pointer:hover{
+  cursor: pointer;
+}

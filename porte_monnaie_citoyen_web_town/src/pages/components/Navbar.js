@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import { deconnection } from './../../actions/townAction';
+import { connect } from "react-redux";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark navbar-fixed-top pmc-bg-primary">
@@ -22,10 +24,12 @@ export default class Navbar extends Component {
                     <button className="btn rounded-0 pmc-bg-primary border border-white" type="submit">Rechercher</button>
                     </form>
                     <div className="navbar-nav">
-                        <Link to="/dashboard"><div className="nav-link">Se déconnecter</div></Link>
+                        <a href="/"><div className="nav-link">Se déconnecter</div></a>
                     </div>
                 </div>
             </nav>
         )
     }
 }
+
+export default connect(null, { deconnection })(Navbar);

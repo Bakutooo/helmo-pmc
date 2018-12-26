@@ -53,21 +53,6 @@ body {
   background-color: #797979; 
 }
 
-/* .pmc-navbar a {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 5px;
-  height: 40px;
-  color: white;
-}
-
-.pmc-navbar a:hover {
-  color: #FFF;
-  text-decoration: none;
-  background-color: #3B4A54;
-} */
-
 .event-demande {
   border-right: 1px solid #333;
 }

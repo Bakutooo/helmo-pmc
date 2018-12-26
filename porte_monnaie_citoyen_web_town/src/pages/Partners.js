@@ -9,6 +9,9 @@ class Partners extends Component {
     
     constructor(props){
         super(props);
+        if(this.props.town === null) {
+            window.location.href = "/";
+        }
         this.io = socketClient("https://pmc.girafes.be");
     }
 
