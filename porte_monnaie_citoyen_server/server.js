@@ -6,6 +6,10 @@ let mongoose = require('mongoose');
 let bodyParser = require("body-parser");
 let db = require('./bd-info');
 let email = require('emailjs/email');
+let uuid = require('uuid/v4');
+let session = require('express-session');
+let FileStore = require('session-file-store')(session);
+let passport = require('passport');
 
 let citizen = require('./routes/citizen');
 let town = require('./routes/town');
@@ -16,6 +20,32 @@ let event = require('./routes/event');
 let participation = require('./routes/participation');
 
 let app = express();
+
+//Configuration et initialisation de Passport
+require('./passport')(passport);
+
+//Session MiddleWare
+app.use(session({
+    genid : (req) => {
+        console.log("Session middleware\nSessionId: ");
+        console.log(req.sessionID);
+        return uuid();
+    },
+    store : new FileStore(),
+    secret : 'girafes',
+    resave : false,
+    saveUninitialized : true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//A SUPPRIMER POUR DEPLOIEMENT
+app.get('/', (req, res) => {
+    console.log('Home page\nSessionId : ');
+    console.log(req.sessionID);
+    res.send(req.sessionID);
+});
 
 //Pour utiliser les json dans les réponses
 app.use(bodyParser.json());
@@ -49,7 +79,7 @@ app.post('/smtp', (req, res) => {
         subject: req.body.subject,
         text: req.body.text
     }, function(err, message) { console.log(err || message); });
-})
+});
 
 //Server
 app.listen(50001, () => console.log('Server started on port 50001'));

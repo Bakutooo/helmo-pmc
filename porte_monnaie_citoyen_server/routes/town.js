@@ -5,6 +5,8 @@ const Partner = require('./../models/Partner');
 const Citizen = require('./../models/Citizen');
 const _Event = require('./../models/Event');
 const hash = require('password-hash');
+const passport = require('passport');
+const blacklist = require('blacklist');
 
 /**
  * Route    GET /town/
@@ -29,63 +31,98 @@ router.get('/:id', (req, res) => {
 
 /**
  * Route    GET /town/partner/:id
- * Récupère les partners lié à la town
+ * Récupère les partners liés à la town
  */
 router.get('/partner/:id', (req, res) => {
-    Partner.find({town: req.params.id, state: "A"})
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town' && user.id === req.params.id){
+        Partner.find({town: req.params.id, state: "A"})
         .populate("town")
         .then(partners => res.json(partners))
         .catch(err => res.json(err));
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
  * Route    GET /town/citizen/:id
- * Récupère les citizens validé lié à la town
+ * Récupère les citizens validés liés à la town
  */
 router.get('/citizen/:id', (req, res) => {
-    Citizen.find({town: req.params.id})
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town' && user.id === req.params.id){
+        Citizen.find({town: req.params.id})
         .then(citizens => res.json(citizens))
         .catch(err => res.json(err));
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
  * Route    GET /town/event/:id
- * Récupère les events validé lié à town
+ * Récupère les events validés liés à town
  */
 router.get('/event/:id', (req, res) => {
-    _Event.find({town: req.params.id, state: "A"})
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town' && req._passport.session.user.id === req.params.id){
+        _Event.find({town: req.params.id, state: "A"})
         .populate("town")
         .populate("partner")
         .then(event => res.json(event))
         .catch(err => res.json(err));
+    }
+    else {
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
  * Route    GET /town/event/request/:id
- * Récupère les requêtes d'évènement liè à town
+ * Récupère les requêtes d'évènement liées à town
  */
 router.get('/event/request/:id', (req, res) => {
-    _Event.find({town: req.params.id, state: "W"})
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town' && user.id === req.params.id){
+        _Event.find({town: req.params.id, state: "W"})
         .populate("town")
         .populate("partner")
         .then(event => res.json(event))
         .catch(err => res.json(err));
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
  * Route    GET /town/partner/request/:id
- * Récupère les requêtes d'évènement liè à town
+ * Récupère les requêtes de partenariat liées à town
  */
 router.get('/partner/request/:id', (req, res) => {
-    Partner.find({town: req.params.id, state: "W"})
-        .populate("town")
-        .then(event => res.json(event))
-        .catch(err => res.json(err));
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town' && user.id === req.params.id){
+        Partner.find({town: req.params.id, state: "W"})
+            .populate("town")
+            .then(event => res.json(event))
+            .catch(err => res.json(err));
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
  * Route    POST /town/
- * Ajoute la town mentionné dans le corp de la requête
+ * Ajoute la town mentionnée dans le corps de la requête
  */
 router.post('/', (req, res) => {
     newTown = new Town({
@@ -102,23 +139,42 @@ router.post('/', (req, res) => {
  * Route    POST /town/connection
  * Récupère la town avec les identifiants mentionnés dans le corp de la requête
  */
-router.post('/connection', (req, res) => {
-    Town.findOne({name: req.body.name})
-        .then(town => {
-            if(town !== null && hash.verify(req.body.password, town.password)) res.json(town);
-            else res.json({error: "Identifiant invalide"});
+router.post('/connection', (req, res, next) => {
+    console.log('Connexion page');
+    console.log(req.body);
+    req.body.Town = Town;
+    passport.authenticate('town', (err, user, info) => {
+        if(info){
+            return res.send(info.message);
+        }
+        if(err) {
+            return next(err);
+        }
+        if(!user) {
+            return res.send(err);
+        }
+        req.login(user, (err) => {
+            let town = user.user;
+            return res.json(blacklist(town, "password"));
         })
-        .catch(err => res.json(err));
+    })(req, res, next);
 });
 
 /**
  * Route    PUT /town/
- * Modifie la town mentionné dans le corp de la requête
+ * Modifie la town mentionnée dans le corps de la requête
  */
 router.put('/', (req, res) => {
-    Town.updateOne({_id: req.body.town._id}, req.body.town)
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === "town"){
+        Town.updateOne({_id: req.body.town._id}, req.body.town)
         .then(town => res.json(town))
         .catch(err => reS.json(err));
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**

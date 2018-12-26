@@ -8,9 +8,16 @@ const Citizen = require('./../models/Citizen');
  * Récupère tous les payements
  */
 router.get("/", (req, res) => {
-    Payment.find()
-    .then(payments => res.json(payments))
-    .catch(error => res.json({error : "Impossible de récupérer les payments"}))
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town'){
+        Payment.find()
+        .then(payments => res.json(payments))
+        .catch(error => res.json({error : "Impossible de récupérer les payments"}))
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
@@ -18,9 +25,16 @@ router.get("/", (req, res) => {
  * Récupère un payements
  */
 router.get("/:id", (req, res) => {
-    Payment.findOne({_id : req.params.id})
-    .then(payment => res.json(payment))
-    .catch(err => res.json({error : "Impossible de récupérer le payement"}))
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'town' && req.body.partner._id === user.id){
+        Payment.findOne({_id : req.params.id})
+        .then(payment => res.json(payment))
+        .catch(err => res.json({error : "Impossible de récupérer le payement"}))
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
 });
 
 /**
