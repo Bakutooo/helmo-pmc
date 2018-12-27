@@ -43,7 +43,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn pmc-bg-primary" v-on:click='addEvent()'>Soumettre l'évènement</button>
+                        <button type="button" class="btn pmc-bg-primary" data-dismiss="modal" v-on:click='addEvent()'>Soumettre l'évènement</button>
                     </div>
                 </div>
             </div>

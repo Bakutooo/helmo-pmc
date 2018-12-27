@@ -5,7 +5,7 @@
             <button class="shadow btn btn-primary" data-toggle="modal" data-target="#AddDeal">Ajouter un deal</button>
         </div>
         <div class="w-100 p-3 d-flex flex-row flex-wrap">
-            <div class="w-25" v-for="d in deal.deals" :key="d._id">
+            <div class="w-25" v-for="d in dealOnGoing" :key="d._id">
                 <Deal v-bind:deal="d"/>
             </div>
         </div>
@@ -16,7 +16,7 @@
 <script>
 import Deal from './Deal.vue';
 import ModalAddDeal from './modals/ModalAddDeal.vue';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
     name: "Deals",
@@ -31,6 +31,10 @@ export default {
         ...mapState([
             'deal',
             'partner'
+        ]),
+        ...mapGetters([
+            'dealStopped',
+            'dealOnGoing'
         ])
     },
     methods: {
