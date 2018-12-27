@@ -6,14 +6,11 @@ let mongoose = require('mongoose');
 let bodyParser = require("body-parser");
 let db = require('./bd-info');
 let email = require('emailjs/email');
-<<<<<<< HEAD
 let uuid = require('uuid/v4');
 let session = require('express-session');
 let FileStore = require('session-file-store')(session);
 let passport = require('passport');
-=======
 let socketInfo = require('./socket-info');
->>>>>>> 521c83d554f633a2940462576900f07b4b628142
 
 let citizen = require('./routes/citizen');
 let town = require('./routes/town');
