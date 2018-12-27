@@ -61,7 +61,7 @@ module.exports = function(passport) {
                     return done(null, false, {error: "Partenariat pas encore validé"});
                 }
                 else if(partner !== null && hash.verify(password, partner.password)) {
-                    return done(null, {user : town, role : "town"});
+                    return done(null, {user : town, role : "partner"});
                 }
                 else{
                     return done(null, false, {error : "Identifiants incorrectes"});
