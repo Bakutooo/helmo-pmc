@@ -4,6 +4,7 @@ const Citizen = require('./../models/Citizen');
 const hash = require('password-hash');
 const passport = require('passport');
 const blacklist = require('blacklist');
+const Payment = require('./../models/Payment');
 
 /**
  * Route    GET /citizen/
@@ -33,6 +34,24 @@ router.get("/:id", (req, res) => {
         .populate('town')
         .then(citizen => res.json(citizen))
         .catch(error => res.json({error : "Impossible de récupérer le citoyen"}));
+    }
+    else{
+        res.status(401);
+        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    }
+});
+
+/**
+ * Route    GET /citizen/payment/:id
+ * Récupère les paiements du citoyen avec l'id correspondant
+ */
+router.get("/payment/:id", (req, res) => {
+    let user = req._passport.session.user;
+    if(req.isAuthenticated() && user.role === 'citizen' && user.id === req.params.id){
+        Payment.find({citizen: req.params.id})
+            .populate('deal')
+            .then(payment => res.json(payment))
+            .catch(err => console.log(err));
     }
     else{
         res.status(401);

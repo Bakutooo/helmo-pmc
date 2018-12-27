@@ -6,7 +6,7 @@
         </div>
         <div class="w-100 p-3 d-flex flex-row flex-wrap">
             <div class="w-25" v-for="d in deal.deals" :key="d._id">
-                <Deal v-bind:data="d"/>
+                <Deal v-bind:deal="d"/>
             </div>
         </div>
         <modal-add-deal/>

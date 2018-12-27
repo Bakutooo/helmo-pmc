@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import Event from './components/Event';
 import { connect } from "react-redux";
 import { fetchEventAccepted, fetchEventWaiting } from "./../actions/eventAction";
+import socketClient from 'socket.io-client';
 
 class Events extends Component {
+    
+    constructor(props){
+        super(props);
+        if(this.props.town === null) {
+            window.location.href = "/";
+        }
+        this.io = socketClient("https://pmc.girafes.be");
+    }
+
     componentWillMount(){
+        this.io.on("newEvent", () => this.props.fetchEventWaiting(this.props.town._id));
         this.props.fetchEventAccepted(this.props.town._id);
         this.props.fetchEventWaiting(this.props.town._id);
     }

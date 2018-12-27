@@ -15,7 +15,7 @@
         </div>
         <div class="w-100 p-3 d-flex flex-row flex-wrap">
             <div v-for="e in event.events" :key="e._id" class="">
-                <Event v-bind:data="e"/>
+                <Event v-bind:event="e"/>
             </div>
         </div>
         <modal-add-event />
@@ -26,10 +26,17 @@
 import Event from './Event.vue';
 import { mapState, mapActions } from 'vuex';
 import ModalAddEvent from "./modals/ModalAddEvent.vue";
+import socketClient from "socket.io-client";
 
 export default {
     created: function(){
+        this.io = socketClient("https://pmc.girafes.be");
         this.$store.dispatch("fetchAllEvents", this.$store.state.partner.partner._id);
+    },
+    mounted: function() {
+        this.io.on("changedEvent", () => {
+            this.$store.dispatch("fetchAllEvents", this.$store.state.partner.partner._id);
+        });
     },
     components : {
         Event,

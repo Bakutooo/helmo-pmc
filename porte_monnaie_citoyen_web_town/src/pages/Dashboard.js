@@ -2,11 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchEventWaiting } from "./../actions/eventAction";
 import { fetchPartnerWaiting } from "./../actions/partnerAction";
-import Event from './components/Event'
-import Partner from './components/PartnerShort'
+import Event from './components/Event';
+import Partner from './components/PartnerShort';
+import socketClient from 'socket.io-client';
 
 class Dashboard extends Component {
+
+    constructor(props){
+        super(props);
+        if(this.props.town === null) {
+            window.location.href = "/";
+        }
+        this.io = socketClient("https://pmc.girafes.be");
+    }
+
     componentWillMount(){
+        this.io.on("newEvent", () => this.props.fetchEventWaiting(this.props.town._id));
+        this.io.on("newPartner", () => this.props.fetchPartnerWaiting(this.props.town._id));
         this.props.fetchEventWaiting(this.props.town._id);
         this.props.fetchPartnerWaiting(this.props.town._id);
     }

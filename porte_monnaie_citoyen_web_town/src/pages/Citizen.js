@@ -5,6 +5,13 @@ import CitizenBlock from "./components/Citizen";
 
 class Citizen extends Component {
 
+    constructor(props) {
+        super(props);
+        if(this.props.town === null) {
+            window.location.href = "/";
+        }
+    }
+
     componentWillMount(){
         this.props.fetchCitizens(this.props.town._id);
     }

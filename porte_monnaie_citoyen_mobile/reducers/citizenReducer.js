@@ -1,10 +1,11 @@
-import { FETCH_CITIZEN, SHOW_ERROR, ADD_CITIZEN, LOGOUT_CITIZEN, FETCH_PARTICIPATION_CITIZEN, FETCH_ALL_PARTICIPATION_CITIZEN } from "./../actions/types";
+import { FETCH_CITIZEN, SHOW_ERROR, ADD_CITIZEN, LOGOUT_CITIZEN, FETCH_PARTICIPATION_CITIZEN, FETCH_ALL_PARTICIPATION_CITIZEN, FETCH_ALL_PAYMENTS_CITIZEN } from "./../actions/types";
 
 const initialState = {
     citizen: null,
     error: "",
     message: "",
     participations: [],
+    payments: [],
     participation: {
         event: {
             name: "N/C",
@@ -52,6 +53,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 participations: action.payload
+            }
+        case FETCH_ALL_PAYMENTS_CITIZEN:
+            console.log(FETCH_ALL_PAYMENTS_CITIZEN);
+            return {
+                ...state,
+                payments: action.payload
             }
         default: return state
     }

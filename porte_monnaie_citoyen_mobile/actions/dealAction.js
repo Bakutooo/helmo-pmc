@@ -14,7 +14,7 @@ export const fetchDealsPartner = (id) => dispatch => {
     .catch(err => console.log(err));
 }
 
-export const buyDeal = (citizen, deal) => {
+export const buyDeal = (citizen, deal) => dispatch => {
     fetch(server.url + "/payment", server.postConfig({citizen, deal}))
     .then(res => res.json())
     .then(res => console.log(res))

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const _Event = require('./../models/Event');
 const generatePassword = require('generate-password');
+const socketInfo = require('./../socket-info');
 
 /**
  * Route   GET /event/
@@ -61,14 +62,19 @@ router.post("/", (req, res) => {
             town: req.body.town,
             partner: req.body.partner
         });
+    
         newEvent.save()
-        .then(event => res.json(event))
+        .then(event => {
+            socketInfo.socket.emit("newEvent");
+            res.json(event)
+        })
         .catch(error => res.json({error}))
     }
     else{
         res.status(401);
         res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
     }
+    
     
 });
 
@@ -80,13 +86,16 @@ router.put("/", (req, res) => {
     let user = req._passport.session.user;
     if(req.isAuthenticated() && user.role === 'partner'){
         _Event.updateOne({_id : req.body.event._id}, req.body.event)
-        .then(event => res.json(req.body.event._id))
-        .catch(error => res.json({error : "Impossible de mettre à jour l'event"}))
+    .then(event => {
+        socketInfo.socket.emit("changedEvent");
+        res.json(req.body.event._id)
+    })
+    .catch(error => res.json({error : "Impossible de mettre à jour l'event"}))
     }
     else{
         res.status(401);
         res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
-    }   
+    }
 });
 
 /**

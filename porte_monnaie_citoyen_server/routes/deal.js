@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Deal = require('./../models/Deal');
-const genratePassword = require('generate-password');
+const generatePassword = require('generate-password');
+const Payment = require('./../models/Payment');
 
 /**
  * Route    GET /deal/
@@ -50,10 +51,11 @@ router.post('/', (req, res) => {
     if(req.isAuthenticated() && user.role === 'partner' && user.id === req.body.partner.id){
         newDeal = new Deal({
             name: req.body.name,
-            password: genratePassword.generate({length: 24, numbers: true}),
+            password: generatePassword.generate({length: 24, numbers: true}),
             price: req.body.price,
+            state: "O",
             partner: req.body.partner
-        });
+        });   
 
         newDeal.save()
             .then(deal => res.json(deal))
@@ -92,14 +94,16 @@ router.delete('/:id', (req, res) => {
     let user = req._passport.session.user;
     if(req.isAuthenticated() && user.role === 'partner'){
         Deal.deleteOne({_id: req.params.id})
-            .then(d => res.json(req.params.id))
-            .catch(err => res.json(err));
+        .then(d => {
+            Payment.deleteMany({deal: req.params.id})
+                .then(() => res.json(req.params.id))
+        })
+        .catch(err => res.json(err));
     }
     else{
         res.status(401);
         res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
     }
-    
 });
 
 module.exports = router;

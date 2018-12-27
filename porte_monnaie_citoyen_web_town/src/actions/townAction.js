@@ -1,4 +1,4 @@
-import { FETCH_TOWN, SHOW_ERROR } from "./types";
+import { FETCH_TOWN, SHOW_ERROR, DECONNECTION } from "./types";
 import server from './../server-info';
 
 export const fetchTown = (town) => dispatch => {
@@ -18,4 +18,10 @@ export const fetchTown = (town) => dispatch => {
         }
     })
     .catch(err => console.log(err));
+}
+
+export const deconnection = () => dispatch => {
+    dispatch({
+        type: DECONNECTION
+    })
 }

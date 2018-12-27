@@ -10,23 +10,23 @@ import { connect } from "react-redux";
 
 class App extends React.Component{
     render() {
-        return (
-            <BrowserRouter>
-                <div className="h-100">
-                    <div>
-                        {this.props.town !== null && 
-                        <Navbar/>}
+            return (
+                <BrowserRouter>
+                    <div className="h-100">
+                        <div>
+                            {this.props.town !== null && 
+                            <Navbar/>}
+                        </div>
+                        <div className="d-flex flex-row h-100 w-100 pmc-container">
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/dashboard" component={Dashboard}/>
+                            <Route path="/citizen" component={Citizen}/>
+                            <Route path="/event" component={Events}/>
+                            <Route path="/partner" component={Partners}/>
+                        </div>
                     </div>
-                    <div className="d-flex flex-row h-100 w-100 pmc-container">
-                        <Route exact path="/" component={Home}/>
-                        <Route path="/dashboard" component={Dashboard}/>
-                        <Route path="/citizen" component={Citizen}/>
-                        <Route path="/event" component={Events}/>
-                        <Route path="/partner" component={Partners}/>
-                    </div>
-                </div>
-            </BrowserRouter>
-        )
+                </BrowserRouter>
+            )
     }
 }
 

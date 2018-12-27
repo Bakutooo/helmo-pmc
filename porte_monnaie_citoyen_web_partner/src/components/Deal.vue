@@ -31,13 +31,14 @@ import { mapActions } from 'vuex';
             }
         },
         props : [
-            "data"
+            "deal"
         ],
         data() {
             return {
-                name : this.data.name,
-                price : this.data.price,
-                IdModal : "#QRCode" + this.data._id
+                name : this.deal.name,
+                price : this.deal.price,
+                IdModal : "#QRCode" + this.deal._id,
+                data: {...this.deal, password: this.deal._id}
             }
         }
     }

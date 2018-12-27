@@ -23,7 +23,7 @@ export const fetchEvent = (id) => dispatch => {
 }
 
 export const participateEvent = (citizen, event, password) => {
-    fetch(server.url + "/participate", server.postConfig({citizen, event, password}))
+    fetch(server.url + "/participation", server.postConfig({citizen, event, password}))
     .then(res => res.json())
     .then(res => console.log(res))
     .catch(err => console.log(err));
