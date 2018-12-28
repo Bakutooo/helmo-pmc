@@ -11,7 +11,6 @@ const socketInfo = require('./../socket-info');
  * Récupère tous les partners
  */
 router.get('/', (req, res) => {
-    
     if(req.isAuthenticated()){
         Partner.find()
             .populate('town')
@@ -21,8 +20,7 @@ router.get('/', (req, res) => {
     else{
         res.status(401);
         res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
-    }
-    
+    }    
 });
 
 /**
@@ -48,17 +46,22 @@ router.get('/:id', (req, res) => {
  * Récupère les deals liés à partner id
  */
 router.get('/deal/:id', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'citizen'){
-        Deal.find({partner: req.params.id})
-        .then(deals => res.json(deals))
-        .catch(err => res.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'citizen'){
+            Deal.find({partner: req.params.id})
+            .then(deals => res.json(deals))
+            .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
-    }
-    
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
+    }    
 });
 
 /**
@@ -66,17 +69,22 @@ router.get('/deal/:id', (req, res) => {
  * Récupère les events liés à partner id
  */
 router.get('/event/:id', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated()){
-        _Event.find({partner: req.params.id})
-          .then(events => res.json(events))
-          .catch(err => req.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated()){
+            _Event.find({partner: req.params.id})
+            .then(events => res.json(events))
+            .catch(err => req.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
-    
 });
 
 /**
@@ -140,21 +148,26 @@ router.post('/connection', (req, res) => {
  * Modifie la partner mentionné dans le corp de la requête
  */
 router.put('/', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'partner' && req.body.partner._id === user.id){
-        if(!hash.isHashed(req.body.partner.password)) req.body.partner.password = hash.generate(req.body.partner.password);
-        Partner.updateOne({_id: req.body.partner._id}, req.body.partner)
-           .then(partner => res.json(req.body.partner._id))
-           .catch(err => {
-                console.log("ERROR");
-               res.json(err)
-        });
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'partner' && req.body.partner._id === user.id){
+            if(!hash.isHashed(req.body.partner.password)) req.body.partner.password = hash.generate(req.body.partner.password);
+            Partner.updateOne({_id: req.body.partner._id}, req.body.partner)
+            .then(partner => res.json(req.body.partner._id))
+            .catch(err => {
+                    console.log("ERROR");
+                res.json(err)
+            });
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
-    
 });
 
 /**
@@ -162,17 +175,22 @@ router.put('/', (req, res) => {
  * Supprime le partner avec l'id mentionné
  */
 router.delete('/:id', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'town'){
-        Partner.deleteOne({_id: req.params._id})
-           .then(d => res.json(d))
-           .catch(err => res.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'town'){
+            Partner.deleteOne({_id: req.params._id})
+            .then(d => res.json(d))
+            .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
-    
 });
 
 module.exports = router;

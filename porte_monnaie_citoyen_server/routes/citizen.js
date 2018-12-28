@@ -11,15 +11,22 @@ const Payment = require('./../models/Payment');
  * Récupère tous les citoyens
  */
 router.get("/", (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'town'){
-        Citizen.find()
-        .populate('town')
-        .then(citizens => res.json(citizens))
-        .catch(error => res.json({error : "Impossible de récupérer les citoyens"}))
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'town'){
+            Citizen.find()
+            .populate('town')
+            .then(citizens => res.json(citizens))
+            .catch(error => res.json({error : "Impossible de récupérer les citoyens"}))
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
 });
 
@@ -28,16 +35,22 @@ router.get("/", (req, res) => {
  * Récupère un citoyen
  */
 router.get("/:id", (req, res) => {
-    let user = req._passport.session.user;
-    if((req.isAuthenticated() && user.role === 'town') || (req.isAuthenticated() && user.role === 'citizen' && user.id === req.params.id)){
-        Citizen.findOne({_id : req.params.id})
-        .populate('town')
-        .then(citizen => res.json(citizen))
-        .catch(error => res.json({error : "Impossible de récupérer le citoyen"}));
+    try{
+        let user = req._passport.session.user;
+        if((req.isAuthenticated() && user.role === 'town') || (req.isAuthenticated() && user.role === 'citizen' && user.id === req.params.id)){
+            Citizen.findOne({_id : req.params.id})
+            .populate('town')
+            .then(citizen => res.json(citizen))
+            .catch(error => res.json({error : "Impossible de récupérer le citoyen"}));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
 });
 
@@ -46,16 +59,22 @@ router.get("/:id", (req, res) => {
  * Récupère les paiements du citoyen avec l'id correspondant
  */
 router.get("/payment/:id", (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'citizen' && user.id === req.params.id){
-        Payment.find({citizen: req.params.id})
-            .populate('deal')
-            .then(payment => res.json(payment))
-            .catch(err => console.log(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'citizen' && user.id === req.params.id){
+            Payment.find({citizen: req.params.id})
+                .populate('deal')
+                .then(payment => res.json(payment))
+                .catch(err => console.log(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
 });
 
@@ -135,19 +154,25 @@ router.post("/", (req, res) => {
  * Permet de mettre à jour les informations d'un citoyen
  */
 router.put("/", (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'town'){
-        if(req.body.citizen.password !== undefined){
-            req.body.citizen.password = hash.generate(req.body.citizen.password)
-        }
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'town'){
+            if(req.body.citizen.password !== undefined){
+                req.body.citizen.password = hash.generate(req.body.citizen.password)
+            }
 
-        Citizen.updateOne({_id : req.body.citizen._id}, req.body.citizen)
-        .then(citizen => res.json(citizen))
-        .catch(error => res.json({error : "Impossible de mettre à jour le citoyen"}));
+            Citizen.updateOne({_id : req.body.citizen._id}, req.body.citizen)
+            .then(citizen => res.json(citizen))
+            .catch(error => res.json({error : "Impossible de mettre à jour le citoyen"}));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
 });
 
@@ -156,15 +181,21 @@ router.put("/", (req, res) => {
  * Permet de supprimer un citoyen
  */
 router.delete("/:id", (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'town'){
-        Citizen.deleteOne({_id : req.params.id})
-        .then(result => res.json(req.params.id))
-        .catch(error => res.json({error : "Impossible de supprimer le citoyen"}));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'town'){
+            Citizen.deleteOne({_id : req.params.id})
+            .then(result => res.json(req.params.id))
+            .catch(error => res.json({error : "Impossible de supprimer le citoyen"}));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
 });
 

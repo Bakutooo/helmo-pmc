@@ -6,7 +6,7 @@ const hash = require('password-hash');
  */
 module.exports = function(passport) {
     passport.use('citizen', new LocalStrategy(
-        { usernameField : 'email', passReqToCallback : true },
+        { usernameField : 'mail', passReqToCallback : true },
         (req, email, password, done) => {
             console.log("Login citizen");
             console.log("email : " + email + ", password : " + password);

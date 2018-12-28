@@ -9,18 +9,23 @@ const Payment = require('./../models/Payment');
  * Récupère tous les deals
  */
 router.get('/', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && (user.role === 'citizen' || user.role === 'town')){
-        Deal.find()
-        .populate('partner')
-        .then(deals => res.json(deals))
-        .catch(err => res.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && (user.role === 'citizen' || user.role === 'town')){
+            Deal.find()
+            .populate('partner')
+            .then(deals => res.json(deals))
+            .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
-    
 });
 
 /**
@@ -28,18 +33,23 @@ router.get('/', (req, res) => {
  * Récupère le deal avec l'id mentionné
  */
 router.get('/:id', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && (user.role === 'town' || user.role === 'citizen')){
-        Deal.findById(req.params.id)
-        .populate('partner')
-        .then(deal => res.json(deal))
-        .catch(err => res.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && (user.role === 'town' || user.role === 'citizen')){
+            Deal.findById(req.params.id)
+            .populate('partner')
+            .then(deal => res.json(deal))
+            .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
-    
 });
 
 /**
@@ -47,25 +57,30 @@ router.get('/:id', (req, res) => {
  * Ajoute le deal mentionné dans le corps de la requête
  */
 router.post('/', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'partner' && user.id === req.body.partner.id){
-        newDeal = new Deal({
-            name: req.body.name,
-            password: generatePassword.generate({length: 24, numbers: true}),
-            price: req.body.price,
-            state: "O",
-            partner: req.body.partner
-        });   
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'partner' && user.id === req.body.partner.id){
+            newDeal = new Deal({
+                name: req.body.name,
+                password: generatePassword.generate({length: 24, numbers: true}),
+                price: req.body.price,
+                state: "O",
+                partner: req.body.partner
+            });   
 
-        newDeal.save()
-            .then(deal => res.json(deal))
-            .catch(err => res.json(err));
+            newDeal.save()
+                .then(deal => res.json(deal))
+                .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
-    }
-    
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
+    }    
 });
 
 /**
@@ -73,17 +88,22 @@ router.post('/', (req, res) => {
  * Modifie le deal mentionné dans le corps de la requête
  */
 router.put('/', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'partner'){
-        Deal.updateOne({_id: req.body.deal._id}, req.body.deal)
-            .then(deal => res.json(deal))
-            .catch(err => res.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'partner'){
+            Deal.updateOne({_id: req.body.deal._id}, req.body.deal)
+                .then(deal => res.json(deal))
+                .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
     }
-    
 });
 
 /**
@@ -91,19 +111,25 @@ router.put('/', (req, res) => {
  * Supprime le deal avec l'id mentionné
  */
 router.delete('/:id', (req, res) => {
-    let user = req._passport.session.user;
-    if(req.isAuthenticated() && user.role === 'partner'){
-        Deal.deleteOne({_id: req.params.id})
-        .then(d => {
-            Payment.deleteMany({deal: req.params.id})
-                .then(() => res.json(req.params.id))
-        })
-        .catch(err => res.json(err));
+    try{
+        let user = req._passport.session.user;
+        if(req.isAuthenticated() && user.role === 'partner'){
+            Deal.deleteOne({_id: req.params.id})
+            .then(d => {
+                Payment.deleteMany({deal: req.params.id})
+                    .then(() => res.json(req.params.id))
+            })
+            .catch(err => res.json(err));
+        }
+        else{
+            res.status(401);
+            res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
+        }
     }
-    else{
-        res.status(401);
-        res.json({error : "Vous n'avez pas les autorisations pour effectuer cette action"});
-    }
+    catch(err){
+        res.status(403);
+        res.json({error : "Une erreur s'est produite"});
+    }    
 });
 
 module.exports = router;
