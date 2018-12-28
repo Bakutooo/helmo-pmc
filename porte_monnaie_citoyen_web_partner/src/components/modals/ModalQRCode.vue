@@ -18,7 +18,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-primary">Ajouter le deal</button>
                     </div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
         props : [
             "data"
         ],
-        data(){
+        computed(){
             return {
                 id : "QRCode" + this.data._id,
                 name : this.data.name,

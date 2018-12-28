@@ -24,6 +24,17 @@ router.get('/', (req, res) => {
 });
 
 /**
+ * Route    GET /partner/accepted
+ * Récupère tous les partenaires validés
+ */
+router.get('/accepted', (req, res) => {
+    Partner.find({state: "A"})
+            .populate('town')
+            .then(partners => res.json(partners))
+            .catch(err => console.log(err));
+});
+
+/**
  * Route    GET /partner/:id
  * Récupère le partner avec l'id mentionné
  */
@@ -97,7 +108,7 @@ router.post('/', (req, res) => {
         mail: req.body.mail,
         phone: req.body.phone,
         tva: req.body.tva,
-        password: "N/A",
+        password: hash.generate(req.body.password),
         state: "W",
         address: req.body.address,
         town: req.body.town,
