@@ -12,7 +12,7 @@ class PartnerLong extends Component {
                 <div className="mx-4">
                     <div className="d-flex flex-row justify-content-between w-100">
                         <div>
-                            <span className="h4"> {name} </span><a href="#evenement">Voir sa liste d'évènement</a>
+                            <span className="h4"> {name} </span>
                             <p><i>{address + " " + town.name}</i><br/>{description}</p>
                         </div>
                     </div>

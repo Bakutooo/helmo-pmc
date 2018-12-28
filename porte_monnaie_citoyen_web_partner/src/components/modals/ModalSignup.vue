@@ -18,6 +18,12 @@
                         <input v-model="mail" class="form-control" type="text" placeholder="Entrez l'email de votre société..."/>
                     </div>
                     <div class="form-group">
+                        <input required v-model="password" class="form-control" type="password" placeholder="Entrez votre mot de passe..."/>
+                    </div>
+                    <div class="form-group">
+                        <input required v-model="confirmedPassword" class="form-control" type="password" placeholder="Confirmez votre mot de passe..."/>
+                    </div>
+                    <div class="form-group">
                         <input v-model="phone" class="form-control" type="tel" placeholder="Entrez le numéro de téléphone de votre société..." />
                     </div>
                     
@@ -64,6 +70,8 @@ export default {
             address : "",
             description : "",
             townSelected : "",
+            password: "",
+            confirmedPassword: "",
         }
     },
     computed: {
@@ -84,7 +92,9 @@ export default {
                 tva : this.tva,
                 address : this.address,
                 description : this.description,
-                town: this.townSelected
+                town: this.townSelected,
+                password: this.password,
+                confirmedPassword: this.confirmedPassword
             })
         }
     } 

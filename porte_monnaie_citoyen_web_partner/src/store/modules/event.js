@@ -12,6 +12,12 @@ export default {
         },
         ADD_EVENT: (state, payload) => {
             state.events = [...state.events, payload]
+        },
+        DELETE_EVENT: (state, id) => {
+            let index = state.events.findIndex(e => e._id === id);
+            let temp = [...state.events];
+            temp.splice(index, 1);
+            state.events = temp;
         }
     },
     actions: {
@@ -25,6 +31,12 @@ export default {
             fetch(serverInfo.url + "/event", serverInfo.postConfig(event))
             .then(res => res.json())
             .then(res => commit("ADD_EVENT", res))
+            .catch(err => console.log(err));
+        },
+        deleteEvent: ({ commit }, id) => {
+            fetch(serverInfo.url + "/event/" + id, {method: "DELETE"})
+            .then(res => res.json())
+            .then(() => commit("DELETE_EVENT", id))
             .catch(err => console.log(err));
         }
     }

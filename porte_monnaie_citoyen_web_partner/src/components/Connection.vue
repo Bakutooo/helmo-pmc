@@ -1,14 +1,21 @@
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import ModalSignup from './modals/ModalSignup.vue';
 
 export default {
     name: "Home",
     components: {ModalSignup},
-    data: () => ({
-        mail: "",
-        password: ""
-    }),
+    computed: {
+        ...mapState([
+            'partner'
+        ]),
+    },
+    data: () => {
+        return {
+            mail: "",
+            password: "",
+        }
+    },
     methods: {
         ...mapActions([
             'fetchPartner'
@@ -24,6 +31,9 @@ export default {
     <div class="mx-auto my-5 bg-white p-5 rounded w-50 shadow">
         <h1>Porte Monnaie Citoyen</h1>
         <form @submit.prevent="fetchPartner()">
+            <div class="alert alert-danger" v-if="partner.message !== ''">
+                {{partner.message}}  
+            </div>
             <div class="form-group">
                 <input type="text" name="email" class="form-control" placeholder="Entrez votre email..." v-model="mail"/>
             </div>

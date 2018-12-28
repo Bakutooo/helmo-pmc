@@ -18,6 +18,17 @@ router.get('/', (req, res) => {
 });
 
 /**
+ * Route    GET /partner/accepted
+ * Récupère tous les partenaires validés
+ */
+router.get('/accepted', (req, res) => {
+    Partner.find({state: "A"})
+            .populate('town')
+            .then(partners => res.json(partners))
+            .catch(err => console.log(err));
+});
+
+/**
  * Route    GET /partner/:id
  * Récupère le partner avec l'id mentionné
  */
@@ -58,7 +69,7 @@ router.post('/', (req, res) => {
         mail: req.body.mail,
         phone: req.body.phone,
         tva: req.body.tva,
-        password: "N/A",
+        password: hash.generate(req.body.password),
         state: "W",
         address: req.body.address,
         town: req.body.town,
@@ -80,9 +91,12 @@ router.post('/', (req, res) => {
 router.post('/connection', (req, res) => {
     Partner.findOne({mail: req.body.mail})
            .then(partner => {
-               if(partner.state === "W") res.json({error: "Partenariat pas encore validé"});
-               else if(hash.verify(req.body.password, partner.password)) res.json(partner);
-               else res.json({error: "Identifiants incorrect"});
+                if(hash.verify(req.body.password, partner.password)) {
+                    
+                    if(partner.state === "W") res.json({error: "Partenariat pas encore validé"});
+                    else if(partner.state === "A") res.json(partner);
+                }
+                else res.json({error: "Identifiants incorrect"});
            })
            .catch(err => res.json(err));
 });

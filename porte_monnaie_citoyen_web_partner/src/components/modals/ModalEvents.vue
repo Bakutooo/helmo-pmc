@@ -27,7 +27,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler l'évènement</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteEvent()">Annuler l'évènement</button>
                     </div>
                 </div>
             </div>
@@ -37,6 +37,7 @@
 
 <script>
     import moment from 'moment';
+import { mapActions } from 'vuex';
 
     export default {
         name : "ModalEvents",
@@ -52,6 +53,19 @@
                 date : new moment(new Date(this.data.date)).format("DD/MM/YYYY"),
                 gain : this.data.gain
             }
-        }
+        },
+        methods: {
+            ...mapActions([
+                'deleteEvent'
+            ]),
+            deleteEvent: function(){
+                this.$store.dispatch("deleteEvent", this.data._id);
+                this.name = "",
+                this.description = "",
+                this.address = "",
+                this.date = "",
+                this.gain = ""
+            }
+        },
     }
 </script>

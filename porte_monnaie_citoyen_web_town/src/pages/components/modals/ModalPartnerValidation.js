@@ -7,7 +7,6 @@ export default class ModalEventValidation extends Component {
         this.state = {
             feedbackHidden : true,
             feedbackValue : "",
-            password : "",
             onSubmit: () => this.props.onAccept()
         }
     }
@@ -20,7 +19,6 @@ export default class ModalEventValidation extends Component {
         }
         else{
             this.setState({onSubmit: () => this.props.onRefuse(this.state.feedbackValue)});
-            this.setState({password : ""});
         }
     }
     
@@ -61,12 +59,6 @@ export default class ModalEventValidation extends Component {
                                             className="form-control"
                                             value={this.state.feedbackValue}
                                             onChange={({target: {value}}) => this.setState({feedbackValue : value})}/>
-                                    </div>
-                                    <div className="mt-3" hidden={!this.state.feedbackHidden}>
-                                        <h6>Encoder le mot de passe à attribuer à ce partenaire</h6>
-                                        <input type="password"
-                                            value={this.state.password}
-                                            onChange={({target: {value}}) => this.setState({password : value})}/>
                                     </div>
                                 </div>
                             </div>
