@@ -72,11 +72,14 @@ module.exports = function(passport) {
     ));
 
     passport.serializeUser((user, done) => {
-        console.log('Inside serializeUser callback. User id is save to the session file store here');
+        console.log('Inside serializeUser callback\nObject stored : ');
+        console.log(user);
         done(null, {id : user.user.id, role : user.role});
     });
     
     passport.deserializeUser((id, done) => {
+        console.log('Inside deserializeUser callback');
+        console.log(id);
         done(null, id);
     });
 }

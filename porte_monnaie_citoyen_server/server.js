@@ -39,7 +39,7 @@ app.use(session({
     store : new FileStore(),
     secret : 'girafes',
     resave : false,
-    saveUninitialized : true
+    saveUninitialized : false
 }));
 
 app.use(passport.initialize());
