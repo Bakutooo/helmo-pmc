@@ -86,7 +86,13 @@ export default {
                 date: this.date,
                 partner: this.partner.partner,
                 town: this.selectedTown,
-            })
+            });
+
+            name = "";
+            description = "";
+            address = "";
+            date = "";
+            town = "";
         }
     }
 }

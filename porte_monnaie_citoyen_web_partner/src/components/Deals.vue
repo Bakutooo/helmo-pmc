@@ -21,6 +21,7 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
     name: "Deals",
     created: function(){
+        if(this.$store.state.partner.partner === null) window.location.href = "/";
         this.$store.dispatch('fetchAllDeals', this.$store.state.partner.partner._id);
     },
     components : {
