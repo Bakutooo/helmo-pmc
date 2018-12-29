@@ -2,7 +2,7 @@ import { FETCH_CITIZENS, DELETE_CITIZEN } from "./types";
 import server from './../server-info';
 
 export const fetchCitizens = (town) => dispatch => {
-    fetch(server.url + "/town/citizen/" + town)
+    fetch(server.url + "/town/citizen/" + town, server.getConfig)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_CITIZENS,
@@ -12,9 +12,7 @@ export const fetchCitizens = (town) => dispatch => {
 };
 
 export const deleteCitizen = (citizen) => dispatch => {
-    fetch(server.url + "/citizen/" + citizen, {
-        method : "DELETE"
-    })
+    fetch(server.url + "/citizen/" + citizen, server.deleteConfig)
     .then(res => dispatch({
         type : DELETE_CITIZEN,
         payload : res

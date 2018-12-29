@@ -23,6 +23,9 @@ let participation = require('./routes/participation');
 let app = express();
 let http = require('http').Server(app);
 
+//Pour utiliser les json dans les réponses
+app.use(bodyParser.json());
+
 socketInfo.socket = require('socket.io')(http);
 http.listen(50003, () => console.log("Socket server listen on 50003"));
 
@@ -39,7 +42,7 @@ app.use(session({
     store : new FileStore(),
     secret : 'girafes',
     resave : false,
-    saveUninitialized : true
+    saveUninitialized : false,
 }));
 
 app.use(passport.initialize());
@@ -51,9 +54,6 @@ app.get('/', (req, res) => {
     console.log(req.sessionID);
     res.send(req.sessionID);
 });
-
-//Pour utiliser les json dans les réponses
-app.use(bodyParser.json());
 
 // Connection BD
 mongoose.connect(db.connection_string, { useNewUrlParser: true})

@@ -51,11 +51,11 @@ module.exports = function(passport) {
     ));
 
     passport.use('partner', new LocalStrategy(
-        { usernameField : 'name', passReqToCallback : true },
-        (req, name, password, done) => {
+        { usernameField : 'mail', passReqToCallback : true },
+        (req, mail, password, done) => {
             console.log("Login partner");
-            console.log("name : " + name + ", password : " + password);
-            req.body.Partner.findOne({name: req.body.name})
+            console.log("mail : " + mail + ", password : " + password);
+            req.body.Partner.findOne({mail: req.body.mail})
             .then(partner => {
                 if(hash.verify(req.body.password, partner.password)) {
                     

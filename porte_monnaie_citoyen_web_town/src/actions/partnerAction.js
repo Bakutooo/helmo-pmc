@@ -2,7 +2,7 @@ import { FETCH_PARTNER_ACCEPTED, FETCH_PARTNER_WAITING, ACCEPT_PARTNER, REFUSE_P
 import server from './../server-info';
 
 export const fetchPartnerAccepted = (town) => dispatch => {
-    fetch(server.url + "/town/partner/" + town)
+    fetch(server.url + "/town/partner/" + town, server.getConfig)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_PARTNER_ACCEPTED,
@@ -12,7 +12,7 @@ export const fetchPartnerAccepted = (town) => dispatch => {
 }
 
 export const fetchPartnerWaiting = (town) => dispatch => {
-    fetch(server.url + "/town/partner/request/" + town)
+    fetch(server.url + "/town/partner/request/" + town, server.getConfig)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_PARTNER_WAITING,
@@ -48,7 +48,7 @@ export const refusePartner = (partner, feedback) => dispatch => {
 }
 
 export const deletePartner = (partner) => dispatch => {
-    fetch(server.url + "/partner/" + partner, {method: "DELETE"})
+    fetch(server.url + "/partner/" + partner, server.deleteConfig)
     .then(res => dispatch({
         type: DELETE_PARTNER,
         payload: res

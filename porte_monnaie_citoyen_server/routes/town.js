@@ -122,6 +122,8 @@ router.get('/event/request/:id', (req, res) => {
         }
     }
     catch(err){
+        console.log(err);
+        console.log(req);
         res.status(403);
         res.json({error : "Une erreur s'est produite"});
     } 

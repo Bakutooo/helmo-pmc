@@ -22,7 +22,7 @@ export default {
     },
     actions: {
         fetchAllEvents: ({ commit }, id) => {
-            fetch(serverInfo.url + "/partner/event/" + id)
+            fetch(serverInfo.url + "/partner/event/" + id, serverInfo.getConfig)
             .then(res => res.json())
             .then(res => commit("FETCH_ALL_EVENTS", res))
             .catch(err => console.log(err))
@@ -34,7 +34,7 @@ export default {
             .catch(err => console.log(err));
         },
         deleteEvent: ({ commit }, id) => {
-            fetch(serverInfo.url + "/event/" + id, {method: "DELETE"})
+            fetch(serverInfo.url + "/event/" + id, serverInfo.deleteConfig)
             .then(res => res.json())
             .then(() => commit("DELETE_EVENT", id))
             .catch(err => console.log(err));

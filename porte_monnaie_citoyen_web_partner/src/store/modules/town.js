@@ -10,7 +10,7 @@ export default {
     },
     actions: {
         fetchAllTowns: ({commit}) => {
-            fetch(serverInfo.url + "/town")
+            fetch(serverInfo.url + "/town", serverInfo.getConfig)
             .then(res => res.json())
             .then(res => commit('FETCH_ALL_TOWNS', res))
             .catch(err => console.log(err))
