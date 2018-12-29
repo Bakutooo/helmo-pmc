@@ -2,7 +2,7 @@ import { FETCH_EVENT_ACCEPTED, FETCH_EVENT_WAITING, ACCEPT_EVENT, REFUSE_EVENT, 
 import server from './../server-info';
 
 export const fetchEventAccepted = (town) => dispatch => {
-    fetch(server.url + "/town/event/" + town)
+    fetch(server.url + "/town/event/" + town, server.getConfig)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_EVENT_ACCEPTED,
@@ -12,7 +12,7 @@ export const fetchEventAccepted = (town) => dispatch => {
 }
 
 export const fetchEventWaiting = (town) => dispatch => {
-    fetch(server.url + "/town/event/request/" + town)
+    fetch(server.url + "/town/event/request/" + town, server.getConfig)
     .then(res => res.json())
     .then(res => dispatch({
         type: FETCH_EVENT_WAITING,
@@ -50,7 +50,7 @@ export const refuseEvent = (event, feedback) => dispatch => {
 }
 
 export const deleteEvent = (event) => dispatch => {
-    fetch(server.url + "/event/" + event, {method: "DELETE"})
+    fetch(server.url + "/event/" + event, server.deleteConfig)
     .then(res => dispatch({
         type: DELETE_EVENT,
         payload: res

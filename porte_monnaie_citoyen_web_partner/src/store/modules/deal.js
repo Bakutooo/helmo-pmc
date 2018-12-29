@@ -23,7 +23,7 @@ export default {
     },
     actions: {
         fetchAllDeals: ({commit}, id) => {
-            fetch(serverInfo.url + "/partner/deal/" + id)
+            fetch(serverInfo.url + "/partner/deal/" + id, serverInfo.getConfig)
             .then(res => res.json())
             .then(res => commit('FETCH_ALL_DEALS', res))
             .catch(err => console.log(err))

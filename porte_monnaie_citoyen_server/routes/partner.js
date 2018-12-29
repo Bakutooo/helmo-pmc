@@ -5,6 +5,7 @@ const Deal = require('./../models/Deal');
 const _Event = require('./../models/Event');
 const hash = require('password-hash');
 const socketInfo = require('./../socket-info');
+const passport = require('passport');
 
 /**
  * Route    GET /partner/
@@ -127,7 +128,7 @@ router.post('/', (req, res) => {
  * Route    POST /partner/connection
  * Récupère le partner avec les identifiants mentionnés dans le corps de la requête
  */
-router.post('/connection', (req, res) => {
+router.post('/connection', (req, res, next) => {
     req.body.Partner = Partner;
     passport.authenticate('partner', (err, user, info) => {
         if(info){
@@ -144,14 +145,6 @@ router.post('/connection', (req, res) => {
             return res.json(blacklist(partner, "password"));
         })
     })(req, res, next);
-
-    // Partner.findOne({mail: req.body.mail})
-    //        .then(partner => {
-    //            if(partner.state === "W") res.json({error: "Partenariat pas encore validé"});
-    //            else if(hash.verify(req.body.password, partner.password)) res.json(partner);
-    //            else res.json({error: "Identifiants incorrect"});
-    //        })
-    //        .catch(err => res.json(err));
 });
 
 /**

@@ -17,8 +17,8 @@ class Dashboard extends Component {
     }
 
     componentWillMount(){
-        this.io.on("newEvent", () => this.props.fetchEventWaiting(this.props.town._id));
-        this.io.on("newPartner", () => this.props.fetchPartnerWaiting(this.props.town._id));
+        //this.io.on("newEvent", () => this.props.fetchEventWaiting(this.props.town._id));
+        //this.io.on("newPartner", () => this.props.fetchPartnerWaiting(this.props.town._id));
         this.props.fetchEventWaiting(this.props.town._id);
         this.props.fetchPartnerWaiting(this.props.town._id);
     }
