@@ -24,6 +24,9 @@
                             <p>{{address}}</p>
                             <p>{{date}}</p>
                         </div>
+                        <div id="qrcode" class="d-flex justify-content-center align-items-center">
+                            <qrcode-vue :value="qrcode" :size="450"></qrcode-vue>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -37,10 +40,14 @@
 
 <script>
     import moment from 'moment';
-import { mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
+    import QrcodeVue from 'qrcode.vue';
 
     export default {
         name : "ModalEvents",
+        components : {
+            QrcodeVue
+        },
         props : [
             "data"
         ],
@@ -51,7 +58,8 @@ import { mapActions } from 'vuex';
                 description : this.data.description,
                 address : this.data.address,
                 date : new moment(new Date(this.data.date)).format("DD/MM/YYYY"),
-                gain : this.data.gain
+                gain : this.data.gain,
+                qrcode : this.data.password
             }
         },
         methods: {
