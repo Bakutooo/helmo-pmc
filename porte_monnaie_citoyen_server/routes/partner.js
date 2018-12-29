@@ -60,7 +60,7 @@ router.get('/:id', (req, res) => {
 router.get('/deal/:id', (req, res) => {
     try{
         let user = req._passport.session.user;
-        if(req.isAuthenticated() && user.role === 'citizen'){
+        if(req.isAuthenticated() && user.role === 'partner'){
             Deal.find({partner: req.params.id})
             .then(deals => res.json(deals))
             .catch(err => res.json(err));
@@ -132,7 +132,7 @@ router.post('/connection', (req, res, next) => {
     req.body.Partner = Partner;
     passport.authenticate('partner', (err, user, info) => {
         if(info){
-            return res.send(info.message);
+            return res.json(info);
         }
         if(err) {
             return next(err);
@@ -142,7 +142,7 @@ router.post('/connection', (req, res, next) => {
         }
         req.login(user, (err) => {
             let partner = user.user;
-            return res.json(blacklist(partner, "password"));
+            return res.json(partner);
         })
     })(req, res, next);
 });

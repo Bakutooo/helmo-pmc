@@ -57,7 +57,8 @@ module.exports = function(passport) {
             console.log("mail : " + mail + ", password : " + password);
             req.body.Partner.findOne({mail: req.body.mail})
             .then(partner => {
-                if(hash.verify(req.body.password, partner.password)) {
+                if(partner === null) return done(null, false, {error: "Identifiants incorrectes"});
+                else if(hash.verify(req.body.password, partner.password)) {
                     
                     if(partner.state === "W") return done(null, false, {error: "Partenariat pas encore validé"});
                     else if(partner.state === "A") return done(null, {user : partner, role : "partner"});
