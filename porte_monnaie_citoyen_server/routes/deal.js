@@ -59,7 +59,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     try{
         let user = req._passport.session.user;
-        if(req.isAuthenticated() && user.role === 'partner' && user.id === req.body.partner.id){
+        if(req.isAuthenticated() && user.role === 'partner'){
             newDeal = new Deal({
                 name: req.body.name,
                 password: generatePassword.generate({length: 24, numbers: true}),

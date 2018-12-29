@@ -54,7 +54,10 @@ class Event extends React.Component {
                     visible={this.state.isVisible}
                     onRequestClose={() => {this.setState({isVisible : false})}}>
                 
-                    <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => this.props.participateEvent(citizen, event, data)}/>
+                    <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => {
+                        this.setState({isVisible: false});
+                        this.props.participateEvent(citizen, event, data);
+                    }}/>
                 </Modal>
                 <Modal
                     animationType="slide"

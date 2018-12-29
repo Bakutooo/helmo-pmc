@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Participation = require('./../models/Participation');
+const Citizen = require('./../models/Citizen');
 const _Event = require('./../models/Event');
 
 /**
@@ -68,27 +69,45 @@ router.get('/event/:id', (req, res) => {
                  .then(par => res.json(par))
                  .catch(err => res.json(err));
 });
+
 /**
  * Route    POST /participation/
  * Ajoute une participation
  */
 router.post('/', (req, res) => {
-
-    let event = null;
-
     _Event.find({password: req.body.password})
-        .then(e => event = e);
-
-    if(e !== null){
-        newParticipation = new Participation({
-            citizen: req.body.citizen,
-            event: req.body.event
+        .then(e => {
+            if(e !== null){
+                newParticipation = new Participation({
+                    citizen: req.body.citizen,
+                    event: req.body.event
+                });
+        
+                newParticipation.save()
+                                .then(p => res.json({message: "Participation ajouté"}))
+                                .catch(err => res.json(err));
+            }
         });
 
-        newParticipation.save()
-                        .then(p => res.json({message: "Participation ajouté"}))
-                        .catch(err => res.json(err));
-    }
+});
+
+/**
+ * Route    POST /participation/complete/:id
+ * Ajoute une participation
+ */
+router.post('/complete/:id', (req, res) => {
+    let { citizen, event} = req.body;
+    _Event.find({password: req.body.password})
+        .then(e => {
+            Citizen.updateOne({_id: citizen._id}, {...citizen, points: citizen.points + event.gain})
+                .then(e => {
+                    Participation.deleteOne({_id: req.params.id})
+                                .then(e => console.log(e))
+                                .then(err => console.log(err));
+                })
+            }
+        );
+
 });
 
 module.exports = router;

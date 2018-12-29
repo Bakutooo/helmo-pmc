@@ -60,7 +60,7 @@ router.get('/:id', (req, res) => {
 router.get('/deal/:id', (req, res) => {
     try{
         let user = req._passport.session.user;
-        if(req.isAuthenticated() && user.role === 'partner'){
+        if(req.isAuthenticated() &&(user.role === 'citizen' || user.role === 'partner')){
             Deal.find({partner: req.params.id})
             .then(deals => res.json(deals))
             .catch(err => res.json(err));
@@ -154,7 +154,7 @@ router.post('/connection', (req, res, next) => {
 router.put('/', (req, res) => {
     try{
         let user = req._passport.session.user;
-        if(req.isAuthenticated() && user.role === 'partner' && req.body.partner._id === user.id){
+        if(req.isAuthenticated() && user.role === 'town'){
             if(!hash.isHashed(req.body.partner.password)) req.body.partner.password = hash.generate(req.body.partner.password);
             Partner.updateOne({_id: req.body.partner._id}, req.body.partner)
             .then(partner => res.json(req.body.partner._id))

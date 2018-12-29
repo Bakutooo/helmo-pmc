@@ -100,7 +100,7 @@ router.post("/", (req, res) => {
 router.put("/", (req, res) => {
     try{
         let user = req._passport.session.user;
-        if(req.isAuthenticated() && user.role === 'partner'){
+        if(req.isAuthenticated() && user.role === 'town'){
             _Event.updateOne({_id : req.body.event._id}, req.body.event)
         .then(event => {
             socketInfo.socket.emit("changedEvent");

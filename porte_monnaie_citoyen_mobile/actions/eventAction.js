@@ -1,4 +1,4 @@
-import { FETCH_ALL_EVENTS, FETCH_EVENT } from "./types";
+import { FETCH_ALL_EVENTS, FETCH_EVENT, FETCH_ALL_PARTICIPATION_CITIZEN } from "./types";
 import server from "./../server-info";
 
 export const fetchAllEvents = () => dispatch => {
@@ -22,9 +22,21 @@ export const fetchEvent = (id) => dispatch => {
     });
 }
 
-export const participateEvent = (citizen, event, password) => {
+export const participateEvent = (citizen, event, password) => dispatch => {
     fetch(server.url + "/participation", server.postConfig({citizen, event, password}))
     .then(res => res.json())
     .then(res => console.log(res))
+    .catch(err => console.log(err));
+}
+
+export const completeEvent = (citizen, event, password, id) => dispatch => {
+    fetch(server.url + "/participation/complete/" + id, server.postConfig({citizen, event, password}))
+    .then(res => res.json())
+    .then(res =>
+        dispatch({
+            type: FETCH_ALL_PARTICIPATION_CITIZEN,
+            payload: citizen._id
+        })
+    )
     .catch(err => console.log(err));
 }

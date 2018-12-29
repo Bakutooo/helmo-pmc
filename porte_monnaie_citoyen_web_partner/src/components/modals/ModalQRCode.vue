@@ -35,7 +35,7 @@
         props : [
             "data"
         ],
-        computed(){
+        data(){
             return {
                 id : "QRCode" + this.data._id,
                 name : this.data.name,

@@ -6,6 +6,7 @@ import QRScanner from './components/QRScanner';
 
 import { connect } from "react-redux";
 import { fetchParticipationCitizen } from "./../actions/citizenAction";
+import { completeEvent } from "./../actions/eventAction";
 
 class EventInProgress extends React.Component {
     constructor(props){
@@ -25,7 +26,8 @@ class EventInProgress extends React.Component {
     }
 
     render(){
-        let { event } = this.props.participation;
+        let { participation } = this.props;
+        let { event, citizen } = participation;
         return (
             <ScrollView>
                 <View style={{padding: 10}}>
@@ -40,7 +42,10 @@ class EventInProgress extends React.Component {
                     visible={this.state.isVisible}
                     onRequestClose={() => {this.setState({isVisible : false})}}>
                 
-                    <QRScanner title="Scannez le QRCode pour completer" onQRCodeRead={(data) => console.log(data)}/>
+                    <QRScanner title="Scannez le QRCode pour completer" onQRCodeRead={(data) => {
+                        this.setState({isVisible: false});
+                        this.props.completeEvent(citizen, event, event.password, participation._id);
+                    }}/>
                 </Modal>
             </ScrollView>
         );
@@ -51,4 +56,4 @@ const mapStateToProps = state => ({
     participation: state.citizen.participation
 }); 
 
-export default connect(mapStateToProps, { fetchParticipationCitizen })(EventInProgress);
+export default connect(mapStateToProps, { fetchParticipationCitizen, completeEvent })(EventInProgress);
