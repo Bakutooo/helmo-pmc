@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "blacklist": "^1.1.4",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "emailjs": "^2.2.0",

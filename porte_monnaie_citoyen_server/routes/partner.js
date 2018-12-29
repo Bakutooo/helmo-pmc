@@ -5,7 +5,6 @@ const Deal = require('./../models/Deal');
 const _Event = require('./../models/Event');
 const hash = require('password-hash');
 const socketInfo = require('./../socket-info');
-const passport = require('passport');
 
 /**
  * Route    GET /partner/

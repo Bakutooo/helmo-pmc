@@ -3,7 +3,6 @@ const router = express.Router();
 const Citizen = require('./../models/Citizen');
 const hash = require('password-hash');
 const passport = require('passport');
-const blacklist = require('blacklist');
 const Payment = require('./../models/Payment');
 
 /**
