@@ -188,7 +188,7 @@ router.post('/connection', (req, res, next) => {
         }
         req.login(user, (err) => {
             let town = user.user;
-            return res.json(blacklist(town, "password"));
+            return res.json({...town._doc, password: undefined});
         })
     })(req, res, next);
 });

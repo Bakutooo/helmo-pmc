@@ -10,7 +10,7 @@ module.exports = function(passport) {
         (req, email, password, done) => {
             console.log("Login citizen");
             console.log("email : " + email + ", password : " + password);
-            req.body.Citizen.findOne({mail : email})
+            req.body.Citizen.findOne({mail : email}).select('+password')
             .populate("town")
             .then(citizen => {
                 if(hash.verify(password, citizen.password)){
@@ -34,7 +34,7 @@ module.exports = function(passport) {
         (req, name, password, done) => {
             console.log("Login town");
             console.log("name : " + name + ", password : " + password);
-            req.body.Town.findOne({name: req.body.name})
+            req.body.Town.findOne({name: req.body.name}).select('+password')
             .then(town => {
                 if(town !== null && hash.verify(password, town.password)) {
                     return done(null, {user : town, role : "town"});
@@ -55,7 +55,7 @@ module.exports = function(passport) {
         (req, mail, password, done) => {
             console.log("Login partner");
             console.log("mail : " + mail + ", password : " + password);
-            req.body.Partner.findOne({mail: req.body.mail})
+            req.body.Partner.findOne({mail: req.body.mail}).select('+password')
             .then(partner => {
                 if(hash.verify(req.body.password, partner.password)) {
                     

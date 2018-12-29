@@ -142,7 +142,7 @@ router.post('/connection', (req, res, next) => {
         }
         req.login(user, (err) => {
             let partner = user.user;
-            return res.json(blacklist(partner, "password"));
+            return res.json({...partner._doc, password: undefined});
         })
     })(req, res, next);
 });
