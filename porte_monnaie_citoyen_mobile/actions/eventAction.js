@@ -1,4 +1,4 @@
-import { FETCH_ALL_EVENTS, FETCH_EVENT, FETCH_ALL_PARTICIPATION_CITIZEN } from "./types";
+import { FETCH_ALL_EVENTS, FETCH_EVENT, COMPLETE_PARTICIPATION } from "./types";
 import server from "./../server-info";
 
 export const fetchAllEvents = () => dispatch => {
@@ -34,8 +34,8 @@ export const completeEvent = (citizen, event, password, id) => dispatch => {
     .then(res => res.json())
     .then(res =>
         dispatch({
-            type: FETCH_ALL_PARTICIPATION_CITIZEN,
-            payload: citizen._id
+            type: COMPLETE_PARTICIPATION,
+            payload: id
         })
     )
     .catch(err => console.log(err));
