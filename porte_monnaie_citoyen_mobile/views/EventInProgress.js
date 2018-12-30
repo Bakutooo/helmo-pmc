@@ -45,6 +45,7 @@ class EventInProgress extends React.Component {
                     <QRScanner title="Scannez le QRCode pour completer" onQRCodeRead={(data) => {
                         this.setState({isVisible: false});
                         this.props.completeEvent(citizen, event, event.password, participation._id);
+                        this.props.navigation.goBack();
                     }}/>
                 </Modal>
             </ScrollView>

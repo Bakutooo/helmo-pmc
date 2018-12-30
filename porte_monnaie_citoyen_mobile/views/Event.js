@@ -57,6 +57,7 @@ class Event extends React.Component {
                     <QRScanner title="Scannez le QRCode pour participer" onQRCodeRead={(data) => {
                         this.setState({isVisible: false});
                         this.props.participateEvent(citizen, event, data);
+                        this.props.navigation.goBack();
                     }}/>
                 </Modal>
                 <Modal

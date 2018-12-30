@@ -1,4 +1,4 @@
-import { FETCH_CITIZEN, SHOW_ERROR, ADD_CITIZEN, LOGOUT_CITIZEN, FETCH_PARTICIPATION_CITIZEN, FETCH_ALL_PARTICIPATION_CITIZEN, FETCH_ALL_PAYMENTS_CITIZEN } from "./../actions/types";
+import { FETCH_CITIZEN, SHOW_ERROR, ADD_CITIZEN, LOGOUT_CITIZEN, FETCH_PARTICIPATION_CITIZEN, FETCH_ALL_PARTICIPATION_CITIZEN, FETCH_ALL_PAYMENTS_CITIZEN, COMPLETE_PARTICIPATION } from "./../actions/types";
 
 const initialState = {
     citizen: null,
@@ -59,6 +59,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 payments: action.payload
+            }
+        case COMPLETE_PARTICIPATION: 
+            console.log(COMPLETE_PARTICIPATION);
+            let index = state.participations.findIndex(e => e._id === action.payload);
+            let temp = [...state.participations];
+            temp.splice(index, 1);
+            return {
+                ...state,
+                participations: temp
             }
         default: return state
     }

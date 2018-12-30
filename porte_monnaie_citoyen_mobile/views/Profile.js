@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, FlatList, Image, ScrollView} from 'react-native';
 import { connect } from "react-redux";
 import { fetchCitizen, refreshCitizen, fetchAllPaymentsCitizen } from "./../actions/citizenAction";
+import moment from 'moment';
 
 class Profile extends React.Component {
 
@@ -27,7 +28,7 @@ class Profile extends React.Component {
                         <View>
                             <Text style={{fontSize: 22, fontWeight : 'bold'}}>{citizen.firstname} {citizen.lastname.toUpperCase()}</Text>
                             <Text style={{fontStyle: "italic"}}>{citizen.numNat}</Text>
-                            <Text style={{marginBottom: 20}}>{new Date(citizen.birthday).toLocaleDateString("en-GB")}</Text>
+                            <Text style={{marginBottom: 20}}>{new moment(new Date(citizen.birthday)).format('DD/MM/YYYY')}</Text>
                             <Text style={{fontSize: 22, fontWeight : 'bold'}}>Point citoyen : {citizen.points}</Text>
                         </View>
                     </View>

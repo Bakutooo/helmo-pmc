@@ -102,7 +102,7 @@ router.post('/complete/:id', (req, res) => {
             Citizen.updateOne({_id: citizen._id}, {...citizen, points: citizen.points + event.gain})
                 .then(e => {
                     Participation.deleteOne({_id: req.params.id})
-                                .then(e => console.log(e))
+                                .then(e => res.json(e))
                                 .then(err => console.log(err));
                 })
             }

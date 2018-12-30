@@ -108,6 +108,12 @@ export default {
                 partner: this.partner.partner,
                 town: this.selectedTown,
             })
+
+            name = "";
+            description = "";
+            address = "";
+            date = "";
+            town = "";
         },
         changeMaxDays: function() {
             let month = this.month;
