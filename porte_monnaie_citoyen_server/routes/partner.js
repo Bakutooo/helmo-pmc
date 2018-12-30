@@ -5,7 +5,6 @@ const Deal = require('./../models/Deal');
 const _Event = require('./../models/Event');
 const hash = require('password-hash');
 const socketInfo = require('./../socket-info');
-const passport = require('passport');
 
 /**
  * Route    GET /partner/
@@ -142,7 +141,7 @@ router.post('/connection', (req, res, next) => {
         }
         req.login(user, (err) => {
             let partner = user.user;
-            return res.json(partner);
+            return res.json({...partner._doc, password: undefined});
         })
     })(req, res, next);
 });

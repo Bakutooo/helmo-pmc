@@ -17,7 +17,8 @@ const PartnerSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select : false
     },
     description: {
         type: String,

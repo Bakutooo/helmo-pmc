@@ -6,7 +6,6 @@ const Citizen = require('./../models/Citizen');
 const _Event = require('./../models/Event');
 const hash = require('password-hash');
 const passport = require('passport');
-const blacklist = require('blacklist');
 
 /**
  * Route    GET /town/
@@ -188,7 +187,7 @@ router.post('/connection', (req, res, next) => {
         }
         req.login(user, (err) => {
             let town = user.user;
-            return res.json(blacklist(town, "password"));
+            return res.json({...town._doc, password: undefined});
         })
     })(req, res, next);
 });
