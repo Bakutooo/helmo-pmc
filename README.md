@@ -1,12 +1,12 @@
-﻿Membres du groupe :
-	Bastien PIERRE et Arnaud RUELL
+## Membres du groupe :
+    Bastien PIERRE et Arnaud RUELL
 
-Url des applications front-end :
+## Url des applications front-end :
 	Web Admin (commune) : https://admin.pmc.girafes.be/
 	Web Partenaire : https://pmc.girafes.be/
 	App mobile : https://girafes.be/helmo/archi/2018
 
-Logins :
+## Logins :
 	Admin (commune) :
 		Login : Liège, Mot de passe : azerty
 	Partenaire :
@@ -14,7 +14,7 @@ Logins :
 	Mobile :
 		Login : arnaud.ruell@gmail.com, Mot de passe : azerty
 
-Framework :
+## Framework :
 	Admin (commune) :
 		React
 	Partenaire:
@@ -24,7 +24,7 @@ Framework :
 	Serveur :
 		Express
 
-Librairies (npm):
+## Librairies (npm):
 	Admin (commune) :
 		Bootstrap, JQuery, Moment, Popper.js, react-redux, react-router-dom, react-scripts, redux, redux-thunk, socket.io-client
 	Partenaire :
