@@ -48,13 +48,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//A SUPPRIMER POUR DEPLOIEMENT
-app.get('/', (req, res) => {
-    console.log('Home page\nSessionId : ');
-    console.log(req.sessionID);
-    res.send(req.sessionID);
-});
-
 // Connection BD
 mongoose.connect(db.connection_string, { useNewUrlParser: true})
 .then(() => console.log('Connected to mongodb'))

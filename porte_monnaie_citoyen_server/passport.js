@@ -8,22 +8,17 @@ module.exports = function(passport) {
     passport.use('citizen', new LocalStrategy(
         { usernameField : 'mail', passReqToCallback : true },
         (req, email, password, done) => {
-            console.log("Login citizen");
-            console.log("email : " + email + ", password : " + password);
             req.body.Citizen.findOne({mail : email}).select('+password')
             .populate("town")
             .then(citizen => {
                 if(hash.verify(password, citizen.password)){
-                    console.log("Good pswd");
                     return done(null, {user : citizen, role : "citizen"});
                 }
                 else{
-                    console.log("Wrong pswd");
                     return done(null, false, {error : "Identifiants incorrectes"});
                 }
             })
             .catch(error => {
-                console.log(error);
                 done(null, false, {error : "Une erreur s'est produite"});
             });
         }
@@ -32,8 +27,6 @@ module.exports = function(passport) {
     passport.use('town', new LocalStrategy(
         { usernameField : 'name', passReqToCallback : true },
         (req, name, password, done) => {
-            console.log("Login town");
-            console.log("name : " + name + ", password : " + password);
             req.body.Town.findOne({name: req.body.name}).select('+password')
             .then(town => {
                 if(town !== null && hash.verify(password, town.password)) {
@@ -44,7 +37,6 @@ module.exports = function(passport) {
                 }
             })
             .catch(error => {
-                console.log(error);
                 done(null, false, {error : "Une erreur s'est produite"});
             });
         }
@@ -53,8 +45,6 @@ module.exports = function(passport) {
     passport.use('partner', new LocalStrategy(
         { usernameField : 'mail', passReqToCallback : true },
         (req, mail, password, done) => {
-            console.log("Login partner");
-            console.log("mail : " + mail + ", password : " + password);
             req.body.Partner.findOne({mail: req.body.mail}).select('+password')
             .then(partner => {
                 if(partner === null) return done(null, false, {error: "Identifiants incorrectes"});
@@ -66,21 +56,16 @@ module.exports = function(passport) {
                 else return done(null, false, {error : "Identifiants incorrectes"});
             })
             .catch(error => {
-                console.log(error);
                 done(null, false, {error : "Une erreur s'est produite"});
             });
         }
     ));
 
     passport.serializeUser((user, done) => {
-        console.log('Inside serializeUser callback\nObject stored : ');
-        console.log(user);
         done(null, {id : user.user.id, role : user.role});
     });
     
     passport.deserializeUser((id, done) => {
-        console.log('Inside deserializeUser callback');
-        console.log(id);
         done(null, id);
     });
 }
