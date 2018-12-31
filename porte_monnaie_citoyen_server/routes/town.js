@@ -173,8 +173,6 @@ router.post('/', (req, res) => {
  * Récupère la town avec les identifiants mentionnés dans le corp de la requête
  */
 router.post('/connection', (req, res, next) => {
-    console.log('Connexion page');
-    console.log(req.body);
     req.body.Town = Town;
     passport.authenticate('town', (err, user, info) => {
         if(info){

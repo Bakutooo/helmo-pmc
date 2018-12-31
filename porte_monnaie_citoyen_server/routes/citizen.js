@@ -83,8 +83,6 @@ router.get("/payment/:id", (req, res) => {
  * Permet la connexion du citoyen
  */
 router.post('/connection', (req, res, next) => {
-    console.log('Connexion page');
-    console.log(req.body);
     req.body.Citizen = Citizen;
     passport.authenticate('citizen', (err, user, info) => {
         if(info){
