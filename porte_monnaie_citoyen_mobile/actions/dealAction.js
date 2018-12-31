@@ -8,7 +8,7 @@ export const fetchDealsPartner = (id) => dispatch => {
         res = res.map(e => ({...e, key: e._id}));
         dispatch({
             type: FETCH_DEAL_PARTNER,
-            payload: res
+            payload: res.filter(e => e.state === "O")
         })
     })
     .catch(err => console.log(err));
